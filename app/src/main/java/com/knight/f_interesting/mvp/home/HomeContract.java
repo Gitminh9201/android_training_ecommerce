@@ -1,4 +1,4 @@
-package com.knight.f_interesting.src.home;
+package com.knight.f_interesting.mvp.home;
 
 public interface HomeContract {
     interface Model {
