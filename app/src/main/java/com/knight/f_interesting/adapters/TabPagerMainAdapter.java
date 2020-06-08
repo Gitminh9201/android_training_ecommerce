@@ -8,11 +8,11 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class TabPagerMainAdapter extends FragmentStatePagerAdapter {
 
     private final List<Fragment> mFragmentList = new ArrayList<>();
 
-    public PagerAdapter(@NonNull FragmentManager fm) {
+    public TabPagerMainAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
 

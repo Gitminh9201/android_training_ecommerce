@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.google.android.material.tabs.TabLayout;
 import com.knight.f_interesting.R;
-import com.knight.f_interesting.adapters.TabPagerAdapter;
+import com.knight.f_interesting.adapters.TabPagerMainAdapter;
 import com.knight.f_interesting.mvp.collection.CollectionFragment;
 import com.knight.f_interesting.mvp.home.HomeFragment;
 import com.knight.f_interesting.mvp.person.PersonFragment;
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
-    TabPagerAdapter adapter;
+    TabPagerMainAdapter adapter;
     private int[] tabIcons = {
             R.drawable.ic_home,
             R.drawable.ic_shop,
@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        tabLayout = findViewById(R.id.tabMain);
-        viewPager = findViewById(R.id.pvMain);
-        adapter = new TabPagerAdapter(getSupportFragmentManager());
+        tabLayout = findViewById(R.id.tab_main);
+        viewPager = findViewById(R.id.vp_main);
+        adapter = new TabPagerMainAdapter(getSupportFragmentManager());
 
         adapter.addFragment(new HomeFragment());
         adapter.addFragment(new StoreFragment());
