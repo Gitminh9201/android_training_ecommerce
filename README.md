@@ -1,1 +1,1 @@
-# android_training_ecommerce
+# Android e-commerce
