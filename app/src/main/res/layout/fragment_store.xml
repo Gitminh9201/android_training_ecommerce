@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_store"
     tools:context=".mvp.store.StoreFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:weightSum="10"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="store" />
-
-</FrameLayout>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:paddingLeft="15dp"
+            android:paddingTop="30dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:layout_height="@dimen/height_search">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <include layout="@layout/cart"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:background="@color/colorGrey"
+                android:id="@+id/rv_categories_store"
+                android:scrollbars="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="fill_parent"/>
+            <RelativeLayout
+                android:background="@color/colorWhite"
+                android:id="@+id/rl_products_store"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/ll_load_store"
+        android:background="@color/colorWhite"
+        android:gravity="center"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="35dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/colorPrimary"
+            android:layout_height="35dp"/>
+    </LinearLayout>
+</RelativeLayout>

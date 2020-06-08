@@ -61,19 +61,23 @@ public class BrandHomeAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.imageView = convertView.findViewById(R.id.iv_brand_home);
             viewHolder.textView = convertView.findViewById(R.id.txt_brand_home);
-            convertView.setLayoutParams(
-                    new LinearLayout.LayoutParams(Size.getScreenWidth() / 5,
-                            ViewGroup.LayoutParams.WRAP_CONTENT));
             viewHolder.imageView.setLayoutParams(
-                    new LinearLayout.LayoutParams(Size.getScreenWidth()/5, Size.getScreenWidth()/5));
+                    new LinearLayout.LayoutParams((Size.getScreenWidth() - (int) convertView.getResources()
+                    .getDimension(R.dimen.card_margin) * 8) / 4,
+                    (int) (Size.getScreenWidth() - Size.convertDpToPx(context, (int) (convertView.getResources()
+                            .getDimension(R.dimen.padding_grid_home) * 2) + (int) convertView.getResources()
+                            .getDimension(R.dimen.card_margin) * 8)) / 4));
             convertView.setTag(viewHolder);
         } else
             viewHolder = (ViewHolder) convertView.getTag();
 
         viewHolder.textView.setText(brands.get(position).getTitle());
-        Glide.with(convertView).load(Client.BASE_URL + APIInterface.middleUrl
+        Glide.with(convertView).load(Client.url()
                 + brands.get(position).getImage())
                 .into(viewHolder.imageView);
+        convertView.setLayoutParams(
+                new LinearLayout.LayoutParams(Size.getScreenWidth() / 4,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
 
         return convertView;
     }

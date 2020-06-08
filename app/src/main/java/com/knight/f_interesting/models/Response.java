@@ -2,17 +2,13 @@ package com.knight.f_interesting.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class GroupResponse {
+public class Response<T> {
     @SerializedName("count")
     private int count;
-
     @SerializedName("status")
     private int status;
-
-    @SerializedName("groups")
-    private List<Group> groups;
+    @SerializedName("data")
+    private T data;
 
     public int getCount() {
         return count;
@@ -30,17 +26,17 @@ public class GroupResponse {
         this.status = status;
     }
 
-    public List<Group> getGroups() {
-        return groups;
+    public T getData() {
+        return data;
     }
 
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
+    public void setData(T data) {
+        this.data = data;
     }
 
-    public GroupResponse(int count, int status, List<Group> groups) {
+    public Response(int count, int status, T data) {
         this.count = count;
         this.status = status;
-        this.groups = groups;
+        this.data = data;
     }
 }

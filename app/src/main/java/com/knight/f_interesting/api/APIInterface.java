@@ -1,26 +1,32 @@
 package com.knight.f_interesting.api;
 
-import com.knight.f_interesting.models.BannerResponse;
-import com.knight.f_interesting.models.BrandResponse;
-import com.knight.f_interesting.models.CategoryResponse;
-import com.knight.f_interesting.models.GroupResponse;
+import com.knight.f_interesting.models.Banner;
+import com.knight.f_interesting.models.Brand;
+import com.knight.f_interesting.models.Category;
+import com.knight.f_interesting.models.Group;
+import com.knight.f_interesting.models.Product;
+import com.knight.f_interesting.models.ResponseList;
+
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.QueryMap;
 
 public interface APIInterface {
 
-    final String middleUrl = "lv_training_ecommerce/public/";
+    @GET(Client.MIDDLE_URL + "api/categories")
+    Call<ResponseList<Category>> categories();
 
-    @GET(middleUrl + "api/categories")
-    Call<CategoryResponse> categories();
+    @GET(Client.MIDDLE_URL + "api/banners")
+    Call<ResponseList<Banner>> banners();
 
-    @GET(middleUrl + "api/banners")
-    Call<BannerResponse> banners();
+    @GET(Client.MIDDLE_URL + "api/brands")
+    Call<ResponseList<Brand>> brands();
 
-    @GET(middleUrl + "api/brands")
-    Call<BrandResponse> brands();
+    @GET(Client.MIDDLE_URL + "api/groups")
+    Call<ResponseList<Group>> groups();
 
-    @GET(middleUrl + "api/groups")
-    Call<GroupResponse> groups();
+    @GET(Client.MIDDLE_URL + "api/products")
+    Call<ResponseList<Product>> products(@QueryMap Map<String, String> options);
 }

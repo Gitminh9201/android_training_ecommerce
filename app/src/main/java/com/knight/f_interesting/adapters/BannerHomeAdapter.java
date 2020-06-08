@@ -54,7 +54,7 @@ public class BannerHomeAdapter extends PagerAdapter {
         ProgressBar progressBar = view.findViewById(R.id.pb_load_banner_home);
         TextView textView = view.findViewById(R.id.txt_banner_home);
 
-        Glide.with(view).load(Client.BASE_URL + APIInterface.middleUrl
+        Glide.with(view).load(Client.url()
                 + banners.get(position).getImage())
                 .placeholder(R.drawable.border_image_brand_home)
                 .into(imageView);

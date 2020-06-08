@@ -8,6 +8,11 @@ public class Client {
     private static Retrofit retrofit = null;
 
     public static final String BASE_URL = "http://192.168.43.228/";
+    public static final String MIDDLE_URL = "lv_training_ecommerce/public/";
+
+    public static String url(){
+        return BASE_URL + MIDDLE_URL;
+    }
 
     /**
      * This method returns retrofit client instance

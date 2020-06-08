@@ -1,17 +1,11 @@
 package com.knight.f_interesting.mvp.home;
 
-import android.util.Log;
-
 import com.knight.f_interesting.api.APIInterface;
 import com.knight.f_interesting.api.Client;
 import com.knight.f_interesting.models.Banner;
-import com.knight.f_interesting.models.BannerResponse;
 import com.knight.f_interesting.models.Brand;
-import com.knight.f_interesting.models.BrandResponse;
-import com.knight.f_interesting.models.Category;
-import com.knight.f_interesting.models.CategoryResponse;
 import com.knight.f_interesting.models.Group;
-import com.knight.f_interesting.models.GroupResponse;
+import com.knight.f_interesting.models.ResponseList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,50 +23,46 @@ public class HomeModel implements HomeContract.Model {
     @Override
     public void getData(final OnFinishedListener onFinishedListener) {
         APIInterface api = Client.client().create(APIInterface.class);
-        final  Call<BannerResponse> callBanner = api.banners();
-        final  Call<BrandResponse> callBrand = api.brands();
-        final  Call<GroupResponse> callGroup = api.groups();
-        callBanner.enqueue(new Callback<BannerResponse>() {
+        final  Call<ResponseList<Banner>> callBanner = api.banners();
+        final  Call<ResponseList<Brand>> callBrand = api.brands();
+        final  Call<ResponseList<Group>> callGroup = api.groups();
+        callBanner.enqueue(new Callback<ResponseList<Banner>>() {
             @Override
-            public void onResponse(Call<BannerResponse> call, Response<BannerResponse> response) {
-                Log.e("Res", String.valueOf(response.body().getBanners().size()));
+            public void onResponse(Call<ResponseList<Banner>> call, Response<ResponseList<Banner>> response) {
                 if(response.body().getStatus() == 1)
-                    banners = response.body().getBanners();
+                    banners = response.body().getData();
                 else banners = new ArrayList<>();
-                callBrand.enqueue(new Callback<BrandResponse>() {
+                callBrand.enqueue(new Callback<ResponseList<Brand>>() {
                     @Override
-                    public void onResponse(Call<BrandResponse> call, Response<BrandResponse> response) {
-                        Log.e("Res", String.valueOf(response.body().getBrands().size()));
+                    public void onResponse(Call<ResponseList<Brand>> call, Response<ResponseList<Brand>> response) {
                         if(response.body().getStatus() == 1)
-                            brands = response.body().getBrands();
+                            brands = response.body().getData();
                         else brands = new ArrayList<>();
-                        callGroup.enqueue(new Callback<GroupResponse>() {
+                        callGroup.enqueue(new Callback<ResponseList<Group>>() {
                             @Override
-                            public void onResponse(Call<GroupResponse> call, Response<GroupResponse> response) {
+                            public void onResponse(Call<ResponseList<Group>> call, Response<ResponseList<Group>> response) {
                                 if (response.body().getStatus() == 1)
-                                    groups = response.body().getGroups();
+                                    groups = response.body().getData();
                                 else groups = new ArrayList<>();
                                 onFinishedListener.onFinished(banners, brands, groups);
                             }
 
                             @Override
-                            public void onFailure(Call<GroupResponse> call, Throwable t) {
-
+                            public void onFailure(Call<ResponseList<Group>> call, Throwable t) {
+                                onFinishedListener.onFailure(t);
                             }
                         });
                     }
 
                     @Override
-                    public void onFailure(Call<BrandResponse> call, Throwable t) {
-                        Log.e("Err", t.getMessage());
+                    public void onFailure(Call<ResponseList<Brand>> call, Throwable t) {
                         onFinishedListener.onFailure(t);
                     }
                 });
             }
 
             @Override
-            public void onFailure(Call<BannerResponse> call, Throwable t) {
-                Log.e("Err", t.getMessage());
+            public void onFailure(Call<ResponseList<Banner>> call, Throwable t) {
                 onFinishedListener.onFailure(t);
             }
         });

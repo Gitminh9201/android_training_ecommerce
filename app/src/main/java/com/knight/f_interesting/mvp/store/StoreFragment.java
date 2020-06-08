@@ -3,14 +3,56 @@ package com.knight.f_interesting.mvp.store;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.knight.f_interesting.R;
+import com.knight.f_interesting.adapters.CategoryStoreAdapter;
+import com.knight.f_interesting.models.Category;
+import com.knight.f_interesting.mvp.products.ProductsFragment;
 
-public class StoreFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
+
+public class StoreFragment extends Fragment implements StoreContract.View {
+
+    private LinearLayout llLoading;
+    private RecyclerView rvCategories;
+
+    private StoreContract.Presenter presenter;
+
+    private CategoryStoreAdapter categoryAdapter;
+    private List<Category> categories;
+    private View view;
+    private ProductsFragment fProducts;
+
+    FragmentManager fm;
+    FragmentTransaction ft;
+
+    private void init(View view){
+        this.view = view;
+        llLoading = view.findViewById(R.id.ll_load_store);
+        rvCategories = view.findViewById(R.id.rv_categories_store);
+
+        fm = getFragmentManager();
+        ft = fm.beginTransaction();
+
+        categories = new ArrayList<>();
+        categoryAdapter = new CategoryStoreAdapter(categories, view.getContext());
+        rvCategories.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvCategories.setAdapter(categoryAdapter);
+        presenter = new StorePresenter(this);
+        presenter.requestData();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,6 +63,38 @@ public class StoreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_store, container, false);
+        View view = inflater.inflate(R.layout.fragment_store, container, false);
+
+        init(view);
+
+        return view;
+    }
+
+    @Override
+    public void showProgress() {
+        llLoading.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        llLoading.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setDataToView(List<Category> categories) {
+        this.categories = categories;
+        categoryAdapter.changeData(this.categories);
+        categoryAdapter.notifyDataSetChanged();
+        fProducts = new ProductsFragment("", 2,
+                0, 0, 0, 0, 0);
+        ft.add(R.id.rl_products_store, fProducts);
+        ft.commit();
+//        this.categories.get(0).getId()
+    }
+
+    @Override
+    public void onResponseFailure(Throwable throwable) {
+        Snackbar.make(this.view.findViewById(R.id.fragment_store), getString(R.string.error_data),
+                Snackbar.LENGTH_LONG).show();
     }
 }

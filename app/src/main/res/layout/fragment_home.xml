@@ -25,23 +25,31 @@
                 android:focusableInTouchMode="true"
                 app:layout_scrollFlags="scroll|enterAlways">
 
-                <EditText
-                    android:id="@+id/edit_search"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="15dp"
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/rounded_edittext"
-                    android:cursorVisible="false"
-                    android:hint="Search..."
-                    android:focusedByDefault="false"
-                    android:drawableRight="@drawable/ic_search"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="8dp"
-                    android:textColor="@color/colorPrimary"
-                    android:textColorHint="@color/colorDispose"
-                    android:textSize="14dp" />
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:layout_weight="1"
+                        android:id="@+id/edit_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_edittext"
+                        android:cursorVisible="false"
+                        android:hint="Search..."
+                        android:focusedByDefault="false"
+                        android:drawableRight="@drawable/ic_search"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/colorDispose"
+                        android:textSize="14dp" />
+
+                    <include layout="@layout/cart"/>
+                </LinearLayout>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -52,7 +60,7 @@
             android:scrollbars="none">
             <LinearLayout
                 android:background="@color/colorPrimary"
-                android:paddingTop="70dp"
+                android:paddingTop="@dimen/height_search"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent">
@@ -61,12 +69,12 @@
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/height_banner" />
                 <include layout="@layout/space"/>
-                <GridView
+                <com.knight.f_interesting.customs.ExpandableHeightGridView
                     android:background="@color/colorWhite"
-                    android:paddingHorizontal="12dp"
-                    android:horizontalSpacing="4dp"
+                    android:paddingHorizontal="@dimen/padding_grid_home"
+                    android:importantForAutofill="yes"
                     android:id="@+id/gv_brand_home"
-                    android:numColumns="auto_fit"
+                    android:numColumns="4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <include layout="@layout/space"/>
@@ -83,7 +91,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
     <LinearLayout
         android:orientation="horizontal"
-        android:id="@+id/bg_load_home"
+        android:id="@+id/ll_load_home"
         android:layout_width="match_parent"
         android:background="@color/colorWhite"
         android:visibility="visible"

@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -20,6 +19,7 @@ import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.BannerHomeAdapter;
 import com.knight.f_interesting.adapters.BrandHomeAdapter;
 import com.knight.f_interesting.adapters.GroupHomeAdapter;
+import com.knight.f_interesting.customs.ExpandableHeightGridView;
 import com.knight.f_interesting.models.Banner;
 import com.knight.f_interesting.models.Brand;
 import com.knight.f_interesting.models.Group;
@@ -32,9 +32,9 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     private HomeContract.Presenter presenter;
 
     private ProgressBar pbLoading;
-    private LinearLayout bgLoading;
+    private LinearLayout llLoading;
     private ViewPager vpBanner;
-    private GridView gvBrand;
+    private ExpandableHeightGridView gvBrand;
     private RecyclerView rvGroup;
 
     private List<Group> groups;
@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     private void init(View view) {
         this.view = view;
         pbLoading = view.findViewById(R.id.pb_load_home);
-        bgLoading = view.findViewById(R.id.bg_load_home);
+        llLoading = view.findViewById(R.id.ll_load_home);
         vpBanner = view.findViewById(R.id.vp_banner);
         gvBrand = view.findViewById(R.id.gv_brand_home);
         rvGroup = view.findViewById(R.id.rv_group_home);
@@ -82,13 +82,13 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     @Override
     public void showProgress() {
         pbLoading.setVisibility(View.VISIBLE);
-        bgLoading.setVisibility(View.VISIBLE);
+        llLoading.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
         pbLoading.setVisibility(View.GONE);
-        bgLoading.setVisibility(View.GONE);
+        llLoading.setVisibility(View.GONE);
     }
 
     @Override

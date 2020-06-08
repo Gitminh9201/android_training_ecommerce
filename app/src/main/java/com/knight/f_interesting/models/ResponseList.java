@@ -4,15 +4,19 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class CategoryResponse {
+public class ResponseList<T> {
     @SerializedName("count")
     private int count;
-
     @SerializedName("status")
     private int status;
+    @SerializedName("data")
+    private List<T> data;
 
-    @SerializedName("categories")
-    private List<Category> categories;
+    public ResponseList(int count, int status, List<T> data) {
+        this.count = count;
+        this.status = status;
+        this.data = data;
+    }
 
     public int getCount() {
         return count;
@@ -30,17 +34,11 @@ public class CategoryResponse {
         this.status = status;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public List<T> getData() {
+        return data;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
-    public CategoryResponse(int count, int status, List<Category> categories) {
-        this.count = count;
-        this.status = status;
-        this.categories = categories;
+    public void setData(List<T> data) {
+        this.data = data;
     }
 }

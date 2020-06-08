@@ -42,7 +42,6 @@ public class GroupHomeAdapter extends RecyclerView.Adapter<GroupHomeAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Group group = groups.get(position);
         ProductItemAdapter productItemAdapter = new ProductItemAdapter(group.getProducts(), this.context);
-        Log.e("LengthP", String.valueOf(group.getProducts().size()));
         holder.txtTitle.setText(group.getTitle());
         holder.recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(context);

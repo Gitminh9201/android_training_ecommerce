@@ -1,6 +1,7 @@
 package com.knight.f_interesting.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.knight.f_interesting.R;
 import com.knight.f_interesting.api.APIInterface;
 import com.knight.f_interesting.api.Client;
 import com.knight.f_interesting.models.Product;
+import com.knight.f_interesting.utils.AppUtils;
 import com.knight.f_interesting.utils.Size;
 
 import java.util.List;
@@ -25,9 +27,13 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
     private List<Product> products;
     private Context context;
 
-    public ProductItemAdapter(List<Product> products, Context context){
+    public ProductItemAdapter(List<Product> products, Context context) {
         this.products = products;
         this.context = context;
+    }
+
+    public void changeData(List<Product> products){
+        this.products = products;
     }
 
     @NonNull
@@ -42,11 +48,12 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product item = products.get(position);
         holder.txtTitle.setText(item.getTitle());
-        holder.txtBrand.setText("Brand");
-        holder.txtPrice.setText(String.valueOf(item.getPrice()) + ".đ");
-        holder.txtPriceCompare.setText(String.valueOf(item.getPriceCompare()) + ".đ");
-        Glide.with(holder.imageView).load(Client.BASE_URL + APIInterface.middleUrl
-            + item.getImage()).into(holder.imageView);
+        holder.txtBrand.setText("Brand Brand Brand");
+        holder.txtPrice.setText(String.valueOf(AppUtils.currencyVN(item.getPrice())));
+        if (item.getPriceCompare() > 0)
+            holder.txtPriceCompare.setText(String.valueOf(AppUtils.currencyVN(item.getPriceCompare())));
+        Glide.with(holder.imageView).load(Client.url()
+                + item.getImage()).into(holder.imageView);
     }
 
     @Override
@@ -54,7 +61,7 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
         return products.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
         TextView txtTitle;
@@ -64,15 +71,21 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setLayoutParams(new LinearLayout.LayoutParams(Size.getScreenWidth() / 3,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
             imageView = itemView.findViewById(R.id.iv_product_item);
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(Size.getScreenWidth() / 3,
-                    Size.getScreenWidth() / 3));
             txtTitle = itemView.findViewById(R.id.txt_title_product_item);
             txtBrand = itemView.findViewById(R.id.txt_brand_product_item);
             txtPrice = itemView.findViewById(R.id.txt_price_product_item);
             txtPriceCompare = itemView.findViewById(R.id.txt_price_compare_product_item);
+
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(Size.getScreenWidth() / 3,
+                    Size.getScreenWidth() / 3));
+            itemView.setLayoutParams(new LinearLayout.LayoutParams(Size.getScreenWidth() / 3,
+                    (int) (Size.getScreenWidth() / 3 + heightItemInView(txtTitle)
+                            + heightItemInView(txtBrand) + heightItemInView(txtPrice))));
+        }
+
+        private float heightItemInView(TextView txt) {
+            return txt.getTextSize() *2;
         }
     }
 }
