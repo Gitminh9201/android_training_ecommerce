@@ -77,6 +77,13 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
         presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
     }
 
+    public void filter(int categoryId, int brandId, int sort){
+        this.categoryId = categoryId;
+        this.brandId = brandId;
+        this.sort = sort;
+        presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
