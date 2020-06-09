@@ -1,14 +1,14 @@
 package com.knight.f_interesting.adapters;
 
 import android.content.Context;
-import android.util.AttributeSet;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.knight.f_interesting.R;
@@ -20,6 +20,12 @@ public class CategoryStoreAdapter extends RecyclerView.Adapter<CategoryStoreAdap
 
     private List<Category> categories;
     private Context context;
+    private int index = 0;
+
+    public void changeIndex(int index){
+        this.index = index;
+        notifyDataSetChanged();
+    }
 
     public void changeData(List<Category> categories){
         this.categories = categories;
@@ -33,14 +39,18 @@ public class CategoryStoreAdapter extends RecyclerView.Adapter<CategoryStoreAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category,
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category,
                 parent, false);
+
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.txtTitle.setText(categories.get(position).getTitle());
+        if(index == position) holder.itemView.setBackgroundColor
+                (holder.itemView.getResources().getColor(R.color.colorWhite));
+        else holder.itemView.setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override

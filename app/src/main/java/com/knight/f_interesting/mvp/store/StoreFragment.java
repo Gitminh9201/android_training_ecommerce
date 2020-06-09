@@ -2,21 +2,25 @@ package com.knight.f_interesting.mvp.store;
 
 import android.os.Bundle;
 
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.CategoryStoreAdapter;
+import com.knight.f_interesting.customs.RecyclerItemClickListener;
 import com.knight.f_interesting.models.Category;
 import com.knight.f_interesting.mvp.products.ProductsFragment;
 
@@ -27,6 +31,8 @@ public class StoreFragment extends Fragment implements StoreContract.View {
 
     private LinearLayout llLoading;
     private RecyclerView rvCategories;
+    private ImageButton ivFilter;
+    private DrawerLayout drawerFilter;
 
     private StoreContract.Presenter presenter;
 
@@ -38,10 +44,12 @@ public class StoreFragment extends Fragment implements StoreContract.View {
     FragmentManager fm;
     FragmentTransaction ft;
 
-    private void init(View view){
+    private void init(View view) {
         this.view = view;
         llLoading = view.findViewById(R.id.ll_load_store);
         rvCategories = view.findViewById(R.id.rv_categories_store);
+        ivFilter = view.findViewById(R.id.ib_filter);
+        drawerFilter = view.findViewById(R.id.drawer_store);
 
         fm = getFragmentManager();
         ft = fm.beginTransaction();
@@ -52,6 +60,29 @@ public class StoreFragment extends Fragment implements StoreContract.View {
         rvCategories.setAdapter(categoryAdapter);
         presenter = new StorePresenter(this);
         presenter.requestData();
+    }
+
+    private void listener(View view) {
+        rvCategories.addOnItemTouchListener(new RecyclerItemClickListener(view.getContext(),
+                rvCategories, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                categoryAdapter.changeIndex(position);
+                fProducts.refresh(categories.get(position).getId());
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
+        ivFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("CLE", "tr");
+                drawerFilter.openDrawer(GravityCompat.END);
+            }
+        });
     }
 
     @Override
@@ -66,6 +97,7 @@ public class StoreFragment extends Fragment implements StoreContract.View {
         View view = inflater.inflate(R.layout.fragment_store, container, false);
 
         init(view);
+        listener(view);
 
         return view;
     }
@@ -85,11 +117,10 @@ public class StoreFragment extends Fragment implements StoreContract.View {
         this.categories = categories;
         categoryAdapter.changeData(this.categories);
         categoryAdapter.notifyDataSetChanged();
-        fProducts = new ProductsFragment("", 2,
+        fProducts = new ProductsFragment( "", this.categories.get(0).getId(),
                 0, 0, 0, 0, 0);
         ft.add(R.id.rl_products_store, fProducts);
         ft.commit();
-//        this.categories.get(0).getId()
     }
 
     @Override

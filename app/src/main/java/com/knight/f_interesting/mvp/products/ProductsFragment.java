@@ -2,6 +2,8 @@ package com.knight.f_interesting.mvp.products;
 
 import android.os.Bundle;
 
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -32,6 +35,7 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
 
     private LinearLayout llLoading;
     private RecyclerView rvProducts;
+
     private ProductItemAdapter productAdapter;
 
     private List<Product> products;
@@ -39,7 +43,8 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
 
     private View view;
 
-    public ProductsFragment(String keyword, int categoryId, int brandId, int groupId, int offset, int limit, int sort) {
+    public ProductsFragment(String keyword, int categoryId, int brandId,
+                            int groupId, int offset, int limit, int sort) {
         this.keyword = keyword;
         this.categoryId = categoryId;
         this.brandId = brandId;
@@ -63,6 +68,15 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
         presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
     }
 
+    private void listener(View view){
+
+    }
+
+    public void refresh(int categoryId){
+        this.categoryId = categoryId;
+        presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +87,7 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_products, container, false);
         init(view);
+        listener(view);
         return view;
     }
 
@@ -95,7 +110,6 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
 
     @Override
     public void onResponseFailure(Throwable throwable) {
-        Log.e("ERRR:", throwable.getMessage());
         Snackbar.make(this.view.findViewById(R.id.fragment_products), getString(R.string.error_data),
                 Snackbar.LENGTH_LONG).show();
     }
