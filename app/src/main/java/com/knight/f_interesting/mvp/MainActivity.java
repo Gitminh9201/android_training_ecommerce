@@ -39,13 +39,11 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.e("Sel", String.valueOf(tab.getPosition()));
 
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                Log.e("Un", String.valueOf(tab.getPosition()));
             }
 
             @Override

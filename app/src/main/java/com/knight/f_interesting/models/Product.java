@@ -29,6 +29,17 @@ public class Product {
     @SerializedName("brand")
     private Brand brand;
 
+    public List<Product> getRelated() {
+        return related;
+    }
+
+    public void setRelated(List<Product> related) {
+        this.related = related;
+    }
+
+    @SerializedName("related")
+    private List<Product> related;
+
     public Group getGroup() {
         return group;
     }
@@ -62,10 +73,11 @@ public class Product {
     public Product(){}
 
     public Product(int id, String title, String image, String content, int price, Group group,
-                   int priceCompare, List<Gallery> gallery, Brand brand, Category category) {
+                   int priceCompare, List<Gallery> gallery, Brand brand, Category category, List<Product> related) {
         this.category = category;
         this.brand = brand;
         this.group = group;
+        this.related = related;
         this.id = id;
         this.title = title;
         this.image = image;

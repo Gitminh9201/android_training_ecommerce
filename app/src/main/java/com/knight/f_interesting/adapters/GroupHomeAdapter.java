@@ -2,7 +2,6 @@ package com.knight.f_interesting.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import com.knight.f_interesting.R;
 import com.knight.f_interesting.customs.RecyclerItemClickListener;
 import com.knight.f_interesting.models.Group;
 import com.knight.f_interesting.mvp.detail.DetailActivity;
-import com.knight.f_interesting.utils.Route;
+import com.knight.f_interesting.utils.Router;
 
 import java.util.List;
 
@@ -57,7 +56,7 @@ public class GroupHomeAdapter extends RecyclerView.Adapter<GroupHomeAdapter.View
                 holder.itemView.getContext(), holder.recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Route.goToDetail((Activity) holder.itemView.getContext(), DetailActivity.class, group.getProducts().get(position).getId());
+                Router.goToDetail((Activity) holder.itemView.getContext(), DetailActivity.class, group.getProducts().get(position).getId());
             }
 
             @Override

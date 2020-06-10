@@ -32,6 +32,7 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
 
     public void changeData(List<Product> products){
         this.products = products;
+        notifyDataSetChanged();
     }
 
     @NonNull

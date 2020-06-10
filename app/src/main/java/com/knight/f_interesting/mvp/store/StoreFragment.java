@@ -1,5 +1,6 @@
 package com.knight.f_interesting.mvp.store;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.core.view.GravityCompat;
@@ -27,6 +28,7 @@ import com.knight.f_interesting.customs.RecyclerItemClickListener;
 import com.knight.f_interesting.models.Brand;
 import com.knight.f_interesting.models.Category;
 import com.knight.f_interesting.mvp.products.ProductsFragment;
+import com.knight.f_interesting.utils.Router;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,7 @@ public class StoreFragment extends Fragment implements StoreContract.View {
     private RecyclerView rvCategories;
     private RecyclerView rvBrandFilter;
     private ImageButton ivFilter;
+    private ImageButton ibCart;
     private DrawerLayout drawerFilter;
     private Chip chipInc;
     private Chip chipAbt;
@@ -61,6 +64,7 @@ public class StoreFragment extends Fragment implements StoreContract.View {
 
     private void init(View view) {
         this.view = view;
+        ibCart = view.findViewById(R.id.ib_cart);
         llLoading = view.findViewById(R.id.ll_load_store);
         rvCategories = view.findViewById(R.id.rv_categories_store);
         rvBrandFilter = view.findViewById(R.id.rv_brand_filter);
@@ -86,7 +90,13 @@ public class StoreFragment extends Fragment implements StoreContract.View {
         presenter.requestData();
     }
 
-    private void listener(View view) {
+    private void listener(final View view) {
+        ibCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Router.goToCart((Activity) view.getContext());
+            }
+        });
         rvCategories.addOnItemTouchListener(new RecyclerItemClickListener(view.getContext(),
                 rvCategories, new RecyclerItemClickListener.OnItemClickListener() {
             @Override

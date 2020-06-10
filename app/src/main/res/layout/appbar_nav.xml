@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_search"
+    android:layout_height="@dimen/height_appbar"
     android:background="@color/colorPrimary"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingLeft="15dp"
-    android:paddingTop="30dp"
-    android:paddingBottom="10dp">
+    android:paddingLeft="15dp">
 
     <ImageButton
         android:id="@+id/ib_back"

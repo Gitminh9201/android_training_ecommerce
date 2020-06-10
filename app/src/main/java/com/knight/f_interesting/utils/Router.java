@@ -3,7 +3,13 @@ package com.knight.f_interesting.utils;
 import android.app.Activity;
 import android.content.Intent;
 
-public class Route {
+import com.knight.f_interesting.mvp.cart.CartActivity;
+
+public class Router {
+    public static void goToCart(Activity fist){
+        Intent intent = new Intent(fist, CartActivity.class);
+        fist.startActivity(intent);
+    }
     public static void goToDetail(Activity fist, Class second, int id){
         Intent intent = new Intent(fist, second);
         intent.putExtra("id", id);

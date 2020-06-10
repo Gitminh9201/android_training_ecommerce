@@ -112,7 +112,6 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
     public void setDataToView(List<Product> products) {
         this.products = products;
         productAdapter.changeData(this.products);
-        productAdapter.notifyDataSetChanged();
     }
 
     @Override

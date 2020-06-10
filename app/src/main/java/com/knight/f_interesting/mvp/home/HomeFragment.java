@@ -1,5 +1,6 @@
 package com.knight.f_interesting.mvp.home;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -23,6 +25,7 @@ import com.knight.f_interesting.customs.ExpandableHeightGridView;
 import com.knight.f_interesting.models.Banner;
 import com.knight.f_interesting.models.Brand;
 import com.knight.f_interesting.models.Group;
+import com.knight.f_interesting.utils.Router;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +39,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     private ViewPager vpBanner;
     private ExpandableHeightGridView gvBrand;
     private RecyclerView rvGroup;
+    private ImageButton ibCart;
 
     private List<Group> groups;
 
@@ -47,6 +51,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
     private void init(View view) {
         this.view = view;
+        ibCart = view.findViewById(R.id.ib_cart);
         pbLoading = view.findViewById(R.id.pb_load_home);
         llLoading = view.findViewById(R.id.ll_load_home);
         vpBanner = view.findViewById(R.id.vp_banner);
@@ -76,7 +81,17 @@ public class HomeFragment extends Fragment implements HomeContract.View {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         init(view);
+        listener(view);
         return view;
+    }
+
+    private void listener(final View view) {
+        ibCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Router.goToCart((Activity) view.getContext());
+            }
+        });
     }
 
     @Override
