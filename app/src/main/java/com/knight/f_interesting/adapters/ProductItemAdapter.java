@@ -1,7 +1,6 @@
 package com.knight.f_interesting.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.knight.f_interesting.R;
-import com.knight.f_interesting.api.APIInterface;
 import com.knight.f_interesting.api.Client;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.utils.AppUtils;
-import com.knight.f_interesting.utils.Size;
+import com.knight.f_interesting.utils.AppSizes;
 
 import java.util.List;
 
@@ -77,10 +75,10 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
             txtPrice = itemView.findViewById(R.id.txt_price_product_item);
             txtPriceCompare = itemView.findViewById(R.id.txt_price_compare_product_item);
 
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(Size.getScreenWidth() / 3,
-                    Size.getScreenWidth() / 3));
-            itemView.setLayoutParams(new LinearLayout.LayoutParams(Size.getScreenWidth() / 3,
-                    (int) (Size.getScreenWidth() / 3 + heightItemInView(txtTitle)
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(AppSizes.getScreenWidth() / 3,
+                    AppSizes.getScreenWidth() / 3));
+            itemView.setLayoutParams(new LinearLayout.LayoutParams(AppSizes.getScreenWidth() / 3,
+                    (int) (AppSizes.getScreenWidth() / 3 + heightItemInView(txtTitle)
                             + heightItemInView(txtBrand) + heightItemInView(txtPrice))));
         }
 

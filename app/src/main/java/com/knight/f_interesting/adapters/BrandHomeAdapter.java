@@ -7,15 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.knight.f_interesting.R;
-import com.knight.f_interesting.api.APIInterface;
 import com.knight.f_interesting.api.Client;
 import com.knight.f_interesting.models.Brand;
-import com.knight.f_interesting.utils.Size;
+import com.knight.f_interesting.utils.AppSizes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,9 +60,9 @@ public class BrandHomeAdapter extends BaseAdapter {
             viewHolder.imageView = convertView.findViewById(R.id.iv_brand_home);
             viewHolder.textView = convertView.findViewById(R.id.txt_brand_home);
             viewHolder.imageView.setLayoutParams(
-                    new LinearLayout.LayoutParams((Size.getScreenWidth() - (int) convertView.getResources()
+                    new LinearLayout.LayoutParams((AppSizes.getScreenWidth() - (int) convertView.getResources()
                     .getDimension(R.dimen.card_margin) * 8) / 4,
-                    (int) (Size.getScreenWidth() - Size.convertDpToPx(context, (int) (convertView.getResources()
+                    (int) (AppSizes.getScreenWidth() - AppSizes.convertDpToPx(context, (int) (convertView.getResources()
                             .getDimension(R.dimen.padding_grid_home) * 2) + (int) convertView.getResources()
                             .getDimension(R.dimen.card_margin) * 8)) / 4));
             convertView.setTag(viewHolder);
@@ -76,7 +74,7 @@ public class BrandHomeAdapter extends BaseAdapter {
                 + brands.get(position).getImage())
                 .into(viewHolder.imageView);
         convertView.setLayoutParams(
-                new LinearLayout.LayoutParams(Size.getScreenWidth() / 4,
+                new LinearLayout.LayoutParams(AppSizes.getScreenWidth() / 4,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
 
         return convertView;

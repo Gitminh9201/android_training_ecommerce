@@ -2,7 +2,7 @@ package com.knight.f_interesting.utils;
 import android.content.Context;
 import android.content.res.Resources;
 
-public class Size {
+public class AppSizes {
     public static int getScreenWidth() {
         return Resources.getSystem().getDisplayMetrics().widthPixels;
     }

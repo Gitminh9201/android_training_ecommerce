@@ -23,10 +23,49 @@ public class Product {
     @SerializedName("price_compare")
     private int priceCompare;
 
+    @SerializedName("category")
+    private Category category;
+
+    @SerializedName("brand")
+    private Brand brand;
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    @SerializedName("group")
+    private Group group;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
     @SerializedName("gallery")
     private List<Gallery> gallery;
 
-    public Product(int id, String title, String image, String content, int price, int priceCompare, List<Gallery> gallery) {
+    public Product(){}
+
+    public Product(int id, String title, String image, String content, int price, Group group,
+                   int priceCompare, List<Gallery> gallery, Brand brand, Category category) {
+        this.category = category;
+        this.brand = brand;
+        this.group = group;
         this.id = id;
         this.title = title;
         this.image = image;

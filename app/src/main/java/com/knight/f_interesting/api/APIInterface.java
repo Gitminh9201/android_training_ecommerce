@@ -5,12 +5,14 @@ import com.knight.f_interesting.models.Brand;
 import com.knight.f_interesting.models.Category;
 import com.knight.f_interesting.models.Group;
 import com.knight.f_interesting.models.Product;
+import com.knight.f_interesting.models.Response;
 import com.knight.f_interesting.models.ResponseList;
 
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 public interface APIInterface {
@@ -29,4 +31,7 @@ public interface APIInterface {
 
     @GET(Client.MIDDLE_URL + "api/products")
     Call<ResponseList<Product>> products(@QueryMap Map<String, String> options);
+
+    @GET(Client.MIDDLE_URL + "api/products/get")
+    Call<Response<Product>> detail(@Query("id") int id);
 }

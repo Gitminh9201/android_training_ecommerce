@@ -192,16 +192,18 @@ public class StoreFragment extends Fragment implements StoreContract.View {
 
     @Override
     public void setDataToView(List<Category> categories, List<Brand> brands) {
-        this.categories = categories;
-        this.brands = brands;
-        brandAdapter.changeData(this.brands);
-        categoryAdapter.changeData(this.categories);
-        brandAdapter.notifyDataSetChanged();
-        categoryAdapter.notifyDataSetChanged();
-        fProducts = new ProductsFragment( "", this.categories.get(0).getId(),
-                0, 0, 0, 0, 0);
-        ft.add(R.id.rl_products_store, fProducts);
-        ft.commit();
+        if(!categories.isEmpty() && !brands.isEmpty()){
+            this.categories = categories;
+            this.brands = brands;
+            brandAdapter.changeData(this.brands);
+            categoryAdapter.changeData(this.categories);
+            brandAdapter.notifyDataSetChanged();
+            categoryAdapter.notifyDataSetChanged();
+            fProducts = new ProductsFragment( "", this.categories.get(0).getId(),
+                    0, 0, 0, 0, 0);
+            ft.add(R.id.rl_products_store, fProducts);
+            ft.commit();
+        }
     }
 
     @Override
