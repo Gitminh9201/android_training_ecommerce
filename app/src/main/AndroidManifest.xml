@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.cart.CartActivity"></activity>
+        <activity android:name=".mvp.payment_method.PaymentMethodActivity"></activity>
+        <activity android:name=".mvp.address.AddressActivity" />
+        <activity android:name=".mvp.cart.CartActivity" />
         <activity android:name=".mvp.detail.DetailActivity" />
         <activity android:name=".mvp.MainActivity" />
         <activity

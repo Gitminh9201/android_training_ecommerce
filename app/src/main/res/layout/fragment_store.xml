@@ -109,14 +109,14 @@
                 android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/btn_reset_filter"
-                    android:background="@drawable/rounded_edittext"
+                    android:background="@drawable/bg_border_white"
                     android:layout_width="wrap_content"
                     android:text="Reset"
                     android:textAllCaps="true"
                     android:layout_height="wrap_content"/>
                 <Button
                     android:id="@+id/btn_filter"
-                    android:background="@drawable/rounded_edittext"
+                    android:background="@drawable/bg_border_white"
                     android:layout_width="wrap_content"
                     android:text="Filter"
                     android:textAllCaps="true"

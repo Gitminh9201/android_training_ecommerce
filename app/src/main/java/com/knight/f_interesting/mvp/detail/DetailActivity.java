@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -39,6 +40,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     private TextView txtPriceCompare;
     private ImageButton ibBack;
     private ImageButton ibCart;
+    private ImageButton ibAddCart;
     private TextView txtTitleBrand;
     private TextView txtDesBrand;
     private ImageView ivBrand;
@@ -58,6 +60,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         llLoading = findViewById(R.id.ll_load_detail);
         vpGallery = findViewById(R.id.vp_gallery_detail);
         txtPrice = findViewById(R.id.txt_price_detail);
+        ibAddCart = findViewById(R.id.ib_add_cart);
         ibCart = findViewById(R.id.ib_cart);
         txtTitle = findViewById(R.id.txt_title_detail);
         txtPriceCompare = findViewById(R.id.txt_price_compare_detail);
@@ -97,7 +100,23 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         ibCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Router.goToCart((Activity) getApplicationContext());
+                Router.goToCart(DetailActivity.this);
+            }
+        });
+        ibAddCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProgress();
+                AppUtils.db.addCart(product.getId(), 1);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgress();
+                        Snackbar.make(findViewById(R.id.layout_detail), getResources().getString(R.string.add_cart_success),
+                                Snackbar.LENGTH_LONG).show();
+                    }
+                }, 500);
             }
         });
     }

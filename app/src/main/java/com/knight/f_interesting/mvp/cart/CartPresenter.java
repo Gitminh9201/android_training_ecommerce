@@ -1,8 +1,9 @@
 package com.knight.f_interesting.mvp.cart;
 
+import com.knight.f_interesting.models.Cart;
 import com.knight.f_interesting.models.Product;
+import com.knight.f_interesting.utils.AppUtils;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class CartPresenter implements CartContract.Presenter, CartContract.Model.OnFinishedListener {
@@ -16,10 +17,11 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
     }
 
     @Override
-    public void onFinished(List<Product> products) {
+    public void onFinished(List<Product> products, List<Cart> carts) {
         if(view != null)
             view.hideProgress();
-        view.setDataToView(products);
+        view.setDataToView(products, carts);
+        view.refresh(products, carts);
     }
 
     @Override
@@ -30,14 +32,20 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
     }
 
     @Override
+    public void refresh(List<Product> products, List<Cart> carts) {
+        view.refresh(products, carts);
+    }
+
+    @Override
     public void onDestroy() {
         view = null;
     }
 
     @Override
-    public void requestData(Arrays ids) {
+    public void requestData() {
         if(view != null)
             view.showProgress();
-        model.getData(this, ids);
+        List<Cart> carts = AppUtils.db.getCart();
+        model.getData(this, carts);
     }
 }

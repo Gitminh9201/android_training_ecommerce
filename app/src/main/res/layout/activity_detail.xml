@@ -122,7 +122,7 @@
                         android:layout_height="wrap_content">
                         <ImageView
                             android:id="@+id/iv_image_brand"
-                            android:background="@drawable/rounded_edittext"
+                            android:background="@drawable/bg_border_white"
                             android:layout_width="45dp"
                             android:layout_height="45dp"/>
                         <TextView
@@ -195,6 +195,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_tab">
             <ImageButton
+                android:id="@+id/ib_add_bookmark"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:background="@color/colorWhite"
@@ -202,6 +203,7 @@
                 android:src="@drawable/ic_bookmark"
                 android:layout_height="match_parent"/>
             <ImageButton
+                android:id="@+id/ib_add_cart"
                 android:background="@color/colorWhite"
                 android:layout_margin="0dp"
                 android:layout_width="0dp"
@@ -211,6 +213,7 @@
                 android:src="@drawable/ic_add_cart"
                 android:layout_height="match_parent"/>
             <Button
+                android:id="@+id/btn_buy_now"
                 android:layout_width="0dp"
                 android:minWidth="0dp"
                 android:minHeight="0dp"

@@ -34,4 +34,8 @@ public interface APIInterface {
 
     @GET(Client.MIDDLE_URL + "api/products/get")
     Call<Response<Product>> detail(@Query("id") int id);
+
+    //ids: "1,2,6"
+    @GET(Client.MIDDLE_URL + "api/products/gets")
+    Call<ResponseList<Product>> productCart(@Query("ids") String ids);
 }
