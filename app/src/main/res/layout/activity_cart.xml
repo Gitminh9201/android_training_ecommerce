@@ -71,10 +71,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <Button
+                            android:stateListAnimator="@null"
                             android:id="@+id/btn_choose_address"
                             android:layout_width="match_parent"
                             android:text="@string/choose_address"
-                            android:background="@color/colorOpacity"
+                            android:drawablePadding="2dp"
+                            android:drawableRight="@drawable/ic_baseline_arrow_right"
+                            android:background="@drawable/bg_border_opacity"
                             android:layout_height="wrap_content"/>
                     </androidx.cardview.widget.CardView>
                     <TextView
@@ -92,10 +95,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <Button
+                            android:stateListAnimator="@null"
                             android:id="@+id/btn_choose_payment"
                             android:layout_width="match_parent"
                             android:text="@string/choose_payment_method"
-                            android:background="@color/colorOpacity"
+                            android:drawablePadding="2dp"
+                            android:drawableRight="@drawable/ic_baseline_arrow_right"
+                            android:background="@drawable/bg_border_opacity"
                             android:layout_height="wrap_content"/>
                     </androidx.cardview.widget.CardView>
                     <LinearLayout

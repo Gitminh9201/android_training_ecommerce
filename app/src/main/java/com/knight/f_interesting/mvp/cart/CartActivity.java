@@ -6,19 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.ProductCartAdapter;
 import com.knight.f_interesting.models.Cart;
@@ -46,6 +40,9 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
     private ProductCartAdapter productAdapter;
 
     private CartPresenter presenter;
+
+    private int paymentId = 0;
+    private int addressId = 0;
 
     private void init() {
         rvCart = findViewById(R.id.rv_cart);
@@ -97,14 +94,16 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_CODE_ADDRESS) {
             if(resultCode == Activity.RESULT_OK) {
-                final String result = data.getStringExtra(AddressActivity.EXTRA_DATA);
-                Toast.makeText(this, "Result: " + result, Toast.LENGTH_LONG).show();
+                addressId = data.getIntExtra(AddressActivity.EXTRA_DATA_ID, 0);
+                final String result = data.getStringExtra(AddressActivity.EXTRA_DATA_TITLE);
+                btnAddress.setText(result);
             }
         }
         if(requestCode == REQUEST_CODE_PAYMENT){
             if(resultCode == Activity.RESULT_OK) {
-                final String result = data.getStringExtra(PaymentMethodActivity.EXTRA_DATA);
-                Toast.makeText(this, "Result: " + result, Toast.LENGTH_LONG).show();
+                paymentId = data.getIntExtra(PaymentMethodActivity.EXTRA_DATA_ID, 0);
+                final String result = data.getStringExtra(PaymentMethodActivity.EXTRA_DATA_TITLE);
+                btnPayment.setText(result);
             }
         }
     }
@@ -139,7 +138,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
         if(total == 0){
             btnContinue.setText(getResources().getText(R.string.next));
             btnContinue.setEnabled(false);
-            btnContinue.setBackgroundColor(getResources().getColor(R.color.colorGrey));
+            btnContinue.setBackground(getResources().getDrawable(R.drawable.bg_button_dispose));
         }
         else {
             btnContinue.setText(getResources().getText(R.string.next) + "("  + AppUtils.currencyVN(total) +")");
