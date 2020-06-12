@@ -88,6 +88,11 @@ public class StoreFragment extends Fragment implements StoreContract.View {
         rvCategories.setAdapter(categoryAdapter);
         presenter = new StorePresenter(this);
         presenter.requestData();
+
+        fProducts = new ProductsFragment( "", 0,
+                0, 0, 0, 0, 0);
+        ft.add(R.id.rl_products_store, fProducts);
+        ft.commit();
     }
 
     private void listener(final View view) {
@@ -209,10 +214,8 @@ public class StoreFragment extends Fragment implements StoreContract.View {
             categoryAdapter.changeData(this.categories);
             brandAdapter.notifyDataSetChanged();
             categoryAdapter.notifyDataSetChanged();
-            fProducts = new ProductsFragment( "", this.categories.get(0).getId(),
-                    0, 0, 0, 0, 0);
-            ft.add(R.id.rl_products_store, fProducts);
-            ft.commit();
+
+            fProducts.refresh(this.categories.get(0).getId());
         }
     }
 

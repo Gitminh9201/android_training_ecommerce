@@ -97,6 +97,8 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
                 addressId = data.getIntExtra(AddressActivity.EXTRA_DATA_ID, 0);
                 final String result = data.getStringExtra(AddressActivity.EXTRA_DATA_TITLE);
                 btnAddress.setText(result);
+                btnAddress.setTextColor(getResources().getColor(R.color.colorWhite));
+                btnAddress.setBackground(getResources().getDrawable(R.drawable.bg_button_continue));
             }
         }
         if(requestCode == REQUEST_CODE_PAYMENT){
@@ -104,6 +106,8 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
                 paymentId = data.getIntExtra(PaymentMethodActivity.EXTRA_DATA_ID, 0);
                 final String result = data.getStringExtra(PaymentMethodActivity.EXTRA_DATA_TITLE);
                 btnPayment.setText(result);
+                btnPayment.setTextColor(getResources().getColor(R.color.colorWhite));
+                btnPayment.setBackground(getResources().getDrawable(R.drawable.bg_button_continue));
             }
         }
     }

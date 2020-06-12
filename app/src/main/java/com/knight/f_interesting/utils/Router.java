@@ -15,6 +15,12 @@ public class Router {
         intent.putExtra("id", id);
         fist.startActivity(intent);
     }
+    public static void goToDetail(Activity fist, Class second, int id, boolean replace){
+        Intent intent = new Intent(fist, second);
+        intent.putExtra("id", id);
+        fist.startActivity(intent);
+        fist.finish();
+    }
     public static int inDetail(Activity activity){
         Intent intent = activity.getIntent();
         return intent.getIntExtra("id", 1);

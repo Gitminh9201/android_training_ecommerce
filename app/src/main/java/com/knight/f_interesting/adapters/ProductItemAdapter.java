@@ -1,5 +1,6 @@
 package com.knight.f_interesting.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +16,10 @@ import com.bumptech.glide.Glide;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.api.Client;
 import com.knight.f_interesting.models.Product;
+import com.knight.f_interesting.mvp.detail.DetailActivity;
 import com.knight.f_interesting.utils.AppUtils;
 import com.knight.f_interesting.utils.AppSizes;
+import com.knight.f_interesting.utils.Router;
 
 import java.util.List;
 
@@ -24,10 +27,17 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
 
     private List<Product> products;
     private Context context;
+    private boolean replace;
 
     public ProductItemAdapter(List<Product> products, Context context) {
         this.products = products;
         this.context = context;
+        this.replace = false;
+    }
+    public ProductItemAdapter(List<Product> products, Context context, boolean replace) {
+        this.products = products;
+        this.context = context;
+        this.replace = replace;
     }
 
     public void changeData(List<Product> products){
@@ -44,7 +54,7 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         Product item = products.get(position);
         holder.txtTitle.setText(item.getTitle());
         holder.txtBrand.setText("Brand Brand Brand");
@@ -53,6 +63,17 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
             holder.txtPriceCompare.setText(String.valueOf(AppUtils.currencyVN(item.getPriceCompare())));
         Glide.with(holder.imageView).load(Client.url()
                 + item.getImage()).into(holder.imageView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(replace)
+                    Router.goToDetail((Activity) holder.itemView.getContext(),
+                            DetailActivity.class, products.get(position).getId(), replace);
+                else
+                    Router.goToDetail((Activity) holder.itemView.getContext(),
+                            DetailActivity.class, products.get(position).getId());
+            }
+        });
     }
 
     @Override

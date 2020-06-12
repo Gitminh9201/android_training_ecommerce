@@ -17,16 +17,18 @@ public class StorePresenter implements StoreContract.Presenter, StoreContract.Mo
 
     @Override
     public void onFinished(List<Category> categories, List<Brand> brands) {
-        if (view != null)
+        if (view != null){
             view.hideProgress();
-        view.setDataToView(categories, brands);
+            view.setDataToView(categories, brands);
+        }
     }
 
     @Override
     public void onFailure(Throwable throwable) {
-        if (view != null)
+        if (view != null){
             view.hideProgress();
-        view.onResponseFailure(throwable);
+            view.onResponseFailure(throwable);
+        }
     }
 
     @Override

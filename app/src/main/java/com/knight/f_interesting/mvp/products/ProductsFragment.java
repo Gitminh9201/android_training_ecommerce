@@ -65,7 +65,6 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
         rvProducts.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
         rvProducts.setAdapter(productAdapter);
         presenter = new ProductsPresenter(this);
-        presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
     }
 
     private void listener(View view){

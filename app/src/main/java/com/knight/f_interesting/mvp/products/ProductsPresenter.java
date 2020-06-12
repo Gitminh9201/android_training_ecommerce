@@ -16,16 +16,18 @@ public class ProductsPresenter implements ProductsContract.Presenter, ProductsCo
 
     @Override
     public void onFinished(List<Product> products) {
-        if(view != null)
+        if(view != null){
             view.hideProgress();
-        view.setDataToView(products);
+            view.setDataToView(products);
+        }
     }
 
     @Override
     public void onFailure(Throwable throwable) {
-        if(view != null)
+        if(view != null){
             view.hideProgress();
-        view.onResponseFailure(throwable);
+            view.onResponseFailure(throwable);
+        }
     }
 
     @Override

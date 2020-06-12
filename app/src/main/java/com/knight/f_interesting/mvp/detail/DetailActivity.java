@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
@@ -47,7 +48,8 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     private TextView txtCountryBrand;
     private RecyclerView rvRelated;
     private TextView txtRelated;
-    ProductItemAdapter relatedAdapter;
+    private ProductItemAdapter relatedAdapter;
+    private TextView txtBuyNow;
 
     private List<Product> related;
     private List<Gallery> gallery;
@@ -73,13 +75,14 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         txtTitleBrand = findViewById(R.id.txt_title_brand_detail);
         txtDesBrand = findViewById(R.id.txt_description_brand);
         ivBrand = findViewById(R.id.iv_image_brand);
+        txtBuyNow = findViewById(R.id.txt_buy_now);
 
         gallery = new ArrayList<>();
         related = new ArrayList<>();
         product = new Product();
         id = Router.inDetail(this);
 
-        relatedAdapter = new ProductItemAdapter(related, getApplicationContext());
+        relatedAdapter = new ProductItemAdapter(related, getApplicationContext(), true);
         LinearLayoutManager llmanager = new LinearLayoutManager(getApplicationContext());
         llmanager.setOrientation(RecyclerView.HORIZONTAL);
         rvRelated.setLayoutManager(llmanager);
@@ -90,7 +93,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         presenter.requestData(id);
     }
 
-    private void listener(){
+    private void listener() {
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,17 +109,17 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         ibAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showProgress();
                 AppUtils.db.addCart(product.getId(), 1);
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        hideProgress();
-                        Snackbar.make(findViewById(R.id.layout_detail), getResources().getString(R.string.add_cart_success),
-                                Snackbar.LENGTH_LONG).show();
-                    }
-                }, 500);
+                Toast.makeText(getApplicationContext(), getResources()
+                        .getString(R.string.add_cart_success), Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
+        txtBuyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppUtils.db.addCart(product.getId(), 1);
+                Router.goToCart(DetailActivity.this);
             }
         });
     }
@@ -141,7 +144,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
 
     @Override
     public void setDataToView(Product product) {
-        if(!product.getGallery().isEmpty()) this.gallery = product.getGallery();
+        if (!product.getGallery().isEmpty()) this.gallery = product.getGallery();
         this.product = product;
         this.related = product.getRelated();
         this.gallery.add(new Gallery(0, product.getImage(), 0, product.getId()));
