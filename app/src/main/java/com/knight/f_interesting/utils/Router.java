@@ -3,9 +3,14 @@ package com.knight.f_interesting.utils;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.knight.f_interesting.mvp.auth.AuthActivity;
 import com.knight.f_interesting.mvp.cart.CartActivity;
 
 public class Router {
+    public static void goToAuth(Activity fist){
+        Intent intent = new Intent(fist, AuthActivity.class);
+        fist.startActivity(intent);
+    }
     public static void goToCart(Activity fist){
         Intent intent = new Intent(fist, CartActivity.class);
         fist.startActivity(intent);

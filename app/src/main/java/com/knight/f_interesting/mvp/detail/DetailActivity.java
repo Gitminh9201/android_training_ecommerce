@@ -1,13 +1,8 @@
 package com.knight.f_interesting.mvp.detail;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,19 +10,30 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.GalleryDetailAdapter;
 import com.knight.f_interesting.adapters.ProductItemAdapter;
 import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.buses.UserBus;
 import com.knight.f_interesting.models.Gallery;
 import com.knight.f_interesting.models.Product;
+import com.knight.f_interesting.models.User;
+import com.knight.f_interesting.mvp.dialogs.RequestLogin;
 import com.knight.f_interesting.utils.AppUtils;
 import com.knight.f_interesting.utils.Router;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.rxjava3.functions.Consumer;
 
 public class DetailActivity extends AppCompatActivity implements DetailContract.View {
 
@@ -50,6 +56,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     private TextView txtRelated;
     private ProductItemAdapter relatedAdapter;
     private TextView txtBuyNow;
+    private ImageButton ibAddBookMark;
 
     private List<Product> related;
     private List<Gallery> gallery;
@@ -76,6 +83,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         txtDesBrand = findViewById(R.id.txt_description_brand);
         ivBrand = findViewById(R.id.iv_image_brand);
         txtBuyNow = findViewById(R.id.txt_buy_now);
+        ibAddBookMark = findViewById(R.id.ib_add_bookmark);
 
         gallery = new ArrayList<>();
         related = new ArrayList<>();
@@ -93,7 +101,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         presenter.requestData(id);
     }
 
-    private void listener() {
+    private void listener(final Activity activity) {
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,14 +130,30 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
                 Router.goToCart(DetailActivity.this);
             }
         });
+        ibAddBookMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("EEEE", "OnClick");
+                UserBus.subscribe(new Consumer<User>() {
+                    @Override
+                    public void accept(User user) throws Throwable {
+                        Toast.makeText(getApplicationContext(), "ADD BOOKMARK SUCCESS!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                DialogFragment dialogFragment = new RequestLogin(getResources()
+                        .getString(R.string.request_login_input_collection), activity);
+                dialogFragment.show(getSupportFragmentManager().beginTransaction(), "dialog");
+            }
+        });
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         init();
-        listener();
+        listener(this);
     }
 
     @Override

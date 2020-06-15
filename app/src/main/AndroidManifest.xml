@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.payment_method.PaymentMethodActivity"></activity>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+        <activity android:name=".mvp.auth.AuthActivity"></activity>
+        <activity android:name=".mvp.payment_method.PaymentMethodActivity" />
         <activity android:name=".mvp.address.AddressActivity" />
         <activity android:name=".mvp.cart.CartActivity" />
         <activity android:name=".mvp.detail.DetailActivity" />

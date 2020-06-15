@@ -6,7 +6,7 @@
     <dimen name="height_banner">160dp</dimen>
     <dimen name="height_gallery">280dp</dimen>
     <dimen name="height_space">20dp</dimen>
-    <dimen name="card_elevation">8dp</dimen>
+    <dimen name="card_elevation">16dp</dimen>
     <dimen name="card_album_radius">8dp</dimen>
     <dimen name="card_margin">4dp</dimen>
     <dimen name="padding_grid_home">6dp</dimen>

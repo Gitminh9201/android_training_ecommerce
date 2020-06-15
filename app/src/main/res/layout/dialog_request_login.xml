@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="20dp"
+    android:gravity="center"
+    android:background="@drawable/bg_border_opacity"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="60dp"
+        android:src="@drawable/image_warning"
+        android:layout_height="60dp"/>
+
+    <TextView
+        android:paddingHorizontal="10dp"
+        android:id="@+id/txt_title_alert"
+        android:layout_marginVertical="20dp"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:layout_marginVertical="10dp"
+            android:id="@+id/btn_dispose_alert"
+            android:textStyle="bold"
+            android:textColor="@color/colorDispose"
+            android:background="@drawable/bg_button_dispose"
+            android:layout_marginHorizontal="20dp"
+            android:text="@string/no"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:textSize="10sp"
+            android:layout_weight="1"
+            android:layout_marginVertical="10dp"
+            android:id="@+id/btn_accept_alert"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/bg_button_continue"
+            android:layout_marginHorizontal="20dp"
+            android:text="@string/login_vi"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

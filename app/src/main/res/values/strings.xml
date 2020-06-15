@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">F-Interesting</string>
+    <string name="facebook_app_id">2738845606395528</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_data">Something went wrong!</string>
@@ -15,6 +16,17 @@
     <string name="choose_payment_method">Chọn phương thức thanh toán</string>
     <string name="choose_method_exists">Chọn phương thức thanh toán:</string>
 
+    <string name="login_with">Hoặc đăng nhập với</string>
+    <string name="register_ask">Bạn chưa có tài khoản?</string>
+    <string name="register">Đăng ký ngay!</string>
+    <string name="login">Login</string>
+    <string name="login_vi">Đăng nhập</string>
     <string name="next">Continue</string>
     <string name="save">Save/Back</string>
+
+    <string name="no">No</string>
+    <string name="request_login_cart">Bạn cần đăng nhập để đến bước tiếp theo?</string>
+    <string name="request_login_collection">Bạn cần đăng nhập để xem bộ sưu tập riêng của mình?</string>
+    <string name="request_login_input_collection">Bạn cần đăng nhập để tạo bộ sưu tập riêng?</string>
+    <string name="request_login_address">Bạn cần có muốn đăng nhập để lưu lại địa chỉ cho lần sau?</string>
 </resources>

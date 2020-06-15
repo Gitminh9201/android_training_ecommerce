@@ -2,7 +2,7 @@ package com.knight.f_interesting.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Response<T> {
+public class ResponseObject<T> {
     @SerializedName("status")
     private int status;
     @SerializedName("data")
@@ -24,7 +24,7 @@ public class Response<T> {
         this.data = data;
     }
 
-    public Response(int status, T data) {
+    public ResponseObject(int status, T data) {
         this.status = status;
         this.data = data;
     }
