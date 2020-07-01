@@ -11,7 +11,13 @@
 
     <string name="choose_address">Chọn địa chỉ giao hàng</string>
     <string name="choose_address_exists">Chọn địa chỉ của bạn:</string>
-    <string name="add_address">Thêm địa chỉ của bạn:</string>
+    <string name="address">Địa chỉ của bạn:</string>
+    <string name="your_number_phone">Số điện thoại của bạn</string>
+
+    <string name="province">Tỉnh thành/Thành phố</string>
+    <string name="district">Quận/Huyện</string>
+    <string name="ward">Phường/Thị Xã</string>
+    <string name="address_detail">Địa chỉ chi tiết</string>
 
     <string name="choose_payment_method">Chọn phương thức thanh toán</string>
     <string name="choose_method_exists">Chọn phương thức thanh toán:</string>
@@ -21,6 +27,8 @@
     <string name="register">Đăng ký ngay!</string>
     <string name="login">Login</string>
     <string name="login_vi">Đăng nhập</string>
+    <string name="logout">Logout</string>
+    <string name="logout_vi">Đăng xuất</string>
     <string name="next">Continue</string>
     <string name="save">Save/Back</string>
 
@@ -29,4 +37,20 @@
     <string name="request_login_collection">Bạn cần đăng nhập để xem bộ sưu tập riêng của mình?</string>
     <string name="request_login_input_collection">Bạn cần đăng nhập để tạo bộ sưu tập riêng?</string>
     <string name="request_login_address">Bạn cần có muốn đăng nhập để lưu lại địa chỉ cho lần sau?</string>
+
+    <string name="person_information">Thông tin cá nhân</string>
+    <string name="person_address">Địa chỉ giao hàng</string>
+    <string name="person_history_order">Lịch sử đặt hàng</string>
+    <string name="person_terms">Điều khoản sử dụng</string>
+
+    <string name="info_name">Họ và tên</string>
+    <string name="info_email">Địa chỉ email</string>
+    <string name="info_phone">Số điện thoại</string>
+    <string name="info_birthday">Ngày tháng năm sinh</string>
+
+    <string name="hot_line">HOT LINE: 19009201</string>
+    <string name="viewed_product">Sản phẩm đã xem</string>
+
+    <string name="choose_image">Chọn ảnh từ thư viện</string>
+    <string name="make_image">Chụp ảnh với camera</string>
 </resources>

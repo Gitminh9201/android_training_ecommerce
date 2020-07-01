@@ -1,10 +1,5 @@
 package com.knight.f_interesting.mvp.cart;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +8,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.ProductCartAdapter;
+import com.knight.f_interesting.models.Address;
 import com.knight.f_interesting.models.Cart;
+import com.knight.f_interesting.models.MethodPayment;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.mvp.address.AddressActivity;
 import com.knight.f_interesting.mvp.payment_method.PaymentMethodActivity;
@@ -41,8 +43,8 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
 
     private CartPresenter presenter;
 
-    private int paymentId = 0;
-    private int addressId = 0;
+    private Address address;
+    private MethodPayment payment;
 
     private void init() {
         rvCart = findViewById(R.id.rv_cart);
@@ -68,9 +70,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Dialog dialog = new Dialog(CartActivity.this);
-////                dialog.setTitle("Continue");
-////                dialog.show();
+
             }
         });
         btnAddress.setOnClickListener(new View.OnClickListener() {
@@ -94,21 +94,32 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_CODE_ADDRESS) {
             if(resultCode == Activity.RESULT_OK) {
-                addressId = data.getIntExtra(AddressActivity.EXTRA_DATA_ID, 0);
-                final String result = data.getStringExtra(AddressActivity.EXTRA_DATA_TITLE);
-                btnAddress.setText(result);
+                address = (Address) data.getSerializableExtra(AddressActivity.EXTRA_DATA);
+                btnAddress.setText(address.getPhone() + " - " + address.getProvince());
                 btnAddress.setTextColor(getResources().getColor(R.color.colorWhite));
                 btnAddress.setBackground(getResources().getDrawable(R.drawable.bg_button_continue));
+                updateButton();
             }
         }
         if(requestCode == REQUEST_CODE_PAYMENT){
             if(resultCode == Activity.RESULT_OK) {
-                paymentId = data.getIntExtra(PaymentMethodActivity.EXTRA_DATA_ID, 0);
-                final String result = data.getStringExtra(PaymentMethodActivity.EXTRA_DATA_TITLE);
-                btnPayment.setText(result);
+                payment = (MethodPayment) data.getSerializableExtra(PaymentMethodActivity.EXTRA_DATA);
+                btnPayment.setText(payment.getTitle());
                 btnPayment.setTextColor(getResources().getColor(R.color.colorWhite));
                 btnPayment.setBackground(getResources().getDrawable(R.drawable.bg_button_continue));
+                updateButton();
             }
+        }
+    }
+
+    private void updateButton(){
+        if(payment != null && address != null){
+            btnContinue.setEnabled(true);
+            btnContinue.setBackground(getResources().getDrawable(R.drawable.bg_button_continue));
+        }
+        else {
+            btnContinue.setEnabled(false);
+            btnContinue.setBackground(getResources().getDrawable(R.drawable.bg_button_dispose));
         }
     }
 

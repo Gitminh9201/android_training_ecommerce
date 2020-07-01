@@ -36,6 +36,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void getUser(){
         String accessToken = AppShared.getAccessToken(getApplicationContext());
+        Log.e("AccessToken", accessToken);
         if(accessToken.length() > 1){
             APIInterface api = Client.client().create(APIInterface.class);
             Map<String, String> header = new HashMap<>();
@@ -44,6 +45,7 @@ public class SplashActivity extends AppCompatActivity {
             call.enqueue(new Callback<ResponseObject<User>>() {
                 @Override
                 public void onResponse(Call<ResponseObject<User>> call, Response<ResponseObject<User>> response) {
+                    Log.e("AUTH:", response.body().getData().getName());
                     if (response.body() != null && response.body().getStatus() == 1)
                         UserBus.publish(response.body().getData());
                 }

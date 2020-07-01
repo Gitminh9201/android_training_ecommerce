@@ -1,7 +1,5 @@
 package com.knight.f_interesting.mvp.payment_method;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +8,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.knight.f_interesting.R;
+import com.knight.f_interesting.models.MethodPayment;
 
 public class PaymentMethodActivity extends AppCompatActivity {
 
-    public static final String EXTRA_DATA_TITLE = "DATA-PAYMENT:TITLE";
-    public static final String EXTRA_DATA_ID = "DATA-PAYMENT:ID";
+    public static final String EXTRA_DATA = "DATA-PAYMENT";
 
     private Button btnSave;
     private RelativeLayout rlItemPayment;
@@ -32,8 +32,7 @@ public class PaymentMethodActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final Intent data = new Intent();
-                data.putExtra(EXTRA_DATA_TITLE, "Thanh toán khi nhận hàng");
-                data.putExtra(EXTRA_DATA_ID, 1);
+                data.putExtra(EXTRA_DATA, new MethodPayment(1, "Thanh toán khi nhận hàng"));
                 setResult(Activity.RESULT_OK, data);
                 finish();
             }

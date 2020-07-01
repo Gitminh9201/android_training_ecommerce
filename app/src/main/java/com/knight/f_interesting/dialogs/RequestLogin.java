@@ -1,4 +1,4 @@
-package com.knight.f_interesting.mvp.dialogs;
+package com.knight.f_interesting.dialogs;
 
 import android.app.Activity;
 import android.os.Bundle;

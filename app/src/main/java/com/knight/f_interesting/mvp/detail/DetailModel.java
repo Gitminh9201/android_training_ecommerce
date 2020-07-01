@@ -1,5 +1,7 @@
 package com.knight.f_interesting.mvp.detail;
 
+import android.content.Context;
+
 import com.knight.f_interesting.api.APIInterface;
 import com.knight.f_interesting.api.Client;
 import com.knight.f_interesting.models.Product;
@@ -7,14 +9,20 @@ import com.knight.f_interesting.models.ResponseObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailModel implements DetailContract.Model {
 
     Product product;
+    APIInterface api = Client.client().create(APIInterface.class);
+    Context context;
+
+    DetailModel(Context context) {
+        this.context = context;
+    }
 
     @Override
     public void getData(final OnFinishedListener onFinishedListener, int id) {
-        APIInterface api = Client.client().create(APIInterface.class);
         Call<ResponseObject<Product>> call = api.detail(id);
         call.enqueue(new Callback<ResponseObject<Product>>() {
             @Override
@@ -27,6 +35,42 @@ public class DetailModel implements DetailContract.Model {
 
             @Override
             public void onFailure(Call<ResponseObject<Product>> call, Throwable t) {
+                onFinishedListener.onFailure(t);
+            }
+        });
+    }
+
+    @Override
+    public void checkBookmark(final OnFinishedListener onFinishedListener, int id) {
+        Call<ResponseObject> call = api.checkCollection(Client.header(context), id);
+        call.enqueue(new Callback<ResponseObject>() {
+            @Override
+            public void onResponse(Call<ResponseObject> call, Response<ResponseObject> response) {
+                if(response.body().getStatus() == 1){
+                    onFinishedListener.onStatusBookmark(Boolean.valueOf(response.body().getData().toString()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseObject> call, Throwable t) {
+                onFinishedListener.onFailure(t);
+            }
+        });
+    }
+
+    @Override
+    public void makeBookmark(final OnFinishedListener onFinishedListener, int id) {
+        Call<ResponseObject> call = api.makeCollection(Client.header(context), id);
+        call.enqueue(new Callback<ResponseObject>() {
+            @Override
+            public void onResponse(Call<ResponseObject> call, Response<ResponseObject> response) {
+                if(response.body().getStatus() == 1){
+                    onFinishedListener.onStatusBookmark(Boolean.valueOf(response.body().getData().toString()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseObject> call, Throwable t) {
                 onFinishedListener.onFailure(t);
             }
         });

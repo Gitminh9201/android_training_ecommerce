@@ -2,7 +2,6 @@ package com.knight.f_interesting.mvp.detail;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,15 +24,12 @@ import com.knight.f_interesting.api.Client;
 import com.knight.f_interesting.buses.UserBus;
 import com.knight.f_interesting.models.Gallery;
 import com.knight.f_interesting.models.Product;
-import com.knight.f_interesting.models.User;
-import com.knight.f_interesting.mvp.dialogs.RequestLogin;
+import com.knight.f_interesting.dialogs.RequestLogin;
 import com.knight.f_interesting.utils.AppUtils;
 import com.knight.f_interesting.utils.Router;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.rxjava3.functions.Consumer;
 
 public class DetailActivity extends AppCompatActivity implements DetailContract.View {
 
@@ -97,7 +93,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         rvRelated.setAdapter(relatedAdapter);
         galleryAdapter = new GalleryDetailAdapter(getApplicationContext(), gallery);
         vpGallery.setAdapter(galleryAdapter);
-        presenter = new DetailPresenter(this);
+        presenter = new DetailPresenter(this, getApplicationContext());
         presenter.requestData(id);
     }
 
@@ -133,16 +129,14 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         ibAddBookMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("EEEE", "OnClick");
-                UserBus.subscribe(new Consumer<User>() {
-                    @Override
-                    public void accept(User user) throws Throwable {
-                        Toast.makeText(getApplicationContext(), "ADD BOOKMARK SUCCESS!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                DialogFragment dialogFragment = new RequestLogin(getResources()
-                        .getString(R.string.request_login_input_collection), activity);
-                dialogFragment.show(getSupportFragmentManager().beginTransaction(), "dialog");
+                if(UserBus.current() != null && UserBus.current().getName() != null){
+                    presenter.changeBookmark(id);
+                }
+                else{
+                    DialogFragment dialogFragment = new RequestLogin(getResources()
+                            .getString(R.string.request_login_input_collection), activity);
+                    dialogFragment.show(getSupportFragmentManager().beginTransaction(), "dialog");
+                }
             }
         });
     }
@@ -164,6 +158,16 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     @Override
     public void hideProgress() {
         llLoading.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setButtonBookmark(boolean status) {
+        if(status){
+            ibAddBookMark.setImageResource(R.drawable.ic_bookmark_added);
+        }
+        else{
+            ibAddBookMark.setImageResource(R.drawable.ic_bookmark);
+        }
     }
 
     @Override

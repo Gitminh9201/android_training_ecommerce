@@ -33,16 +33,86 @@
                         android:textSize="16sp"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"
-                        android:text="@string/address"
+                        android:text="@string/person_information"
                         android:textAllCaps="true"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"/>
+                    <RelativeLayout
+                        android:id="@+id/profile_image"
+                        android:layout_width="92dp"
+                        android:layout_gravity="center"
+                        android:layout_height="92dp">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="92dp"
+                            android:layout_height="92dp"
+                            android:id="@+id/ci_circleAvatar"
+                            android:src="@drawable/image_profile"
+                            android:layout_marginBottom="10dp"/>
+                        <ImageView
+                            android:layout_margin="4dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_width="22dp"
+                            android:src="@drawable/ic_camera"
+                            android:layout_height="22dp"/>
+                    </RelativeLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="wrap_content"
-                            android:text="@string/your_number_phone"
+                            android:text="@string/info_name"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="*"
+                            android:textColor="@color/colorRed"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <EditText
+                        android:inputType="text"
+                        android:paddingVertical="12dp"
+                        android:paddingHorizontal="16dp"
+                        android:background="@drawable/bg_border_primary"
+                        android:id="@+id/edit_info_name"
+                        android:focusable="auto"
+                        android:nextFocusDown="@id/edit_info_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:layout_marginBottom="16dp"
+                        android:hint="@string/info_name" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="@string/info_email"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="*"
+                            android:textColor="@color/colorRed"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <EditText
+                        android:inputType="textEmailAddress"
+                        android:paddingVertical="12dp"
+                        android:paddingHorizontal="16dp"
+                        android:background="@drawable/bg_border_primary"
+                        android:id="@+id/edit_info_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nextFocusDown="@id/edit_info_phone"
+                        android:layout_marginBottom="16dp"
+                        android:maxLines="1"
+                        android:hint="@string/info_email" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="@string/info_phone"
                             android:layout_height="wrap_content"/>
                         <TextView
                             android:layout_width="wrap_content"
@@ -55,20 +125,19 @@
                         android:paddingVertical="12dp"
                         android:paddingHorizontal="16dp"
                         android:background="@drawable/bg_border_primary"
-                        android:id="@+id/edit_phone_address"
-                        android:focusable="auto"
-                        android:nextFocusDown="@id/edit_province_address"
+                        android:id="@+id/edit_info_phone"
+                        android:nextFocusDown="@id/edit_info_birthday"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:layout_marginBottom="16dp"
-                        android:hint="Số điện thoại của bạn" />
+                        android:hint="@string/info_phone" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="wrap_content"
-                            android:text="@string/province"
+                            android:text="@string/info_birthday"
                             android:layout_height="wrap_content"/>
                         <TextView
                             android:layout_width="wrap_content"
@@ -77,88 +146,16 @@
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
                     <EditText
+                        android:inputType="date"
                         android:paddingVertical="12dp"
                         android:paddingHorizontal="16dp"
                         android:background="@drawable/bg_border_primary"
-                        android:id="@+id/edit_province_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:nextFocusDown="@id/edit_district"
-                        android:layout_marginBottom="16dp"
-                        android:maxLines="1"
-                        android:hint="Tỉnh thành/Thành phố" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:text="@string/district"
-                            android:layout_height="wrap_content"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:text="*"
-                            android:textColor="@color/colorRed"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                    <EditText
-                        android:paddingVertical="12dp"
-                        android:paddingHorizontal="16dp"
-                        android:background="@drawable/bg_border_primary"
-                        android:id="@+id/edit_district"
-                        android:nextFocusDown="@id/edit_ward"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:layout_marginBottom="16dp"
-                        android:hint="Quận/Huyện" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:text="@string/ward"
-                            android:layout_height="wrap_content"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:text="*"
-                            android:textColor="@color/colorRed"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                    <EditText
-                        android:paddingVertical="12dp"
-                        android:paddingHorizontal="16dp"
-                        android:background="@drawable/bg_border_primary"
-                        android:id="@+id/edit_ward"
-                        android:nextFocusDown="@id/edit_detail_address"
+                        android:id="@+id/edit_info_birthday"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:maxLines="1"
-                        android:hint="Phường/Thị Xã" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:text="@string/address_detail"
-                            android:layout_height="wrap_content"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:text="*"
-                            android:textColor="@color/colorRed"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                    <EditText
-                        android:paddingVertical="12dp"
-                        android:paddingHorizontal="16dp"
-                        android:background="@drawable/bg_border_primary"
-                        android:id="@+id/edit_detail_address"
-                        android:layout_width="match_parent"
-                        android:nextFocusDown="@id/btn_save_address"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:maxLines="1"
-                        android:hint="Tên đường, số nhà..." />
+                        android:hint="@string/info_birthday" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="35dp"/>
@@ -181,7 +178,7 @@
         android:orientation="horizontal"
         android:visibility="gone"
         android:background="@color/colorWhite"
-        android:id="@+id/ll_load_address"
+        android:id="@+id/ll_load_info"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

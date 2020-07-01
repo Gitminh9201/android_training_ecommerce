@@ -55,4 +55,13 @@ public interface APIInterface {
 
     @POST(Client.MIDDLE_URL + "api/auth/me")
     Call<ResponseObject<User>> getUser(@HeaderMap Map<String, String> headers);
+
+    @POST(Client.MIDDLE_URL + "api/collection/get")
+    Call<ResponseList<Product>> collection(@HeaderMap Map<String, String> headers);
+
+    @POST(Client.MIDDLE_URL + "api/collection/make")
+    Call<ResponseObject> makeCollection(@HeaderMap Map<String, String> headers, @Query("product_id") int productID);
+
+    @POST(Client.MIDDLE_URL + "api/collection/check")
+    Call<ResponseObject> checkCollection(@HeaderMap Map<String, String> headers, @Query("product_id") int productID);
 }

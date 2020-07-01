@@ -13,6 +13,9 @@ public class UserBus {
     public static Disposable subscribe(@NonNull Consumer<User> action) {
         return behaviorSubject.subscribe(action);
     }
+    public static User current(){
+        return behaviorSubject.getValue();
+    }
     public static void publish(User user){
         behaviorSubject.onNext(user);
     }

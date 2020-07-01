@@ -1,16 +1,20 @@
 package com.knight.f_interesting.mvp.address;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.jakewharton.rxbinding4.widget.RxTextView;
 import com.knight.f_interesting.R;
+import com.knight.f_interesting.models.Address;
+import com.knight.f_interesting.utils.AppShared;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
@@ -18,18 +22,21 @@ import io.reactivex.rxjava3.functions.BiFunction;
 import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.observers.DisposableObserver;
 
-public class AddressActivity extends AppCompatActivity {
+public class AddressActivity extends AppCompatActivity implements AddressContract.View{
 
-    public static final String EXTRA_DATA_TITLE = "DATA-ADDRESS:TITLE";
-    public static final String EXTRA_DATA_ID = "DATA-ADDRESS:ID";
+    public static final String EXTRA_DATA = "DATA-ADDRESS";
 
     private Button btnSave;
     private EditText editProvince;
     private EditText editDistrict;
     private EditText editWard;
     private EditText editPhone;
+    private EditText editDetail;
+
+    private LinearLayout llLoading;
 
     private Observable<Boolean> observable;
+    private AddressContract.Presenter presenter;
 
     private void init(){
         btnSave = findViewById(R.id.btn_save_address);
@@ -37,7 +44,11 @@ public class AddressActivity extends AppCompatActivity {
         editDistrict = findViewById(R.id.edit_district);
         editWard = findViewById(R.id.edit_ward);
         editPhone = findViewById(R.id.edit_phone_address);
+        llLoading = findViewById(R.id.ll_load_address);
+        editDetail = findViewById(R.id.edit_detail_address);
 
+        presenter = new AddressPresenter(this, getApplicationContext());
+        presenter.requestData();
         Observable<String> phoneObservable
                 = RxTextView.textChanges(editPhone).skip(1).map(new Function<CharSequence, String>() {
             @Override
@@ -91,32 +102,35 @@ public class AddressActivity extends AppCompatActivity {
 
     }
 
-    public boolean isValidForm(String name, String password) {
-        boolean validName = !name.isEmpty();
-
-        if (!validName) {
-            editPhone.setError("Please enter valid Numberphone");
+    public boolean isValidForm(String province, String phone) {
+        boolean validProvince = province.isEmpty();
+        if (validProvince) {
+            editProvince.setError("Please enter valid province!");
         }
 
-        boolean validPass = !password.isEmpty();
-        if (!validPass) {
-            editProvince.setError("Please enter valid Province");
+        boolean validPhone = phone.length() != 10;
+        if (validPhone) {
+            editPhone.setError("Phone number format incorrect!");
         }
-        return validName && validPass;
+        return !validProvince && !validPhone;
     }
 
     private void listener(){
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String province = editProvince.getText().toString();
-                String district = editDistrict.getText().toString();
-                String ward = editWard.getText().toString();
-                final Intent data = new Intent();
-                data.putExtra(EXTRA_DATA_TITLE, district + " - " + province);
-                data.putExtra(EXTRA_DATA_ID, 1);
-                setResult(Activity.RESULT_OK, data);
-                finish();
+                if(btnSave.isEnabled()){
+                    String province = editProvince.getText().toString();
+                    String phone = editPhone.getText().toString();
+                    String district = editDistrict.getText().toString();
+                    String ward = editWard.getText().toString();
+                    String detail = editDetail.getText().toString();
+                    AppShared.setAddress(getApplicationContext(), phone, province, district, ward, detail);
+                    final Intent data = new Intent();
+                    data.putExtra(EXTRA_DATA, new Address(phone, province, district, ward, detail));
+                    setResult(Activity.RESULT_OK, data);
+                    finish();
+                }
             }
         });
     }
@@ -127,5 +141,37 @@ public class AddressActivity extends AppCompatActivity {
         setContentView(R.layout.activity_address);
         init();
         listener();
+    }
+
+    @Override
+    public void showProgress() {
+        llLoading.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+llLoading.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setData(Address address) {
+        if(address != null){
+            editPhone.setText(address.getPhone());
+            editProvince.setText(address.getProvince());
+            editDistrict.setText(address.getDistrict());
+            editWard.setText(address.getWard());
+            editDetail.setText(address.getAddress());
+            btnSave.setEnabled(true);
+            btnSave.setBackground(getResources().getDrawable(R.drawable.bg_button_continue));
+        }
+        else {
+            btnSave.setEnabled(false);
+            btnSave.setBackground(getResources().getDrawable(R.drawable.bg_button_dispose));
+        }
+    }
+
+    @Override
+    public void onResponseFailure(Throwable throwable) {
+        Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
     }
 }

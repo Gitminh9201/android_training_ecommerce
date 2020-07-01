@@ -1,15 +1,19 @@
 package com.knight.f_interesting.mvp.detail;
 
+import android.content.Context;
+
 import com.knight.f_interesting.models.Product;
 
 public class DetailPresenter implements DetailContract.Presenter, DetailContract.Model.OnFinishedListener {
 
     private DetailContract.View view;
     private DetailContract.Model model;
+    private Context context;
 
-    public DetailPresenter(DetailContract.View view){
+    public DetailPresenter(DetailContract.View view, Context context){
         this.view = view;
-        model = new DetailModel();
+        this.context = context;
+        model = new DetailModel(context);
     }
 
     @Override
@@ -27,8 +31,24 @@ public class DetailPresenter implements DetailContract.Presenter, DetailContract
     }
 
     @Override
+    public void onStatusBookmark(boolean status) {
+        if(view != null){
+            view.hideProgress();
+            view.setButtonBookmark(status);
+        }
+    }
+
+    @Override
     public void onDestroy() {
         view = null;
+    }
+
+    @Override
+    public void changeBookmark(int id) {
+        if(view != null){
+            view.showProgress();
+        }
+        model.makeBookmark(this, id);
     }
 
     @Override
@@ -36,5 +56,6 @@ public class DetailPresenter implements DetailContract.Presenter, DetailContract
         if(view != null)
             view.showProgress();
         model.getData(this, id);
+        model.checkBookmark(this, id);
     }
 }
