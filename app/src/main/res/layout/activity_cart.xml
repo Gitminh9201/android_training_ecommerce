@@ -101,6 +101,7 @@
         <Button
             android:id="@+id/btn_continue_cart"
             android:textStyle="bold"
+            android:enabled="false"
             android:layout_marginBottom="8dp"
             android:textColor="@color/colorWhite"
             android:background="@drawable/bg_button_dispose"

@@ -3,6 +3,7 @@ package com.knight.f_interesting.mvp.cart;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -18,6 +19,7 @@ import com.knight.f_interesting.adapters.ProductCartAdapter;
 import com.knight.f_interesting.models.Address;
 import com.knight.f_interesting.models.Cart;
 import com.knight.f_interesting.models.MethodPayment;
+import com.knight.f_interesting.models.Order;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.mvp.address.AddressActivity;
 import com.knight.f_interesting.mvp.payment_method.PaymentMethodActivity;
@@ -57,7 +59,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
         products = new ArrayList<>();
         carts = new ArrayList<>();
 
-        presenter = new CartPresenter(this);
+        presenter = new CartPresenter(this, getApplicationContext());
         productAdapter = new ProductCartAdapter(getApplicationContext(), products, carts, presenter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -66,11 +68,13 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
         presenter.requestData();
     }
 
-    private void listener(){
+    private void listener() {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String inputAddress = address.getProvince() + " - " + address.getDistrict()
+                        + " - " + address.getWard() + " - " + address.getAddress();
+                presenter.createOrder(new Order(address.getPhone(), 1, payment.getId(), inputAddress, "Nothings"));
             }
         });
         btnAddress.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +96,8 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_CODE_ADDRESS) {
-            if(resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_CODE_ADDRESS) {
+            if (resultCode == Activity.RESULT_OK) {
                 address = (Address) data.getSerializableExtra(AddressActivity.EXTRA_DATA);
                 btnAddress.setText(address.getPhone() + " - " + address.getProvince());
                 btnAddress.setTextColor(getResources().getColor(R.color.colorWhite));
@@ -101,8 +105,8 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
                 updateButton();
             }
         }
-        if(requestCode == REQUEST_CODE_PAYMENT){
-            if(resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_CODE_PAYMENT) {
+            if (resultCode == Activity.RESULT_OK) {
                 payment = (MethodPayment) data.getSerializableExtra(PaymentMethodActivity.EXTRA_DATA);
                 btnPayment.setText(payment.getTitle());
                 btnPayment.setTextColor(getResources().getColor(R.color.colorWhite));
@@ -112,12 +116,11 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
         }
     }
 
-    private void updateButton(){
-        if(payment != null && address != null){
+    private void updateButton() {
+        if (payment != null && address != null) {
             btnContinue.setEnabled(true);
             btnContinue.setBackground(getResources().getDrawable(R.drawable.bg_button_continue));
-        }
-        else {
+        } else {
             btnContinue.setEnabled(false);
             btnContinue.setBackground(getResources().getDrawable(R.drawable.bg_button_dispose));
         }
@@ -143,22 +146,19 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
 
     @Override
     public void refresh(List<Product> products, List<Cart> carts) {
-        if(products.isEmpty()){
+        if (products.isEmpty()) {
             txtEmpty.setVisibility(View.VISIBLE);
         }
         int total = 0;
-        for(int i = 0; i < products.size(); i++){
+        for (int i = 0; i < products.size(); i++) {
             total += products.get(i).getPrice() * carts.get(i).getQuantity();
         }
-        if(total == 0){
+        if (total == 0) {
             btnContinue.setText(getResources().getText(R.string.next));
             btnContinue.setEnabled(false);
             btnContinue.setBackground(getResources().getDrawable(R.drawable.bg_button_dispose));
-        }
-        else {
-            btnContinue.setText(getResources().getText(R.string.next) + "("  + AppUtils.currencyVN(total) +")");
-            btnContinue.setEnabled(true);
-            btnContinue.setBackground(getResources().getDrawable(R.drawable.bg_button_continue));
+        } else {
+            btnContinue.setText(getResources().getText(R.string.next) + "(" + AppUtils.currencyVN(total) + ")");
         }
     }
 
@@ -168,10 +168,18 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
         this.products = products;
         this.carts = carts;
 
-        if(products.isEmpty()){
+        if (products.isEmpty()) {
             txtEmpty.setVisibility(View.VISIBLE);
+        } else productAdapter.changeData(this.products, this.carts);
+    }
+
+    @Override
+    public void onOrderSuccess(Order order) {
+        if(order != null && order.getId() > 0){
+            Log.e("ORDER", order.getAddress());
         }
-        else productAdapter.changeData(this.products, this.carts);
+        else
+            Log.e("ORDER ERR", ":((");
     }
 
     @Override

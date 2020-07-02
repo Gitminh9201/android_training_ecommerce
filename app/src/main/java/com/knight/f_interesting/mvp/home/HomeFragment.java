@@ -2,12 +2,6 @@ package com.knight.f_interesting.mvp.home;
 
 import android.app.Activity;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.knight.f_interesting.R;
@@ -130,6 +129,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
     @Override
     public void onResponseFailure(Throwable throwable) {
+        Log.e("Err", throwable.getMessage());
         Snackbar.make(this.view.findViewById(R.id.fragment_home), getString(R.string.error_data),
                 Snackbar.LENGTH_LONG).show();
     }

@@ -27,6 +27,7 @@
     <string name="register">Đăng ký ngay!</string>
     <string name="login">Login</string>
     <string name="login_vi">Đăng nhập</string>
+    <string name="login_success">Đăng nhập thành công!</string>
     <string name="logout">Logout</string>
     <string name="logout_vi">Đăng xuất</string>
     <string name="next">Continue</string>

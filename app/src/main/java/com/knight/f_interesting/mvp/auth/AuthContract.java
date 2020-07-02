@@ -16,6 +16,7 @@ public interface AuthContract {
     interface View{
         void showProgress();
         void hideProgress();
+        void pop();
         void onResponseFailure(Throwable throwable);
     }
     interface Presenter{

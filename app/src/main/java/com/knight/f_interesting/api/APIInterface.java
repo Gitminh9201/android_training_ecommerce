@@ -4,6 +4,7 @@ import com.knight.f_interesting.models.Banner;
 import com.knight.f_interesting.models.Brand;
 import com.knight.f_interesting.models.Category;
 import com.knight.f_interesting.models.Group;
+import com.knight.f_interesting.models.Order;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.models.ResponseList;
 import com.knight.f_interesting.models.ResponseObject;
@@ -64,4 +65,18 @@ public interface APIInterface {
 
     @POST(Client.MIDDLE_URL + "api/collection/check")
     Call<ResponseObject> checkCollection(@HeaderMap Map<String, String> headers, @Query("product_id") int productID);
+
+    @FormUrlEncoded
+    @POST(Client.MIDDLE_URL + "api/order/create")
+    Call<ResponseObject<Order>> createOrder(
+            @HeaderMap Map<String, String> headers,
+            @Field("products") String products,
+            @Field("quantities") String quantities,
+            @Field("address") String address,
+            @Field("note") String note,
+            @Field("phone") String phone
+    );
+
+    @POST(Client.MIDDLE_URL + "api/order/get")
+    Call<ResponseObject<Order>> getOrder(@HeaderMap Map<String, String> headers, @Query("order_id") int orderID);
 }

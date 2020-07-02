@@ -27,6 +27,7 @@ public class AuthPresenter implements AuthContract.Presenter, AuthContract.Model
             UserBus.publish(user);
             AppShared.setAccessToken(context, user.getToken());
             Log.e("USER", user.toString());
+            view.pop();
         }
     }
 

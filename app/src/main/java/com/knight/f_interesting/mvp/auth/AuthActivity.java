@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -124,6 +125,14 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void hideProgress() {
         llLoading.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void pop() {
+        Toast.makeText(getApplicationContext(), getResources()
+                .getString(R.string.login_success), Toast.LENGTH_LONG)
+                .show();
+        finish();
     }
 
     @Override

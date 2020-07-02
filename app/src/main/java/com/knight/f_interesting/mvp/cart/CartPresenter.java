@@ -1,6 +1,9 @@
 package com.knight.f_interesting.mvp.cart;
 
+import android.content.Context;
+
 import com.knight.f_interesting.models.Cart;
+import com.knight.f_interesting.models.Order;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.utils.AppUtils;
 
@@ -10,18 +13,28 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
 
     private CartContract.View view;
     private CartContract.Model model;
+    private Context context;
 
-    public CartPresenter(CartContract.View view){
+    public CartPresenter(CartContract.View view, Context context){
+        this.context = context;
         this.view = view;
-        model = new CartModel();
+        model = new CartModel(context);
     }
 
     @Override
-    public void onFinished(List<Product> products, List<Cart> carts) {
+    public void onFinishedGetData(List<Product> products, List<Cart> carts) {
         if(view != null)
             view.hideProgress();
         view.setDataToView(products, carts);
         view.refresh(products, carts);
+    }
+
+    @Override
+    public void onFinishedCreateOrder(Order order) {
+        if(view != null){
+            view.hideProgress();
+            view.onOrderSuccess(order);
+        }
     }
 
     @Override
@@ -39,6 +52,13 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
     @Override
     public void onDestroy() {
         view = null;
+    }
+
+    @Override
+    public void createOrder(Order order) {
+        if(view != null)
+            view.showProgress();
+        model.createOrder(this, order);
     }
 
     @Override

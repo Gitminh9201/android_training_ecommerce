@@ -1,6 +1,7 @@
 package com.knight.f_interesting.mvp.person;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,6 +128,7 @@ public class PersonFragment extends Fragment implements PersonContract.View {
 
     @Override
     public void onResponseFailure(Throwable throwable) {
+        Log.e("Err", throwable.getMessage());
         Snackbar.make(this.view.findViewById(R.id.fragment_person), getString(R.string.error_data),
                 Snackbar.LENGTH_LONG).show();
     }
