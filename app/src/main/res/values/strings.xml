@@ -54,4 +54,7 @@
 
     <string name="choose_image">Chọn ảnh từ thư viện</string>
     <string name="make_image">Chụp ảnh với camera</string>
+
+    <string name="string_continue">Tiếp tục</string>
+    <string name="string_cancel">Hủy</string>
 </resources>

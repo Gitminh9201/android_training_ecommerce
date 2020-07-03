@@ -72,9 +72,15 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String inputAddress = address.getProvince() + " - " + address.getDistrict()
-                        + " - " + address.getWard() + " - " + address.getAddress();
-                presenter.createOrder(new Order(address.getPhone(), 1, payment.getId(), inputAddress, "Nothings"));
+                AppUtils.showDialogConfirm("Bạn muốn đặt những sản phẩm này!", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AppUtils.hideDialog(getSupportFragmentManager(), "dialog_confirm");
+                        String inputAddress = address.getProvince() + " - " + address.getDistrict()
+                                + " - " + address.getWard() + " - " + address.getAddress();
+                        presenter.createOrder(new Order(address.getPhone(), 1, payment.getId(), inputAddress, "Nothings"));
+                    }
+                }, getSupportFragmentManager());
             }
         });
         btnAddress.setOnClickListener(new View.OnClickListener() {
