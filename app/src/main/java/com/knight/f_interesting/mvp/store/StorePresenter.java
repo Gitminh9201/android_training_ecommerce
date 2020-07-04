@@ -38,8 +38,9 @@ public class StorePresenter implements StoreContract.Presenter, StoreContract.Mo
 
     @Override
     public void requestData() {
-        if (view != null)
+        if (view != null){
             view.showProgress();
-        model.getData(this);
+            model.getData(this);
+        }
     }
 }

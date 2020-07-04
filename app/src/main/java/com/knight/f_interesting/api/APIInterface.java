@@ -77,6 +77,13 @@ public interface APIInterface {
             @Field("phone") String phone
     );
 
+    @POST(Client.MIDDLE_URL + "api/order")
+    Call<ResponseList<Order>> getOrders(@HeaderMap Map<String, String> headers);
+    @POST(Client.MIDDLE_URL + "api/order")
+    Call<ResponseList<Order>> getOrders(@HeaderMap Map<String, String> headers, @Query("offset") int offset);
+    @POST(Client.MIDDLE_URL + "api/order")
+    Call<ResponseList<Order>> getOrders(@HeaderMap Map<String, String> headers, @Query("offset") int offset, @Query("limit") int limit);
+
     @POST(Client.MIDDLE_URL + "api/order/get")
-    Call<ResponseObject<Order>> getOrder(@HeaderMap Map<String, String> headers, @Query("order_id") int orderID);
+    Call<ResponseObject<Order>> getOrderDetail(@HeaderMap Map<String, String> headers, @Query("order_id") int orderID);
 }

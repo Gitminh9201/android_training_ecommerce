@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">F-Interesting</string>
     <string name="facebook_app_id">2738845606395528</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Tag dialog -->
+    <string name="dialog_request_login">dialog_request_login</string>
+    <string name="dialog_confirm">dialog_confirm</string>
+    <!-- Strings -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_data">Something went wrong!</string>
+    <string name="empty_data">Something went wrong!</string>
     <string name="product_had_choose">Sản phẩm bạn đã chọn:</string>
     <string name="cart_empty">Hiện tại giỏ của bạn đang trống</string>
     <string name="add_cart_success">Thêm sản phẩm thành công!</string>
@@ -27,6 +31,7 @@
     <string name="register">Đăng ký ngay!</string>
     <string name="login">Login</string>
     <string name="login_vi">Đăng nhập</string>
+    <string name="finish">Xong</string>
     <string name="login_success">Đăng nhập thành công!</string>
     <string name="logout">Logout</string>
     <string name="logout_vi">Đăng xuất</string>
@@ -57,4 +62,8 @@
 
     <string name="string_continue">Tiếp tục</string>
     <string name="string_cancel">Hủy</string>
+
+    <string name="confirm_order">Chúng ta hoàn thành?</string>
+    <string name="completed_order_line_1">Chúng ta đã đến bước cuối cùng!</string>
+    <string name="completed_order_line_2">Thông tin đơn hàng đã được gửi đến email của bạn.</string>
 </resources>

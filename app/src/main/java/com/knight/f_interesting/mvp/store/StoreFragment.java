@@ -1,7 +1,13 @@
 package com.knight.f_interesting.mvp.store;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -10,14 +16,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.snackbar.Snackbar;
@@ -99,7 +97,7 @@ public class StoreFragment extends Fragment implements StoreContract.View {
         ibCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Router.goToCart((Activity) view.getContext());
+                Router.navigator(Router.CART, getActivity(), null);
             }
         });
         rvCategories.addOnItemTouchListener(new RecyclerItemClickListener(view.getContext(),
@@ -223,5 +221,11 @@ public class StoreFragment extends Fragment implements StoreContract.View {
     public void onResponseFailure(Throwable throwable) {
         Snackbar.make(this.view.findViewById(R.id.fragment_store), getString(R.string.error_data),
                 Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

@@ -83,4 +83,10 @@ public class CollectionFragment extends Fragment implements CollectionContract.V
         Snackbar.make(this.view.findViewById(R.id.fragment_collection), getString(R.string.error_data),
                 Snackbar.LENGTH_LONG).show();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+    }
 }

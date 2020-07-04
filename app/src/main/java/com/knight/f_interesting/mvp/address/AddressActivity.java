@@ -174,4 +174,10 @@ llLoading.setVisibility(View.GONE);
     public void onResponseFailure(Throwable throwable) {
         Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+    }
 }

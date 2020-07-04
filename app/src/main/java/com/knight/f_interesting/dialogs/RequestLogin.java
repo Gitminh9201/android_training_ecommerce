@@ -46,7 +46,7 @@ public class RequestLogin  extends DialogFragment {
             @Override
             public void onClick(View v) {
                 fragment.dismiss();
-                Router.goToAuth(activity);
+                Router.navigator(Router.LOGIN, getActivity(), null);
             }
         });
     }

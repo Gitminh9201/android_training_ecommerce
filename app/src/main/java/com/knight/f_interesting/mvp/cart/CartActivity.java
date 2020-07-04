@@ -3,7 +3,6 @@ package com.knight.f_interesting.mvp.cart;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -24,6 +23,7 @@ import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.mvp.address.AddressActivity;
 import com.knight.f_interesting.mvp.payment_method.PaymentMethodActivity;
 import com.knight.f_interesting.utils.AppUtils;
+import com.knight.f_interesting.utils.Router;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,10 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
     private Address address;
     private MethodPayment payment;
 
-    private void init() {
+    private Activity activity;
+
+    private void init(Activity activity) {
+        this.activity = activity;
         rvCart = findViewById(R.id.rv_cart);
         txtEmpty = findViewById(R.id.txt_empty_cart);
         llLoading = findViewById(R.id.ll_load_cart);
@@ -68,19 +71,25 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
         presenter.requestData();
     }
 
-    private void listener() {
+    private void listener(final Activity activity) {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppUtils.showDialogConfirm("Bạn muốn đặt những sản phẩm này!", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AppUtils.hideDialog(getSupportFragmentManager(), "dialog_confirm");
-                        String inputAddress = address.getProvince() + " - " + address.getDistrict()
-                                + " - " + address.getWard() + " - " + address.getAddress();
-                        presenter.createOrder(new Order(address.getPhone(), 1, payment.getId(), inputAddress, "Nothings"));
-                    }
-                }, getSupportFragmentManager());
+                if (AppUtils.logged()) {
+                    AppUtils.showDialogConfirm(getResources().getString(R.string.confirm_order), activity, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AppUtils.hideDialog(getSupportFragmentManager(), getResources().getString(R.string.dialog_confirm));
+                            String inputAddress = address.getProvince() + " - " + address.getDistrict()
+                                    + " - " + address.getWard() + " - " + address.getAddress();
+                            presenter.createOrder(new Order(address.getPhone(), 1, payment.getId(), inputAddress, "Nothings"));
+                        }
+                    }, getSupportFragmentManager());
+                } else {
+                    AppUtils.showDialogAuth(getResources()
+                                    .getString(R.string.request_login_input_collection),
+                            activity, getSupportFragmentManager());
+                }
             }
         });
         btnAddress.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +117,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
                 btnAddress.setText(address.getPhone() + " - " + address.getProvince());
                 btnAddress.setTextColor(getResources().getColor(R.color.colorWhite));
                 btnAddress.setBackground(getResources().getDrawable(R.drawable.bg_button_continue));
-                updateButton();
+                presenter.refresh(products, carts);
             }
         }
         if (requestCode == REQUEST_CODE_PAYMENT) {
@@ -117,7 +126,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
                 btnPayment.setText(payment.getTitle());
                 btnPayment.setTextColor(getResources().getColor(R.color.colorWhite));
                 btnPayment.setBackground(getResources().getDrawable(R.drawable.bg_button_continue));
-                updateButton();
+                presenter.refresh(products, carts);
             }
         }
     }
@@ -136,8 +145,8 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        init();
-        listener();
+        init(this);
+        listener(this);
     }
 
     @Override
@@ -152,6 +161,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
 
     @Override
     public void refresh(List<Product> products, List<Cart> carts) {
+        updateButton();
         if (products.isEmpty()) {
             txtEmpty.setVisibility(View.VISIBLE);
         }
@@ -181,15 +191,21 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
 
     @Override
     public void onOrderSuccess(Order order) {
-        if(order != null && order.getId() > 0){
-            Log.e("ORDER", order.getAddress());
-        }
-        else
-            Log.e("ORDER ERR", ":((");
+        if (order != null && order.getId() > 0) {
+            AppUtils.db.removeCart();
+            Router.navigator(Router.COMPLETED, activity, null);
+        } else
+            AppUtils.snackbarError(findViewById(android.R.id.content).getRootView(), R.id.layout_cart);
     }
 
     @Override
     public void onResponseFailure(Throwable throwable) {
-        AppUtils.snackbar(findViewById(android.R.id.content).getRootView(), R.id.layout_cart);
+        AppUtils.snackbarError(findViewById(android.R.id.content).getRootView(), R.id.layout_cart);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

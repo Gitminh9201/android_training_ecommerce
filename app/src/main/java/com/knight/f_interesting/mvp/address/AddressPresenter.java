@@ -42,8 +42,8 @@ public class AddressPresenter implements AddressContract.Presenter, AddressContr
     public void requestData() {
         if(view != null){
             view.showProgress();
+            Log.d("Data shared", "request");
+            model.getData(this, context);
         }
-        Log.d("Data shared", "request");
-        model.getData(this, context);
     }
 }

@@ -1,6 +1,5 @@
 package com.knight.f_interesting.mvp.home;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -88,7 +87,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         ibCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Router.goToCart((Activity) view.getContext());
+                Router.navigator(Router.CART, getActivity(), null);
             }
         });
     }
@@ -132,5 +131,11 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         Log.e("Err", throwable.getMessage());
         Snackbar.make(this.view.findViewById(R.id.fragment_home), getString(R.string.error_data),
                 Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

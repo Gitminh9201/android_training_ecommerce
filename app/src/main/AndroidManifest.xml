@@ -2,17 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.knight.f_interesting">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
+        android:exported="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:exported="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".mvp.person_history_order.OrderHistoryActivity"></activity>
+        <activity android:name=".mvp.completed.CompletedActivity" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -23,7 +26,7 @@
         <activity android:name=".mvp.cart.CartActivity" />
         <activity android:name=".mvp.detail.DetailActivity" />
         <activity android:name=".mvp.MainActivity" />
-        <activity android:name=".mvp.person_information.InformationActivity"></activity>
+        <activity android:name=".mvp.person_information.InformationActivity" />
         <activity
             android:name=".mvp.SplashActivity"
             android:theme="@style/SplashTheme">

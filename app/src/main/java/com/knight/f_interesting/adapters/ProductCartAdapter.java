@@ -1,7 +1,6 @@
 package com.knight.f_interesting.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,7 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_cart, parent, false);
-        return new ProductCartAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.knight.f_interesting.mvp.detail;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -10,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -21,10 +21,8 @@ import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.GalleryDetailAdapter;
 import com.knight.f_interesting.adapters.ProductItemAdapter;
 import com.knight.f_interesting.api.Client;
-import com.knight.f_interesting.buses.UserBus;
 import com.knight.f_interesting.models.Gallery;
 import com.knight.f_interesting.models.Product;
-import com.knight.f_interesting.dialogs.RequestLogin;
 import com.knight.f_interesting.utils.AppUtils;
 import com.knight.f_interesting.utils.Router;
 
@@ -61,7 +59,9 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     private GalleryDetailAdapter galleryAdapter;
     private DetailPresenter presenter;
 
-    private void init() {
+    private Intent intent;
+
+    private void init(Activity activity) {
         llLoading = findViewById(R.id.ll_load_detail);
         vpGallery = findViewById(R.id.vp_gallery_detail);
         txtPrice = findViewById(R.id.txt_price_detail);
@@ -84,7 +84,9 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         gallery = new ArrayList<>();
         related = new ArrayList<>();
         product = new Product();
-        id = Router.inDetail(this);
+
+        intent = activity.getIntent();
+        id = intent.getIntExtra("id", 1);
 
         relatedAdapter = new ProductItemAdapter(related, getApplicationContext(), true);
         LinearLayoutManager llmanager = new LinearLayoutManager(getApplicationContext());
@@ -107,7 +109,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         ibCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Router.goToCart(DetailActivity.this);
+                Router.navigator(Router.CART, activity, null);
             }
         });
         ibAddCart.setOnClickListener(new View.OnClickListener() {
@@ -123,19 +125,18 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
             @Override
             public void onClick(View v) {
                 AppUtils.db.addCart(product.getId(), 1);
-                Router.goToCart(DetailActivity.this);
+                Router.navigator(Router.CART, activity, null);
             }
         });
         ibAddBookMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(UserBus.current() != null && UserBus.current().getName() != null){
+                if (AppUtils.logged()) {
                     presenter.changeBookmark(id);
-                }
-                else{
-                    DialogFragment dialogFragment = new RequestLogin(getResources()
-                            .getString(R.string.request_login_input_collection), activity);
-                    dialogFragment.show(getSupportFragmentManager().beginTransaction(), "dialog");
+                } else {
+                    AppUtils.showDialogAuth(getResources()
+                            .getString(R.string.request_login_input_collection),
+                            activity, getSupportFragmentManager());
                 }
             }
         });
@@ -146,7 +147,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        init();
+        init(this);
         listener(this);
     }
 
@@ -162,10 +163,9 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
 
     @Override
     public void setButtonBookmark(boolean status) {
-        if(status){
+        if (status) {
             ibAddBookMark.setImageResource(R.drawable.ic_bookmark_added);
-        }
-        else{
+        } else {
             ibAddBookMark.setImageResource(R.drawable.ic_bookmark);
         }
     }
@@ -192,5 +192,11 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     public void onResponseFailure(Throwable throwable) {
         Snackbar.make(findViewById(R.id.layout_detail), getString(R.string.error_data),
                 Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

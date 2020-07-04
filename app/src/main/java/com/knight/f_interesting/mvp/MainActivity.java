@@ -1,20 +1,23 @@
 package com.knight.f_interesting.mvp;
 
+import android.app.Activity;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
-import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.material.tabs.TabLayout;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.TabPagerMainAdapter;
+import com.knight.f_interesting.base.BaseView;
 import com.knight.f_interesting.mvp.collection.CollectionFragment;
 import com.knight.f_interesting.mvp.home.HomeFragment;
 import com.knight.f_interesting.mvp.person.PersonFragment;
 import com.knight.f_interesting.mvp.store.StoreFragment;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Objects;
+
+public class MainActivity extends AppCompatActivity implements BaseView.BaseActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
@@ -32,28 +35,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         init();
-        listens();
+        listener(this);
     }
 
-    private void listens() {
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                Log.e("ReSel", String.valueOf(tab.getPosition()));
-            }
-        });
-    }
-
-    private void init() {
+    @Override
+    public void init() {
         tabLayout = findViewById(R.id.tab_main);
         viewPager = findViewById(R.id.vp_main);
         adapter = new TabPagerMainAdapter(getSupportFragmentManager());
@@ -65,8 +51,13 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
         for (int i = 0; i < tabIcons.length; i++){
-            tabLayout.getTabAt(i).setIcon(tabIcons[i]);
+            Objects.requireNonNull(tabLayout.getTabAt(i)).setIcon(tabIcons[i]);
         }
+    }
+
+    @Override
+    public void listener(Activity activity) {
     }
 }

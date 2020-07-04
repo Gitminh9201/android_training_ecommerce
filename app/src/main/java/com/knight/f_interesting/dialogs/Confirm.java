@@ -16,8 +16,6 @@ import androidx.fragment.app.DialogFragment;
 
 import com.knight.f_interesting.R;
 
-import java.util.function.Function;
-
 public class Confirm extends DialogFragment {
 
     private TextView txtTitle;
@@ -26,7 +24,6 @@ public class Confirm extends DialogFragment {
 
     private String title;
     private View.OnClickListener action;
-    private Function function;
 
     public Confirm(String title, View.OnClickListener onClickListener){
         this.title = title;

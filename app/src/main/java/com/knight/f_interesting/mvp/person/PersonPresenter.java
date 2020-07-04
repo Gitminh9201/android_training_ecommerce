@@ -36,8 +36,8 @@ public class PersonPresenter implements PersonContract.Presenter, PersonContract
     public void requestData() {
         if(view != null){
             view.showProgress();
+            model.getUser(this, context);
         }
-        model.getUser(this, context);
     }
 
     @Override

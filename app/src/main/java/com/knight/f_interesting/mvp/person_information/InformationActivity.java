@@ -1,5 +1,6 @@
 package com.knight.f_interesting.mvp.person_information;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,11 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.base.BaseView;
 import com.knight.f_interesting.models.User;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class InformationActivity extends AppCompatActivity implements InformationContract.View {
+public class InformationActivity extends AppCompatActivity implements InformationContract.View, BaseView.BaseActivity {
 
     private LinearLayout llLoading;
     private RelativeLayout rlChangeAvatar;
@@ -31,7 +33,7 @@ public class InformationActivity extends AppCompatActivity implements Informatio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
         init();
-        listener();
+        listener(this);
     }
 
     @Override
@@ -72,12 +74,18 @@ public class InformationActivity extends AppCompatActivity implements Informatio
     }
 
     @Override
-    public void listener() {
+    public void listener(Activity activity) {
 
     }
 
     @Override
     public void onResponseFailure(Throwable throwable) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

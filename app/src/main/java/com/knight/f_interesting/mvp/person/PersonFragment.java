@@ -57,13 +57,13 @@ public class PersonFragment extends Fragment implements PersonContract.View {
         llAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Router.goToPersonAddress(getActivity());
+                Router.navigator(Router.ADDRESS, getActivity(), null);
             }
         });
         llInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Router.goToPersonInformation(getActivity());
+                Router.navigator(Router.INFORMATION, getActivity(), null);
             }
         });
         rlAvatarProfile.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +71,12 @@ public class PersonFragment extends Fragment implements PersonContract.View {
             public void onClick(View v) {
                 DialogFragment dialogFragment = new ChooseImage();
                 dialogFragment.show(getFragmentManager() != null ? getFragmentManager() : null, "dialog");
+            }
+        });
+        llHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Router.navigator(Router.ORDER_HISTORY, getActivity(), null);
             }
         });
     }
@@ -131,5 +137,11 @@ public class PersonFragment extends Fragment implements PersonContract.View {
         Log.e("Err", throwable.getMessage());
         Snackbar.make(this.view.findViewById(R.id.fragment_person), getString(R.string.error_data),
                 Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

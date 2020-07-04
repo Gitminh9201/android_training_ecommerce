@@ -37,8 +37,9 @@ public class ProductsPresenter implements ProductsContract.Presenter, ProductsCo
 
     @Override
     public void requestData(String keyword, int categoryId, int brandId, int groupId, int offset, int limit, int sort) {
-        if (view != null)
+        if (view != null){
             view.showProgress();
-        model.getData(this, keyword, categoryId, brandId, groupId, offset, limit, sort);
+            model.getData(this, keyword, categoryId, brandId, groupId, offset, limit, sort);
+        }
     }
 }

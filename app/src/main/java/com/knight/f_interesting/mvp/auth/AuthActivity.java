@@ -137,6 +137,12 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onResponseFailure(Throwable throwable) {
-        AppUtils.snackbar(findViewById(android.R.id.content).getRootView(), R.id.layout_auth);
+        AppUtils.snackbarError(findViewById(android.R.id.content).getRootView(), R.id.layout_auth);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

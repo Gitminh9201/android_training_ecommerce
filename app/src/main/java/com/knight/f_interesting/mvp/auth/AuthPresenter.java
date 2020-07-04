@@ -33,9 +33,10 @@ public class AuthPresenter implements AuthContract.Presenter, AuthContract.Model
 
     @Override
     public void onFailure(Throwable throwable) {
-        if(view != null)
+        if(view != null){
             view.hideProgress();
-        view.onResponseFailure(throwable);
+            view.onResponseFailure(throwable);
+        }
     }
 
     @Override
@@ -45,8 +46,9 @@ public class AuthPresenter implements AuthContract.Presenter, AuthContract.Model
 
     @Override
     public void loginGoogle(String id, String email, String name, String picture, String accessToken) {
-        if(view != null)
+        if(view != null){
             view.showProgress();
-        model.loginWithGoogle(this, id, email, name, picture, accessToken);
+            model.loginWithGoogle(this, id, email, name, picture, accessToken);
+        }
     }
 }

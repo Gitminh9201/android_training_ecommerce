@@ -23,10 +23,11 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
 
     @Override
     public void onFinishedGetData(List<Product> products, List<Cart> carts) {
-        if(view != null)
+        if(view != null){
             view.hideProgress();
-        view.setDataToView(products, carts);
-        view.refresh(products, carts);
+            view.setDataToView(products, carts);
+            view.refresh(products, carts);
+        }
     }
 
     @Override
@@ -39,9 +40,10 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
 
     @Override
     public void onFailure(Throwable throwable) {
-        if(view != null)
+        if(view != null){
             view.hideProgress();
-        view.onResponseFailure(throwable);
+            view.onResponseFailure(throwable);
+        }
     }
 
     @Override
@@ -56,16 +58,18 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
 
     @Override
     public void createOrder(Order order) {
-        if(view != null)
+        if(view != null){
             view.showProgress();
-        model.createOrder(this, order);
+            model.createOrder(this, order);
+        }
     }
 
     @Override
     public void requestData() {
-        if(view != null)
+        if(view != null){
             view.showProgress();
-        List<Cart> carts = AppUtils.db.getCart();
-        model.getData(this, carts);
+            List<Cart> carts = AppUtils.db.getCart();
+            model.getData(this, carts);
+        }
     }
 }

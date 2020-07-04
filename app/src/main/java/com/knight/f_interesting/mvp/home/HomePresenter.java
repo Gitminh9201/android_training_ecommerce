@@ -25,23 +25,23 @@ public class HomePresenter implements HomeContract.Presenter, HomeContract.Model
     public void requestData() {
         if(homeView != null){
             homeView.showProgress();
+            homeModel.getData(this);
         }
-        homeModel.getData(this);
     }
 
     @Override
     public void onFinished(List<Banner> banners, List<Brand> brands, List<Group> groups) {
         if(homeView != null){
             homeView.hideProgress();
+            homeView.setDataToViews(banners, brands, groups);
         }
-        homeView.setDataToViews(banners, brands, groups);
     }
 
     @Override
     public void onFailure(Throwable t) {
         if(homeView != null){
             homeView.hideProgress();
+            homeView.onResponseFailure(t);
         }
-        homeView.onResponseFailure(t);
     }
 }

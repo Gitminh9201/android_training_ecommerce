@@ -9,8 +9,6 @@ public interface InformationContract {
         void showProgress();
         void hideProgress();
         void setData(User user);
-        void init();
-        void listener();
         void onResponseFailure(Throwable throwable);
     }
     interface Model{

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.knight.f_interesting.models.Cart;
 
@@ -91,5 +90,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.update(TABLE_NAME, values, KEY_ID + " = ?", new String[] { String.valueOf(productId) });
         }
         db.close();
+    }
+
+    public void removeCart(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String clearDBQuery = "DELETE FROM "+TABLE_NAME;
+        db.execSQL(clearDBQuery);
     }
 }

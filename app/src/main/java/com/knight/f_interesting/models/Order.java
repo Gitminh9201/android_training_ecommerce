@@ -41,10 +41,23 @@ public class Order {
     @SerializedName("detail")
     private List<OrderDetail> detail;
 
-    public Order(){}
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    @SerializedName("created_at")
+    private String created;
+
+    public Order() {
+    }
 
     public Order(int id, String phone, String email, int shipID, int paymentID, String address,
-                 String note, int total, int discount, int status, int userID, List<OrderDetail> detail) {
+                 String note, int total, int discount, int status, int userID,
+                 List<OrderDetail> detail, String created) {
         this.id = id;
         this.phone = phone;
         this.email = email;
@@ -57,6 +70,7 @@ public class Order {
         this.status = status;
         this.userID = userID;
         this.detail = detail;
+        this.created = created;
     }
 
     public List<OrderDetail> getDetail() {

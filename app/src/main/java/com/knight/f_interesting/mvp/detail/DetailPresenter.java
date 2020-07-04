@@ -18,16 +18,18 @@ public class DetailPresenter implements DetailContract.Presenter, DetailContract
 
     @Override
     public void onFinished(Product product) {
-        if(view != null)
+        if(view != null){
             view.hideProgress();
-        view.setDataToView(product);
+            view.setDataToView(product);
+        }
     }
 
     @Override
     public void onFailure(Throwable throwable) {
-        if(view != null)
+        if(view != null){
             view.hideProgress();
-        view.onResponseFailure(throwable);
+            view.onResponseFailure(throwable);
+        }
     }
 
     @Override
@@ -47,15 +49,16 @@ public class DetailPresenter implements DetailContract.Presenter, DetailContract
     public void changeBookmark(int id) {
         if(view != null){
             view.showProgress();
+            model.makeBookmark(this, id);
         }
-        model.makeBookmark(this, id);
     }
 
     @Override
     public void requestData(int id) {
-        if(view != null)
+        if(view != null){
             view.showProgress();
-        model.getData(this, id);
-        model.checkBookmark(this, id);
+            model.getData(this, id);
+            model.checkBookmark(this, id);
+        }
     }
 }

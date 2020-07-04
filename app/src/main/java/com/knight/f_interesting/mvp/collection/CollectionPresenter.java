@@ -43,7 +43,7 @@ public class CollectionPresenter implements CollectionContract.Presenter, Collec
     public void requestData() {
         if (view != null) {
             view.showProgress();
+            model.getData(this, context);
         }
-        model.getData(this, context);
     }
 }
