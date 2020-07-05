@@ -23,30 +23,30 @@ import retrofit2.http.QueryMap;
 
 public interface APIInterface {
 
-    @GET(Client.MIDDLE_URL + "api/categories")
+    @GET(AppClient.MIDDLE_URL + "api/categories")
     Call<ResponseList<Category>> categories();
 
-    @GET(Client.MIDDLE_URL + "api/banners")
+    @GET(AppClient.MIDDLE_URL + "api/banners")
     Call<ResponseList<Banner>> banners();
 
-    @GET(Client.MIDDLE_URL + "api/brands")
+    @GET(AppClient.MIDDLE_URL + "api/brands")
     Call<ResponseList<Brand>> brands();
 
-    @GET(Client.MIDDLE_URL + "api/groups")
+    @GET(AppClient.MIDDLE_URL + "api/groups")
     Call<ResponseList<Group>> groups();
 
-    @GET(Client.MIDDLE_URL + "api/products")
+    @GET(AppClient.MIDDLE_URL + "api/products")
     Call<ResponseList<Product>> products(@QueryMap Map<String, String> options);
 
-    @GET(Client.MIDDLE_URL + "api/products/get")
+    @GET(AppClient.MIDDLE_URL + "api/products/get")
     Call<ResponseObject<Product>> detail(@Query("id") int id);
 
     //ids: "1,2,6"
-    @GET(Client.MIDDLE_URL + "api/products/gets")
+    @GET(AppClient.MIDDLE_URL + "api/products/gets")
     Call<ResponseList<Product>> productCart(@Query("ids") String ids);
 
     @FormUrlEncoded
-    @POST(Client.MIDDLE_URL + "api/auth/google")
+    @POST(AppClient.MIDDLE_URL + "api/auth/google")
     Call<ResponseObject<User>> loginGoogle(
             @Field("id") String id,
             @Field("email") String email,
@@ -54,20 +54,20 @@ public interface APIInterface {
             @Field("picture") String picture,
             @Field("accessToken") String accessToken);
 
-    @POST(Client.MIDDLE_URL + "api/auth/me")
+    @POST(AppClient.MIDDLE_URL + "api/auth/me")
     Call<ResponseObject<User>> getUser(@HeaderMap Map<String, String> headers);
 
-    @POST(Client.MIDDLE_URL + "api/collection/get")
+    @POST(AppClient.MIDDLE_URL + "api/collection/get")
     Call<ResponseList<Product>> collection(@HeaderMap Map<String, String> headers);
 
-    @POST(Client.MIDDLE_URL + "api/collection/make")
+    @POST(AppClient.MIDDLE_URL + "api/collection/make")
     Call<ResponseObject> makeCollection(@HeaderMap Map<String, String> headers, @Query("product_id") int productID);
 
-    @POST(Client.MIDDLE_URL + "api/collection/check")
+    @POST(AppClient.MIDDLE_URL + "api/collection/check")
     Call<ResponseObject> checkCollection(@HeaderMap Map<String, String> headers, @Query("product_id") int productID);
 
     @FormUrlEncoded
-    @POST(Client.MIDDLE_URL + "api/order/create")
+    @POST(AppClient.MIDDLE_URL + "api/order/create")
     Call<ResponseObject<Order>> createOrder(
             @HeaderMap Map<String, String> headers,
             @Field("products") String products,
@@ -77,13 +77,13 @@ public interface APIInterface {
             @Field("phone") String phone
     );
 
-    @POST(Client.MIDDLE_URL + "api/order")
+    @POST(AppClient.MIDDLE_URL + "api/order")
     Call<ResponseList<Order>> getOrders(@HeaderMap Map<String, String> headers);
-    @POST(Client.MIDDLE_URL + "api/order")
+    @POST(AppClient.MIDDLE_URL + "api/order")
     Call<ResponseList<Order>> getOrders(@HeaderMap Map<String, String> headers, @Query("offset") int offset);
-    @POST(Client.MIDDLE_URL + "api/order")
+    @POST(AppClient.MIDDLE_URL + "api/order")
     Call<ResponseList<Order>> getOrders(@HeaderMap Map<String, String> headers, @Query("offset") int offset, @Query("limit") int limit);
 
-    @POST(Client.MIDDLE_URL + "api/order/get")
+    @POST(AppClient.MIDDLE_URL + "api/order/get")
     Call<ResponseObject<Order>> getOrderDetail(@HeaderMap Map<String, String> headers, @Query("order_id") int orderID);
 }

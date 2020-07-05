@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.knight.f_interesting.R;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.base.BaseView;
 import com.knight.f_interesting.models.User;
 
@@ -56,7 +56,7 @@ public class InformationActivity extends AppCompatActivity implements Informatio
             if(user.getAvatar().startsWith("http"))
                 url = user.getAvatar();
             else
-                url = Client.url() + user.getAvatar();
+                url = AppClient.url() + user.getAvatar();
             Glide.with(getApplicationContext()).load(url).into(circleImageAvatar);
         }
     }

@@ -14,11 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.knight.f_interesting.R;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Product;
-import com.knight.f_interesting.mvp.detail.DetailActivity;
-import com.knight.f_interesting.utils.AppUtils;
 import com.knight.f_interesting.utils.AppSizes;
+import com.knight.f_interesting.utils.AppUtils;
 import com.knight.f_interesting.utils.Router;
 
 import java.util.List;
@@ -34,13 +33,14 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
         this.context = context;
         this.replace = false;
     }
+
     public ProductItemAdapter(List<Product> products, Context context, boolean replace) {
         this.products = products;
         this.context = context;
         this.replace = replace;
     }
 
-    public void changeData(List<Product> products){
+    public void changeData(List<Product> products) {
         this.products = products;
         notifyDataSetChanged();
     }
@@ -55,23 +55,23 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        Product item = products.get(position);
+        final Product item = products.get(position);
         holder.txtTitle.setText(item.getTitle());
         holder.txtBrand.setText("Brand");
         holder.txtPrice.setText(String.valueOf(AppUtils.currencyVN(item.getPrice())));
         if (item.getPriceCompare() > 0)
             holder.txtPriceCompare.setText(String.valueOf(AppUtils.currencyVN(item.getPriceCompare())));
-        Glide.with(holder.imageView).load(Client.url()
+        Glide.with(holder.imageView).load(AppClient.url()
                 + item.getImage()).into(holder.imageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(replace)
-                    Router.goToDetail((Activity) holder.itemView.getContext(),
-                            DetailActivity.class, products.get(position).getId(), replace);
+                if (replace)
+                    Router.navigator(Router.PRODUCT_DETAIL, (Activity) holder.itemView.getContext(),
+                            new String[]{String.valueOf(item.getId()), "true"});
                 else
-                    Router.goToDetail((Activity) holder.itemView.getContext(),
-                            DetailActivity.class, products.get(position).getId());
+                    Router.navigator(Router.PRODUCT_DETAIL, (Activity) holder.itemView.getContext(),
+                            new String[]{String.valueOf(item.getId()),});
             }
         });
     }
@@ -105,7 +105,7 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
         }
 
         private float heightItemInView(TextView txt) {
-            return txt.getTextSize() *2;
+            return txt.getTextSize() * 2;
         }
     }
 }

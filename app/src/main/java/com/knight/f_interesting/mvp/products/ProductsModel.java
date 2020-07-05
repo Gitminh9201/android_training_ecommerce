@@ -1,7 +1,7 @@
 package com.knight.f_interesting.mvp.products;
 
 import com.knight.f_interesting.api.APIInterface;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.models.ResponseList;
 
@@ -19,7 +19,7 @@ public class ProductsModel implements ProductsContract.Model {
 
     @Override
     public void getData(final OnFinishedListener onFinishedListener, String keyword, int categoryId, int brandId, int groupId, int offset, int limit, int sort) {
-        APIInterface api = Client.client().create(APIInterface.class);
+        APIInterface api = AppClient.client().create(APIInterface.class);
         Map<String, String> params = new HashMap<>();
         params.put("category_id", String.valueOf(categoryId));
         params.put("keyword", keyword);

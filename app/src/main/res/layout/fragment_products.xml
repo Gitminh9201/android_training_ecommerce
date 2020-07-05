@@ -15,8 +15,10 @@
         android:padding="6dp" />
 
     <LinearLayout
+        android:background="@color/colorWhite"
         android:id="@+id/ll_load_products"
         android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/height_tab"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">

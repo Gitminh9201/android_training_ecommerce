@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -17,11 +16,14 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.knight.f_interesting.R;
+import com.knight.f_interesting.buses.UserBus;
 import com.knight.f_interesting.dialogs.ChooseImage;
 import com.knight.f_interesting.models.User;
+import com.knight.f_interesting.utils.AppUtils;
 import com.knight.f_interesting.utils.Router;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.rxjava3.functions.Consumer;
 
 public class PersonFragment extends Fragment implements PersonContract.View {
 
@@ -51,6 +53,13 @@ public class PersonFragment extends Fragment implements PersonContract.View {
         btnAuth = view.findViewById(R.id.btn_auth_person);
         presenter = new PersonPresenter(getContext(), this);
         presenter.requestData();
+
+        UserBus.subscribe(new Consumer<User>() {
+            @Override
+            public void accept(User user) throws Throwable {
+                setData(user);
+            }
+        });
     }
 
     private void listener(View view) {
@@ -70,13 +79,19 @@ public class PersonFragment extends Fragment implements PersonContract.View {
             @Override
             public void onClick(View v) {
                 DialogFragment dialogFragment = new ChooseImage();
-                dialogFragment.show(getFragmentManager() != null ? getFragmentManager() : null, "dialog");
+                dialogFragment.show(getFragmentManager(), "dialog");
             }
         });
         llHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Router.navigator(Router.ORDER_HISTORY, getActivity(), null);
+            }
+        });
+        llTerms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Router.navigator(Router.TERMS, getActivity(), null);
             }
         });
     }
@@ -101,13 +116,13 @@ public class PersonFragment extends Fragment implements PersonContract.View {
     }
 
     @Override
-    public void changeButtonAuth(boolean login) {
-        if (login) {
+    public void changeButtonAuth(boolean needLogin) {
+        if (needLogin) {
             btnAuth.setText(getResources().getString(R.string.login_vi));
             btnAuth.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "Login", Toast.LENGTH_SHORT).show();
+                    Router.navigator(Router.LOGIN, getActivity(), null);
                 }
             });
         } else {
@@ -115,7 +130,13 @@ public class PersonFragment extends Fragment implements PersonContract.View {
             btnAuth.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "Logout", Toast.LENGTH_SHORT).show();
+                    AppUtils.showDialogConfirm(getResources().getString(R.string.confirm_logout), getActivity(), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AppUtils.hideDialog(getFragmentManager(), getResources().getString(R.string.dialog_confirm));
+                            presenter.logout();
+                        }
+                    }, getFragmentManager());
                 }
             });
         }
@@ -129,12 +150,14 @@ public class PersonFragment extends Fragment implements PersonContract.View {
             Glide.with(getContext()).load(user.getAvatar()).into(circleAvatar);
         } else {
             changeButtonAuth(true);
+            txtUserName.setText(R.string.person_name);
+            circleAvatar.setImageResource(R.drawable.image_profile);
         }
     }
 
     @Override
     public void onResponseFailure(Throwable throwable) {
-        Log.e("Err", throwable.getMessage());
+        Log.e("ERR", throwable.getMessage());
         Snackbar.make(this.view.findViewById(R.id.fragment_person), getString(R.string.error_data),
                 Snackbar.LENGTH_LONG).show();
     }

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.knight.f_interesting.R;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Cart;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.mvp.cart.CartContract;
@@ -54,7 +54,7 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        Glide.with(holder.itemView.getContext()).load(Client.url()
+        Glide.with(holder.itemView.getContext()).load(AppClient.url()
                 + products.get(position).getImage()
         ).into(holder.imageView);
         holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(AppSizes.getScreenWidth() / 4, AppSizes.getScreenWidth() / 4));

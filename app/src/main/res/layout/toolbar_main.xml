@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_main"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    android:elevation="4dp"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="10dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="12dp"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_weight="1"
+            android:id="@+id/edit_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_border_white"
+            android:cursorVisible="false"
+            android:hint="Search..."
+            android:focusable="false"
+            android:focusedByDefault="false"
+            android:drawableRight="@drawable/ic_search"
+            android:paddingHorizontal="18dp"
+            android:paddingVertical="8dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorDispose"
+            android:textSize="14dp" />
+        <include layout="@layout/cart"/>
+    </LinearLayout>
+</androidx.appcompat.widget.Toolbar>

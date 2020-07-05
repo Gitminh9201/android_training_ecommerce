@@ -3,7 +3,7 @@ package com.knight.f_interesting.mvp.detail;
 import android.content.Context;
 
 import com.knight.f_interesting.api.APIInterface;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.models.ResponseObject;
 
@@ -14,7 +14,7 @@ import retrofit2.Response;
 public class DetailModel implements DetailContract.Model {
 
     Product product;
-    APIInterface api = Client.client().create(APIInterface.class);
+    APIInterface api = AppClient.client().create(APIInterface.class);
     Context context;
 
     DetailModel(Context context) {
@@ -42,7 +42,7 @@ public class DetailModel implements DetailContract.Model {
 
     @Override
     public void checkBookmark(final OnFinishedListener onFinishedListener, int id) {
-        Call<ResponseObject> call = api.checkCollection(Client.header(context), id);
+        Call<ResponseObject> call = api.checkCollection(AppClient.headers(), id);
         call.enqueue(new Callback<ResponseObject>() {
             @Override
             public void onResponse(Call<ResponseObject> call, Response<ResponseObject> response) {
@@ -60,7 +60,7 @@ public class DetailModel implements DetailContract.Model {
 
     @Override
     public void makeBookmark(final OnFinishedListener onFinishedListener, int id) {
-        Call<ResponseObject> call = api.makeCollection(Client.header(context), id);
+        Call<ResponseObject> call = api.makeCollection(AppClient.headers(), id);
         call.enqueue(new Callback<ResponseObject>() {
             @Override
             public void onResponse(Call<ResponseObject> call, Response<ResponseObject> response) {

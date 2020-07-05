@@ -5,9 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -15,9 +13,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.knight.f_interesting.R;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Gallery;
-import com.knight.f_interesting.utils.AppSizes;
 
 import java.util.List;
 
@@ -60,7 +57,7 @@ public class GalleryDetailAdapter extends PagerAdapter {
         ImageView imageView = view.findViewById(R.id.iv_item_gallery);
         ProgressBar progressBar = view.findViewById(R.id.pb_load_gallery_detail);
 
-        Glide.with(view).load(Client.url()
+        Glide.with(view).load(AppClient.url()
                 + gallery.get(position).getImage())
                 .placeholder(R.drawable.border_image_brand_home)
                 .into(imageView);

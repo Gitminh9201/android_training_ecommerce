@@ -21,6 +21,7 @@ public interface PersonContract {
     }
     interface Presenter{
         void requestData();
+        void logout();
         void onDestroy();
     }
 }

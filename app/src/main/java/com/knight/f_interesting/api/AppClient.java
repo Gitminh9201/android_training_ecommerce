@@ -1,8 +1,6 @@
 package com.knight.f_interesting.api;
 
-import android.content.Context;
-import android.util.Log;
-
+import com.knight.f_interesting.buses.ContextBus;
 import com.knight.f_interesting.utils.AppShared;
 
 import java.util.HashMap;
@@ -13,12 +11,12 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Client {
+public class AppClient {
 
     private static Retrofit retrofit = null;
 
-    public static final String BASE_URL = "http://192.168.43.228/";
-//    public static final String BASE_URL = "http://192.168.1.51/";
+//    public static final String BASE_URL = "http://192.168.43.228/";
+    public static final String BASE_URL = "http://192.168.1.51/";
     public static final String MIDDLE_URL = "lv_training_ecommerce/public/";
 
     public static String url(){
@@ -46,13 +44,13 @@ public class Client {
         return retrofit;
     }
 
-    public static Map<String, String> header(Context context){
-        String accessToken = AppShared.getAccessToken(context);
-        Log.e("AccessToken", accessToken);
+    public static Map<String, String> headers(){
+        String accessToken = AppShared.getAccessToken(ContextBus.current());
         Map<String, String> header = new HashMap<>();
         if(accessToken.length() > 1) {
             header.put("Authorization", "Bearer " + accessToken);
         }
+        header.put("Accept", "Application/json");
         return header;
     }
 }

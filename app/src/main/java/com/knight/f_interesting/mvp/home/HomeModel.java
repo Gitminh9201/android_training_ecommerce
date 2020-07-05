@@ -1,7 +1,7 @@
 package com.knight.f_interesting.mvp.home;
 
 import com.knight.f_interesting.api.APIInterface;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Banner;
 import com.knight.f_interesting.models.Brand;
 import com.knight.f_interesting.models.Group;
@@ -22,7 +22,7 @@ public class HomeModel implements HomeContract.Model {
 
     @Override
     public void getData(final OnFinishedListener onFinishedListener) {
-        APIInterface api = Client.client().create(APIInterface.class);
+        APIInterface api = AppClient.client().create(APIInterface.class);
         final  Call<ResponseList<Banner>> callBanner = api.banners();
         final  Call<ResponseList<Brand>> callBrand = api.brands();
         final  Call<ResponseList<Group>> callGroup = api.groups();

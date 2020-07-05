@@ -32,6 +32,7 @@
     <string name="login">Login</string>
     <string name="login_vi">Đăng nhập</string>
     <string name="finish">Xong</string>
+    <string name="understand">Đã hiểu</string>
     <string name="login_success">Đăng nhập thành công!</string>
     <string name="logout">Logout</string>
     <string name="logout_vi">Đăng xuất</string>
@@ -44,6 +45,7 @@
     <string name="request_login_input_collection">Bạn cần đăng nhập để tạo bộ sưu tập riêng?</string>
     <string name="request_login_address">Bạn cần có muốn đăng nhập để lưu lại địa chỉ cho lần sau?</string>
 
+    <string name="person_name">Ẩn danh</string>
     <string name="person_information">Thông tin cá nhân</string>
     <string name="person_address">Địa chỉ giao hàng</string>
     <string name="person_history_order">Lịch sử đặt hàng</string>
@@ -63,7 +65,22 @@
     <string name="string_continue">Tiếp tục</string>
     <string name="string_cancel">Hủy</string>
 
+    <string name="confirm_logout">Bạn muốn đăng xuất?</string>
     <string name="confirm_order">Chúng ta hoàn thành?</string>
     <string name="completed_order_line_1">Chúng ta đã đến bước cuối cùng!</string>
     <string name="completed_order_line_2">Thông tin đơn hàng đã được gửi đến email của bạn.</string>
+
+    <string name="order_status_0">Hủy đơn</string>
+    <string name="order_status_1">Chuẩn bị Đơn hàng</string>
+    <string name="order_status_2">Đang vận chuyển</string>
+    <string name="order_status_3">Nhân viên giao hàng</string>
+    <string name="order_status_4">Giao hàng thành công</string>
+
+    <string name="title_commit_terms">Chính sách giao hàng tận giường!</string>
+    <string name="commit_terms">Để đảm bảo quyền lợi cũng như đáp lại sự tin tưởng của quý khách hàng,
+        chúng tôi cam kết luôn luôn giao hàng đúng hạn, đúng loại và đúng chất lượng.
+        \nTrong trường hợp không giao hàng đúng hạn theo yêu cầu của quý khách hàng do
+        lỗi của nhân viên giao hàng, hệ thống xin bồi thường tổn thất mà khách hàng phải
+        gánh chịu khi giao hàng chậm. Nếu trường hợp không giao hàng đúng hạn do trường
+        hợp khách quan bất khả kháng, chúng tôi sẽ liên hệ trực đến quý khách hàng.</string>
 </resources>

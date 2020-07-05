@@ -16,7 +16,6 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <include layout="@layout/appbar"/>
             <LinearLayout
                 android:layout_weight="1"
                 android:layout_width="match_parent"
@@ -43,7 +42,7 @@
             android:id="@+id/ll_load_store"
             android:background="@color/colorWhite"
             android:gravity="center"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ProgressBar

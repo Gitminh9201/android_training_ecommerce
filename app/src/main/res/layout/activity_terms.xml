@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mvp.terms.TermsActivity">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:paddingBottom="45dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/image_gift"
+                    android:layout_height="200dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="30dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/item_term"/>
+                <include layout="@layout/item_term"/>
+                <include layout="@layout/item_term"/>
+            </LinearLayout>
+            <Button
+                android:layout_marginTop="16dp"
+                android:textSize="10sp"
+                android:id="@+id/btn_completed"
+                android:textStyle="bold"
+                android:minHeight="32dp"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/bg_button_continue"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/understand"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+    <LinearLayout
+        android:visibility="gone"
+        android:background="@color/colorWhite"
+        android:id="@+id/ll_load_completed"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/loading"/>
+    </LinearLayout>
+</RelativeLayout>

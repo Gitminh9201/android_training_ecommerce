@@ -3,7 +3,7 @@ package com.knight.f_interesting.mvp.collection;
 import android.content.Context;
 
 import com.knight.f_interesting.api.APIInterface;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.models.ResponseList;
 
@@ -16,8 +16,8 @@ import retrofit2.Response;
 public class CollectionModel implements CollectionContract.Model {
     @Override
     public void getData(final OnFinishedListener onFinishedListener, Context context) {
-        APIInterface api = Client.client().create(APIInterface.class);
-        Call<ResponseList<Product>> call = api.collection(Client.header(context));
+        APIInterface api = AppClient.client().create(APIInterface.class);
+        Call<ResponseList<Product>> call = api.collection(AppClient.headers());
 
         call.enqueue(new Callback<ResponseList<Product>>() {
             @Override

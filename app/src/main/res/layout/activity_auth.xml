@@ -119,6 +119,7 @@
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
+                android:background="@color/colorWhite"
                 android:visibility="gone"
                 android:id="@+id/ll_loading_auth"
                 android:gravity="center"

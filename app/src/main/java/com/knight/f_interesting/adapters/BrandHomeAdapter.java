@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.knight.f_interesting.R;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Brand;
 import com.knight.f_interesting.utils.AppSizes;
 
@@ -70,7 +70,7 @@ public class BrandHomeAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
 
         viewHolder.textView.setText(brands.get(position).getTitle());
-        Glide.with(convertView).load(Client.url()
+        Glide.with(convertView).load(AppClient.url()
                 + brands.get(position).getImage())
                 .into(viewHolder.imageView);
         convertView.setLayoutParams(

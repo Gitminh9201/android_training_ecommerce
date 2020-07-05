@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -23,10 +22,11 @@ import com.knight.f_interesting.customs.ExpandableHeightGridView;
 import com.knight.f_interesting.models.Banner;
 import com.knight.f_interesting.models.Brand;
 import com.knight.f_interesting.models.Group;
-import com.knight.f_interesting.utils.Router;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeFragment extends Fragment implements HomeContract.View {
 
@@ -37,7 +37,6 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     private ViewPager vpBanner;
     private ExpandableHeightGridView gvBrand;
     private RecyclerView rvGroup;
-    private ImageButton ibCart;
 
     private List<Group> groups;
 
@@ -46,10 +45,12 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     private GroupHomeAdapter groupAdapter;
 
     private View view;
+    private Timer timer;
 
     private void init(View view) {
         this.view = view;
-        ibCart = view.findViewById(R.id.ib_cart);
+
+        timer = new Timer();
         pbLoading = view.findViewById(R.id.pb_load_home);
         llLoading = view.findViewById(R.id.ll_load_home);
         vpBanner = view.findViewById(R.id.vp_banner);
@@ -58,6 +59,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
         groups = new ArrayList<>();
 
+        vpBanner.setScrollBarFadeDuration(500);
         groupAdapter = new GroupHomeAdapter(groups, getContext());
         bannerAdapter = new BannerHomeAdapter(getContext());
         brandAdapter = new BrandHomeAdapter(getContext());
@@ -67,6 +69,16 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         rvGroup.setAdapter(groupAdapter);
         presenter = new HomePresenter(this);
         presenter.requestData();
+    }
+
+    private int positionPage(){
+        int i = vpBanner.getCurrentItem();
+        if((i + 1) >= vpBanner.getChildCount()){
+            return 0;
+        }
+        else{
+            return (i + 1);
+        }
     }
 
     @Override
@@ -84,12 +96,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     }
 
     private void listener(final View view) {
-        ibCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Router.navigator(Router.CART, getActivity(), null);
-            }
-        });
+
     }
 
     @Override
@@ -106,8 +113,6 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
     @Override
     public void setDataToViews(List<Banner> banners, List<Brand> brands, List<Group> groups) {
-        Log.e("Length", "banner:" + String.valueOf(banners.size()) + "brand:"
-                + String.valueOf(brands.size()) + "group:" + String.valueOf(groups.size()));
         this.groups = groups;
         groupAdapter.changeData(this.groups);
         for (int index = 0; index < banners.size(); index++) {
@@ -124,6 +129,13 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         groupAdapter.notifyDataSetChanged();
         brandAdapter.notifyDataSetChanged();
         bannerAdapter.notifyDataSetChanged();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                vpBanner.setCurrentItem(positionPage());
+            }
+        }, 7000, 5000);
     }
 
     @Override
@@ -136,6 +148,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        timer.cancel();
         presenter.onDestroy();
     }
 }

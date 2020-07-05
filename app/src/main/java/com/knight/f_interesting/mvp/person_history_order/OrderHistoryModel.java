@@ -3,7 +3,7 @@ package com.knight.f_interesting.mvp.person_history_order;
 import android.content.Context;
 
 import com.knight.f_interesting.api.APIInterface;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Order;
 import com.knight.f_interesting.models.ResponseList;
 
@@ -21,8 +21,8 @@ public class OrderHistoryModel implements OrderHistoryContract.Model {
 
     @Override
     public void getData(final OnFinishedListener onFinishedListener) {
-        APIInterface api = Client.client().create(APIInterface.class);
-        Call<ResponseList<Order>> call = api.getOrders(Client.header(context));
+        APIInterface api = AppClient.client().create(APIInterface.class);
+        Call<ResponseList<Order>> call = api.getOrders(AppClient.headers());
         call.enqueue(new Callback<ResponseList<Order>>() {
             @Override
             public void onResponse(Call<ResponseList<Order>> call, Response<ResponseList<Order>> response) {
@@ -40,8 +40,8 @@ public class OrderHistoryModel implements OrderHistoryContract.Model {
 
     @Override
     public void getData(final OnFinishedListener onFinishedListener, int offset) {
-        APIInterface api = Client.client().create(APIInterface.class);
-        Call<ResponseList<Order>> call = api.getOrders(Client.header(context), offset);
+        APIInterface api = AppClient.client().create(APIInterface.class);
+        Call<ResponseList<Order>> call = api.getOrders(AppClient.headers(), offset);
         call.enqueue(new Callback<ResponseList<Order>>() {
             @Override
             public void onResponse(Call<ResponseList<Order>> call, Response<ResponseList<Order>> response) {
@@ -59,8 +59,8 @@ public class OrderHistoryModel implements OrderHistoryContract.Model {
 
     @Override
     public void getData(final OnFinishedListener onFinishedListener, int offset, int limit) {
-        APIInterface api = Client.client().create(APIInterface.class);
-        Call<ResponseList<Order>> call = api.getOrders(Client.header(context), offset, limit);
+        APIInterface api = AppClient.client().create(APIInterface.class);
+        Call<ResponseList<Order>> call = api.getOrders(AppClient.headers(), offset, limit);
         call.enqueue(new Callback<ResponseList<Order>>() {
             @Override
             public void onResponse(Call<ResponseList<Order>> call, Response<ResponseList<Order>> response) {

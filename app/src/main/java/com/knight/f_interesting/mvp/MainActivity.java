@@ -2,32 +2,38 @@ package com.knight.f_interesting.mvp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.TabPagerMainAdapter;
 import com.knight.f_interesting.base.BaseView;
+import com.knight.f_interesting.models.Cart;
 import com.knight.f_interesting.mvp.collection.CollectionFragment;
 import com.knight.f_interesting.mvp.home.HomeFragment;
 import com.knight.f_interesting.mvp.person.PersonFragment;
 import com.knight.f_interesting.mvp.store.StoreFragment;
+import com.knight.f_interesting.utils.AppUtils;
+import com.knight.f_interesting.utils.Router;
 
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements BaseView.BaseActivity {
 
-    TabLayout tabLayout;
-    ViewPager viewPager;
-    TabPagerMainAdapter adapter;
-    private int[] tabIcons = {
-            R.drawable.ic_home,
-            R.drawable.ic_shop,
-            R.drawable.ic_collection,
-            R.drawable.ic_person
-    };
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private Toolbar toolbar;
+    private TabPagerMainAdapter adapter;
+    private ImageButton ibCart;
+    private TextView txtBadge;
+    private int[] tabIcons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +41,23 @@ public class MainActivity extends AppCompatActivity implements BaseView.BaseActi
         setContentView(R.layout.activity_main);
 
         init();
+        refresh();
+        setSupportActionBar(toolbar);
         listener(this);
     }
 
     @Override
     public void init() {
+        tabIcons = new int[]{
+                R.drawable.ic_home,
+                R.drawable.ic_shop,
+                R.drawable.ic_collection,
+                R.drawable.ic_person
+        };
+
+        txtBadge = findViewById(R.id.txt_badge_cart_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        ibCart = findViewById(R.id.ib_cart_toolbar);
         tabLayout = findViewById(R.id.tab_main);
         viewPager = findViewById(R.id.vp_main);
         adapter = new TabPagerMainAdapter(getSupportFragmentManager());
@@ -57,7 +75,22 @@ public class MainActivity extends AppCompatActivity implements BaseView.BaseActi
         }
     }
 
+    private void refresh(){
+        List<Cart> carts = AppUtils.db.getCart();
+        if(carts.size() != 0){
+            txtBadge.setVisibility(View.VISIBLE);
+            txtBadge.setText(String.valueOf(carts.size()));
+        }else
+            txtBadge.setVisibility(View.GONE);
+    }
+
     @Override
-    public void listener(Activity activity) {
+    public void listener(final Activity activity) {
+        ibCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Router.navigator(Router.CART, activity, null);
+            }
+        });
     }
 }

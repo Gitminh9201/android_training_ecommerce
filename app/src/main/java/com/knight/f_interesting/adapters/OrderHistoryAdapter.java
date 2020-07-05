@@ -5,13 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.models.Order;
+import com.knight.f_interesting.utils.AppContracts;
 
 import java.util.List;
 
@@ -44,6 +47,36 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         holder.txtAddress.setText(model.getAddress());
         holder.txtPhone.setText(model.getPhone());
         holder.txtTime.setText(model.getCreated());
+
+        holder.txtStatus.setText(AppContracts.orderStatus(model.getStatus()));
+
+        int border;
+        int bgIcon;
+        switch (model.getStatus()){
+            case 1:
+                border = R.drawable.bg_border_order_status_1;
+                bgIcon = R.drawable.bg_order_status_1;
+                break;
+            case 2:
+                border = R.drawable.bg_border_order_status_2;
+                bgIcon = R.drawable.bg_order_status_2;
+                break;
+            case 3:
+                border = R.drawable.bg_border_order_status_3;
+                bgIcon = R.drawable.bg_order_status_3;
+                break;
+            case 4:
+                border = R.drawable.bg_border_order_status_4;
+                bgIcon = R.drawable.bg_order_status_4;
+                break;
+            default:
+                border = R.drawable.bg_border_order_status_0;
+                bgIcon = R.drawable.bg_order_status_0;
+                break;
+        }
+
+        holder.iconStatus.setBackgroundResource(bgIcon);
+        holder.cardView.setBackgroundResource(border);
     }
 
     @Override
@@ -57,10 +90,14 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         TextView txtPhone;
         TextView txtStatus;
         TextView txtTime;
+        LinearLayout iconStatus;
         ImageView ivStatus;
+        CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            iconStatus = itemView.findViewById(R.id.ll_icon_status_order_item);
+            cardView = itemView.findViewById(R.id.cardViewOrderItem);
             txtAddress = itemView.findViewById(R.id.txt_address_order_item);
             txtPhone = itemView.findViewById(R.id.txt_phone_order_item);
             txtStatus = itemView.findViewById(R.id.txt_status_order_item);

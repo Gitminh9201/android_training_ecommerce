@@ -96,8 +96,6 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
             presenter.loginGoogle(account.getId(), account.getEmail(), account.getDisplayName(),
                     account.getPhotoUrl().toString(), account.getIdToken());
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("TAG", "signInResult:failed code=" + e.getStatusCode());
         }
     }

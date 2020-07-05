@@ -1,8 +1,11 @@
 package com.knight.f_interesting.mvp.person;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.knight.f_interesting.buses.UserBus;
 import com.knight.f_interesting.models.User;
+import com.knight.f_interesting.utils.AppShared;
 
 public class PersonPresenter implements PersonContract.Presenter, PersonContract.Model.OnFinishedListener {
 
@@ -35,9 +38,18 @@ public class PersonPresenter implements PersonContract.Presenter, PersonContract
     @Override
     public void requestData() {
         if(view != null){
+            Log.e("NOT NULL", "TRUE");
             view.showProgress();
             model.getUser(this, context);
-        }
+        }else
+            Log.e("NOT NULL", "False");
+    }
+
+    @Override
+    public void logout() {
+        AppShared.setAccessToken(context, null);
+        UserBus.publish(new User());
+        requestData();
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.knight.f_interesting.mvp.auth;
 
 import com.knight.f_interesting.api.APIInterface;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.ResponseObject;
 import com.knight.f_interesting.models.User;
 
@@ -20,7 +20,7 @@ public class AuthModel implements AuthContract.Model {
 
     @Override
     public void loginWithGoogle(final OnFinishedListener onFinishedListener, String id, String email, String name, String picture, String accessToken) {
-        APIInterface api = Client.client().create(APIInterface.class);
+        APIInterface api = AppClient.client().create(APIInterface.class);
         Call<ResponseObject<User>> call = api.loginGoogle(id, email, name, picture, accessToken);
         call.enqueue(new Callback<ResponseObject<User>>() {
             @Override

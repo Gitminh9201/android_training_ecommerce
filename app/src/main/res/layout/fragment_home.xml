@@ -5,97 +5,45 @@
     android:id="@+id/fragment_home"
     android:layout_height="match_parent"
     tools:context=".mvp.home.HomeFragment">
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.core.widget.NestedScrollView
+        android:background="@color/colorWhite"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:fitsSystemWindows="true">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar_home"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                app:layout_scrollFlags="scroll|enterAlways">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="6dp"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:layout_weight="1"
-                        android:id="@+id/edit_search"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_border_white"
-                        android:cursorVisible="false"
-                        android:hint="Search..."
-                        android:focusedByDefault="false"
-                        android:drawableRight="@drawable/ic_search"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="8dp"
-                        android:textColor="@color/colorPrimary"
-                        android:textColorHint="@color/colorDispose"
-                        android:textSize="14dp" />
-
-                    <include layout="@layout/cart"/>
-                </LinearLayout>
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.core.widget.NestedScrollView
-            android:background="@color/colorWhite"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-            <LinearLayout
-                android:background="@color/colorPrimary"
-                android:paddingTop="@dimen/height_search"
-                android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vp_banner"
                 android:layout_width="fill_parent"
-                android:layout_height="match_parent">
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/vp_banner"
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/height_banner" />
-                <include layout="@layout/space"/>
-                <com.knight.f_interesting.customs.ExpandableHeightGridView
-                    android:background="@color/colorWhite"
-                    android:paddingHorizontal="@dimen/padding_grid_home"
-                    android:importantForAutofill="yes"
-                    android:id="@+id/gv_brand_home"
-                    android:numColumns="4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <include layout="@layout/space"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:clipToPadding="false"
-                    android:scrollbars="vertical"
-                    android:layout_width="match_parent"
-                    android:background="@color/colorWhite"
-                    android:id="@+id/rv_group_home"
-                    android:layout_height="wrap_content"/>
-                <include layout="@layout/space"/>
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                android:layout_height="@dimen/height_banner" />
+            <include layout="@layout/space"/>
+            <com.knight.f_interesting.customs.ExpandableHeightGridView
+                android:background="@color/colorWhite"
+                android:paddingHorizontal="@dimen/padding_grid_home"
+                android:importantForAutofill="yes"
+                android:id="@+id/gv_brand_home"
+                android:numColumns="4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <include layout="@layout/space"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:clipToPadding="false"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:background="@color/colorWhite"
+                android:id="@+id/rv_group_home"
+                android:layout_height="wrap_content"/>
+            <include layout="@layout/space"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
     <LinearLayout
         android:orientation="horizontal"
         android:id="@+id/ll_load_home"
         android:layout_width="match_parent"
         android:background="@color/colorWhite"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_height="match_parent"/>
     <ProgressBar
         android:background="@color/colorWhite"

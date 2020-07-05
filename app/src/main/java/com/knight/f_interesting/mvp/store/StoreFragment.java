@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import androidx.core.view.GravityCompat;
@@ -26,7 +25,6 @@ import com.knight.f_interesting.customs.RecyclerItemClickListener;
 import com.knight.f_interesting.models.Brand;
 import com.knight.f_interesting.models.Category;
 import com.knight.f_interesting.mvp.products.ProductsFragment;
-import com.knight.f_interesting.utils.Router;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +38,8 @@ public class StoreFragment extends Fragment implements StoreContract.View {
     private LinearLayout llLoading;
     private RecyclerView rvCategories;
     private RecyclerView rvBrandFilter;
-    private ImageButton ivFilter;
-    private ImageButton ibCart;
+//    private ImageButton ivFilter;
+//    private ImageButton ibCart;
     private DrawerLayout drawerFilter;
     private Chip chipInc;
     private Chip chipAbt;
@@ -61,12 +59,12 @@ public class StoreFragment extends Fragment implements StoreContract.View {
     FragmentTransaction ft;
 
     private void init(View view) {
+//        ivFilter = view.findViewById(R.id.ib_filter);
+//        ibCart = view.findViewById(R.id.ib_cart);
         this.view = view;
-        ibCart = view.findViewById(R.id.ib_cart);
         llLoading = view.findViewById(R.id.ll_load_store);
         rvCategories = view.findViewById(R.id.rv_categories_store);
         rvBrandFilter = view.findViewById(R.id.rv_brand_filter);
-        ivFilter = view.findViewById(R.id.ib_filter);
         drawerFilter = view.findViewById(R.id.drawer_store);
         chipAbt = view.findViewById(R.id.chip_abatement);
         chipInc = view.findViewById(R.id.chip_increment);
@@ -94,12 +92,6 @@ public class StoreFragment extends Fragment implements StoreContract.View {
     }
 
     private void listener(final View view) {
-        ibCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Router.navigator(Router.CART, getActivity(), null);
-            }
-        });
         rvCategories.addOnItemTouchListener(new RecyclerItemClickListener(view.getContext(),
                 rvCategories, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -169,11 +161,11 @@ public class StoreFragment extends Fragment implements StoreContract.View {
                 fProducts.filter(categoryId, brandId, sort);
             }
         });
-        ivFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {drawerFilter.openDrawer(GravityCompat.END);
-            }
-        });
+//        ivFilter.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {drawerFilter.openDrawer(GravityCompat.END);
+//            }
+//        });
     }
 
     @Override

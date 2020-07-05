@@ -7,7 +7,7 @@
     android:weightSum="1"
     android:layout_height="match_parent"
     tools:context=".mvp.MainActivity">
-
+    <include layout="@layout/toolbar_main"/>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_main"
         android:layout_weight="1"

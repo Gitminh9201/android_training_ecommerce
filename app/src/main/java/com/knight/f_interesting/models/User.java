@@ -59,6 +59,8 @@ public class User {
         this.token = token;
     }
 
+    public User(){}
+
     public User(int id, String name, String email, String avatar, String token) {
         this.id = id;
         this.name = name;

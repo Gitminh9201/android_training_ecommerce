@@ -3,7 +3,7 @@ package com.knight.f_interesting.mvp.person;
 import android.content.Context;
 
 import com.knight.f_interesting.api.APIInterface;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.buses.UserBus;
 import com.knight.f_interesting.models.ResponseObject;
 import com.knight.f_interesting.models.User;
@@ -23,8 +23,8 @@ public class PersonModel implements PersonContract.Model {
     }
 
     private void requestApi(final OnFinishedListener onFinishedListener, Context context){
-        APIInterface api = Client.client().create(APIInterface.class);
-        Call<ResponseObject<User>> call = api.getUser(Client.header(context));
+        APIInterface api = AppClient.client().create(APIInterface.class);
+        Call<ResponseObject<User>> call = api.getUser(AppClient.headers());
         call.enqueue(new Callback<ResponseObject<User>>() {
             @Override
             public void onResponse(Call<ResponseObject<User>> call, Response<ResponseObject<User>> response) {

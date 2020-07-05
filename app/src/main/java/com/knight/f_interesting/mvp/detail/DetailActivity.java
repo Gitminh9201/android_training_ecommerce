@@ -20,7 +20,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.GalleryDetailAdapter;
 import com.knight.f_interesting.adapters.ProductItemAdapter;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Gallery;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.utils.AppUtils;
@@ -66,7 +66,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         vpGallery = findViewById(R.id.vp_gallery_detail);
         txtPrice = findViewById(R.id.txt_price_detail);
         ibAddCart = findViewById(R.id.ib_add_cart);
-        ibCart = findViewById(R.id.ib_cart);
+        ibCart = findViewById(R.id.ib_cart_toolbar);
         txtTitle = findViewById(R.id.txt_title_detail);
         txtPriceCompare = findViewById(R.id.txt_price_compare_detail);
         ibBack = findViewById(R.id.ib_back);
@@ -182,7 +182,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         txtDesBrand.setText(product.getBrand().getDescription());
         txtTitleBrand.setText(product.getBrand().getTitle());
         txtCountryBrand.setText(product.getBrand().getCountry());
-        Glide.with(this).load(Client.url() + product.getBrand().getImage()).into(ivBrand);
+        Glide.with(this).load(AppClient.url() + product.getBrand().getImage()).into(ivBrand);
         txtPriceCompare.setText(AppUtils.currencyVN(product.getPriceCompare()));
         txtPrice.setText(AppUtils.currencyVN(product.getPrice()));
         txtTitle.setText(product.getTitle());

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.knight.f_interesting.api.APIInterface;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Cart;
 import com.knight.f_interesting.models.Order;
 import com.knight.f_interesting.models.Product;
@@ -34,7 +34,7 @@ public class CartModel implements CartContract.Model {
             ids += String.valueOf(cart.getProductId()) + ",";
         }
         Log.e("ids", ids);
-        APIInterface api = Client.client().create(APIInterface.class);
+        APIInterface api = AppClient.client().create(APIInterface.class);
         Call<ResponseList<Product>> call = api.productCart(ids);
         call.enqueue(new Callback<ResponseList<Product>>() {
             @Override
@@ -63,8 +63,8 @@ public class CartModel implements CartContract.Model {
         }
         productIds = productIds.substring(0, productIds.length() - 1);
         quantities = quantities.substring(0, quantities.length() - 1);
-        APIInterface api = Client.client().create(APIInterface.class);
-        Call<ResponseObject<Order>> call = api.createOrder(Client.header(context), productIds, quantities, order.getAddress(), order.getNote(), order.getPhone());
+        APIInterface api = AppClient.client().create(APIInterface.class);
+        Call<ResponseObject<Order>> call = api.createOrder(AppClient.headers(), productIds, quantities, order.getAddress(), order.getNote(), order.getPhone());
         call.enqueue(new Callback<ResponseObject<Order>>() {
             @Override
             public void onResponse(Call<ResponseObject<Order>> call, Response<ResponseObject<Order>> response) {

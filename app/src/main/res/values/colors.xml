@@ -5,7 +5,10 @@
     <color name="colorDispose">#527FA4</color>
     <color name="colorSpace">#F5F5F8</color>
     <color name="colorBlack">#000000</color>
-    <color name="colorRed">#C81717</color>
+    <color name="colorRed">#FA1E38</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrey">#F3F1F1</color>
+    <color name="colorGreyCancel">#8F8A8A</color>
+    <color name="colorBlackOpacity">#322D2D</color>
+    <color name="colorGreen">#16DF16</color>
 </resources>

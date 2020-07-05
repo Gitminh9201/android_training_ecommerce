@@ -1,7 +1,6 @@
 package com.knight.f_interesting.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.knight.f_interesting.R;
-import com.knight.f_interesting.api.APIInterface;
-import com.knight.f_interesting.api.Client;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Banner;
 
 import java.util.ArrayList;
@@ -54,7 +52,7 @@ public class BannerHomeAdapter extends PagerAdapter {
         ProgressBar progressBar = view.findViewById(R.id.pb_load_banner_home);
         TextView textView = view.findViewById(R.id.txt_banner_home);
 
-        Glide.with(view).load(Client.url()
+        Glide.with(view).load(AppClient.url()
                 + banners.get(position).getImage())
                 .placeholder(R.drawable.border_image_brand_home)
                 .into(imageView);

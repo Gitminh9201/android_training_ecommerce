@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ib_cart"
-    android:background="@color/colorPrimary"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
-    android:paddingHorizontal="8dp"
-    android:src="@drawable/ic_cart" />
+    android:layout_height="wrap_content">
+    <ImageButton
+        android:id="@+id/ib_cart_toolbar"
+        android:background="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="2dp"
+        android:src="@drawable/ic_cart" />
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:id="@+id/txt_badge_cart_toolbar"
+        android:background="@drawable/bg_order_status_3"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:text="1"
+        android:textSize="5sp"
+        android:textColor="@color/colorWhite"
+        android:layout_gravity="center"
+        android:textStyle="bold"/>
+</RelativeLayout>
