@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.models.Order;
 import com.knight.f_interesting.utils.AppContracts;
+import com.knight.f_interesting.utils.AppSizes;
 
 import java.util.List;
 
@@ -48,24 +49,28 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         holder.txtPhone.setText(model.getPhone());
         holder.txtTime.setText(model.getCreated());
 
+        LinearLayout.LayoutParams layout =
+                new LinearLayout.LayoutParams(AppSizes.getScreenWidth()/6, AppSizes.getScreenWidth()/6);
+        holder.ivStatus.setLayoutParams(layout);
+
         holder.txtStatus.setText(AppContracts.orderStatus(model.getStatus()));
 
         int border;
         int bgIcon;
         switch (model.getStatus()){
-            case 1:
+            case 0:
                 border = R.drawable.bg_border_order_status_1;
                 bgIcon = R.drawable.bg_order_status_1;
                 break;
-            case 2:
+            case 1:
                 border = R.drawable.bg_border_order_status_2;
                 bgIcon = R.drawable.bg_order_status_2;
                 break;
-            case 3:
+            case 2:
                 border = R.drawable.bg_border_order_status_3;
                 bgIcon = R.drawable.bg_order_status_3;
                 break;
-            case 4:
+            case 3:
                 border = R.drawable.bg_border_order_status_4;
                 bgIcon = R.drawable.bg_order_status_4;
                 break;

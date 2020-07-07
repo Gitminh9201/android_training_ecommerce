@@ -68,7 +68,7 @@ public class CartModel implements CartContract.Model {
         call.enqueue(new Callback<ResponseObject<Order>>() {
             @Override
             public void onResponse(Call<ResponseObject<Order>> call, Response<ResponseObject<Order>> response) {
-                if (response.body().getStatus() == 1){
+                if (response.body() != null && response.body().getStatus() == 1){
                     onFinishedListener.onFinishedCreateOrder(response.body().getData());}
                 else{
                     onFinishedListener.onFinishedCreateOrder(new Order());

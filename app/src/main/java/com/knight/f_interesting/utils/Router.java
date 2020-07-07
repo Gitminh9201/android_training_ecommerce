@@ -11,6 +11,8 @@ import com.knight.f_interesting.mvp.completed.CompletedActivity;
 import com.knight.f_interesting.mvp.detail.DetailActivity;
 import com.knight.f_interesting.mvp.person_history_order.OrderHistoryActivity;
 import com.knight.f_interesting.mvp.person_information.InformationActivity;
+import com.knight.f_interesting.mvp.result_products.ResultProductsActivity;
+import com.knight.f_interesting.mvp.search.SearchActivity;
 import com.knight.f_interesting.mvp.terms.TermsActivity;
 
 public class Router {
@@ -18,12 +20,14 @@ public class Router {
     public final static String MAIN = "/main";
     public final static String LOGIN = "/login";
     public final static String INFORMATION = "/information";
-    public final static String CART = "/cart";
+    public final static String CART = "/toolbar_item_cart";
     public final static String PRODUCT_DETAIL = "/product_detail";
     public final static String ADDRESS = "/address";
     public final static String ORDER_HISTORY = "/order_history";
     public final static String TERMS = "/terms";
     public final static String COMPLETED = "/completed";
+    public final static String SEARCH = "/toolbar_item_search";
+    public final static String RESULT_PRODUCTS = "/result_products";
 
     public static void navigator(String route, Activity current, String[] arguments) {
 
@@ -51,6 +55,12 @@ public class Router {
             case COMPLETED:
                 second = CompletedActivity.class;
                 break;
+            case SEARCH:
+                second = SearchActivity.class;
+                break;
+            case RESULT_PRODUCTS:
+                second = ResultProductsActivity.class;
+                break;
             case PRODUCT_DETAIL:
                 Intent intent = new Intent(current, DetailActivity.class);
                 intent.putExtra("id", Integer.parseInt(arguments[0]));
@@ -61,9 +71,15 @@ public class Router {
                 } catch (Exception e) {}
                 return;
             case MAIN:
+                Boolean splash = false;
+                try {
+                    if (Boolean.parseBoolean(arguments[0]))
+                        splash = true;
+                } catch (Exception e) {}
                 Intent main = new Intent(current, MainActivity.class);
-                main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                if(!splash) main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 current.startActivity(main);
+                if(splash) current.finish();
                 return;
             default:
                 second = MainActivity.class;

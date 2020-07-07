@@ -2,6 +2,7 @@ package com.knight.f_interesting.mvp.cart;
 
 import android.content.Context;
 
+import com.knight.f_interesting.buses.CartBus;
 import com.knight.f_interesting.models.Cart;
 import com.knight.f_interesting.models.Order;
 import com.knight.f_interesting.models.Product;
@@ -15,7 +16,7 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
     private CartContract.Model model;
     private Context context;
 
-    public CartPresenter(CartContract.View view, Context context){
+    public CartPresenter(CartContract.View view, Context context) {
         this.context = context;
         this.view = view;
         model = new CartModel(context);
@@ -23,7 +24,7 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
 
     @Override
     public void onFinishedGetData(List<Product> products, List<Cart> carts) {
-        if(view != null){
+        if (view != null) {
             view.hideProgress();
             view.setDataToView(products, carts);
             view.refresh(products, carts);
@@ -32,7 +33,7 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
 
     @Override
     public void onFinishedCreateOrder(Order order) {
-        if(view != null){
+        if (view != null) {
             view.hideProgress();
             view.onOrderSuccess(order);
         }
@@ -40,7 +41,7 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
 
     @Override
     public void onFailure(Throwable throwable) {
-        if(view != null){
+        if (view != null) {
             view.hideProgress();
             view.onResponseFailure(throwable);
         }
@@ -48,6 +49,7 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
 
     @Override
     public void refresh(List<Product> products, List<Cart> carts) {
+        CartBus.refresh();
         view.refresh(products, carts);
     }
 
@@ -58,7 +60,7 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
 
     @Override
     public void createOrder(Order order) {
-        if(view != null){
+        if (view != null) {
             view.showProgress();
             model.createOrder(this, order);
         }
@@ -66,7 +68,7 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
 
     @Override
     public void requestData() {
-        if(view != null){
+        if (view != null) {
             view.showProgress();
             List<Cart> carts = AppUtils.db.getCart();
             model.getData(this, carts);

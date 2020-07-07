@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.ProductCartAdapter;
+import com.knight.f_interesting.buses.CartBus;
 import com.knight.f_interesting.models.Address;
 import com.knight.f_interesting.models.Cart;
 import com.knight.f_interesting.models.MethodPayment;
@@ -87,7 +88,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
                     }, getSupportFragmentManager());
                 } else {
                     AppUtils.showDialogAuth(getResources()
-                                    .getString(R.string.request_login_input_collection),
+                                    .getString(R.string.request_login_cart),
                             activity, getSupportFragmentManager());
                 }
             }
@@ -193,6 +194,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
     public void onOrderSuccess(Order order) {
         if (order != null && order.getId() > 0) {
             AppUtils.db.removeCart();
+            CartBus.refresh();
             Router.navigator(Router.COMPLETED, activity, null);
         } else
             AppUtils.snackbarError(findViewById(android.R.id.content).getRootView(), R.id.layout_cart);

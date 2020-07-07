@@ -3,6 +3,7 @@ package com.knight.f_interesting.mvp;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -14,16 +15,18 @@ import com.google.android.material.tabs.TabLayout;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.TabPagerMainAdapter;
 import com.knight.f_interesting.base.BaseView;
+import com.knight.f_interesting.buses.CartBus;
 import com.knight.f_interesting.models.Cart;
 import com.knight.f_interesting.mvp.collection.CollectionFragment;
 import com.knight.f_interesting.mvp.home.HomeFragment;
 import com.knight.f_interesting.mvp.person.PersonFragment;
 import com.knight.f_interesting.mvp.store.StoreFragment;
-import com.knight.f_interesting.utils.AppUtils;
 import com.knight.f_interesting.utils.Router;
 
 import java.util.List;
 import java.util.Objects;
+
+import io.reactivex.rxjava3.functions.Consumer;
 
 public class MainActivity extends AppCompatActivity implements BaseView.BaseActivity {
 
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements BaseView.BaseActi
     private TabPagerMainAdapter adapter;
     private ImageButton ibCart;
     private TextView txtBadge;
+    private EditText editSearch;
     private int[] tabIcons;
 
     @Override
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements BaseView.BaseActi
         setContentView(R.layout.activity_main);
 
         init();
-        refresh();
+        refreshCart();
         setSupportActionBar(toolbar);
         listener(this);
     }
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements BaseView.BaseActi
                 R.drawable.ic_person
         };
 
+        editSearch = findViewById(R.id.edit_search);
         txtBadge = findViewById(R.id.txt_badge_cart_toolbar);
         toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         ibCart = findViewById(R.id.ib_cart_toolbar);
@@ -75,13 +80,17 @@ public class MainActivity extends AppCompatActivity implements BaseView.BaseActi
         }
     }
 
-    private void refresh(){
-        List<Cart> carts = AppUtils.db.getCart();
-        if(carts.size() != 0){
-            txtBadge.setVisibility(View.VISIBLE);
-            txtBadge.setText(String.valueOf(carts.size()));
-        }else
-            txtBadge.setVisibility(View.GONE);
+    public void refreshCart(){
+        CartBus.subscribe(new Consumer<List<Cart>>() {
+            @Override
+            public void accept(List<Cart> carts) throws Throwable {
+                if(carts.size() != 0){
+                    txtBadge.setVisibility(View.VISIBLE);
+                    txtBadge.setText(String.valueOf(carts.size()));
+                }else
+                    txtBadge.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -90,6 +99,12 @@ public class MainActivity extends AppCompatActivity implements BaseView.BaseActi
             @Override
             public void onClick(View v) {
                 Router.navigator(Router.CART, activity, null);
+            }
+        });
+        editSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Router.navigator(Router.SEARCH, activity, null);
             }
         });
     }

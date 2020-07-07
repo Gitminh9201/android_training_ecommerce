@@ -15,8 +15,8 @@ public class AppClient {
 
     private static Retrofit retrofit = null;
 
-//    public static final String BASE_URL = "http://192.168.43.228/";
-    public static final String BASE_URL = "http://192.168.1.51/";
+    public static final String BASE_URL = "http://192.168.43.228/";
+//    public static final String BASE_URL = "http://192.168.1.51/";
     public static final String MIDDLE_URL = "lv_training_ecommerce/public/";
 
     public static String url(){

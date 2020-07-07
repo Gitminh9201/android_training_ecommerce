@@ -5,6 +5,9 @@
         <item name="android:textSize">14sp</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
+        
+        <item name="android:windowActivityTransitions">true</item>
+
     </style>
 
     <!-- Splash Screen theme. -->

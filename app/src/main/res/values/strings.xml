@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">F-Interesting</string>
+    <string name="app_name">Fas-Int</string>
     <string name="facebook_app_id">2738845606395528</string>
     <!-- Tag dialog -->
     <string name="dialog_request_login">dialog_request_login</string>
@@ -7,11 +7,12 @@
     <!-- Strings -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_data">Something went wrong!</string>
-    <string name="empty_data">Something went wrong!</string>
+    <string name="empty_data">Danh sách trống!</string>
     <string name="product_had_choose">Sản phẩm bạn đã chọn:</string>
     <string name="cart_empty">Hiện tại giỏ của bạn đang trống</string>
     <string name="add_cart_success">Thêm sản phẩm thành công!</string>
     <string name="aks_continue">Bạn chắc chắn muốn đặt hàng luôn chứ!</string>
+    <string name="error_startup">Không thể kết nối đến máy chủ.\nKiểm tra kết nối mạng của bạn và thử lại!</string>
 
     <string name="choose_address">Chọn địa chỉ giao hàng</string>
     <string name="choose_address_exists">Chọn địa chỉ của bạn:</string>
@@ -43,7 +44,7 @@
     <string name="request_login_cart">Bạn cần đăng nhập để đến bước tiếp theo?</string>
     <string name="request_login_collection">Bạn cần đăng nhập để xem bộ sưu tập riêng của mình?</string>
     <string name="request_login_input_collection">Bạn cần đăng nhập để tạo bộ sưu tập riêng?</string>
-    <string name="request_login_address">Bạn cần có muốn đăng nhập để lưu lại địa chỉ cho lần sau?</string>
+    <string name="request_login_address">Bạn có muốn đăng nhập để lưu lại địa chỉ cho lần sau?</string>
 
     <string name="person_name">Ẩn danh</string>
     <string name="person_information">Thông tin cá nhân</string>

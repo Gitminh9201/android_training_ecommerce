@@ -31,5 +31,5 @@
         android:paddingHorizontal="10dp"
         android:src="@drawable/ic_search_white" />
 
-    <include layout="@layout/cart" />
+    <include layout="@layout/toolbar_item_cart" />
 </LinearLayout>

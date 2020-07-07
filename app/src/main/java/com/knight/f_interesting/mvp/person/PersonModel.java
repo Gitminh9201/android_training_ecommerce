@@ -16,19 +16,21 @@ public class PersonModel implements PersonContract.Model {
     @Override
     public void getUser(final OnFinishedListener onFinishedListener, Context context) {
         User user = UserBus.current();
-        if( user != null && user.getName() != null){
+        if (user != null && user.getName() != null) {
             onFinishedListener.onFinish(user);
-        }
-        else requestApi(onFinishedListener, context);
+        } else requestApi(onFinishedListener, context);
     }
 
-    private void requestApi(final OnFinishedListener onFinishedListener, Context context){
+    private void requestApi(final OnFinishedListener onFinishedListener, Context context) {
         APIInterface api = AppClient.client().create(APIInterface.class);
         Call<ResponseObject<User>> call = api.getUser(AppClient.headers());
         call.enqueue(new Callback<ResponseObject<User>>() {
             @Override
             public void onResponse(Call<ResponseObject<User>> call, Response<ResponseObject<User>> response) {
-                onFinishedListener.onFinish(response.body().getData());
+                if (response.body() != null && response.body().getStatus() == 1)
+                    onFinishedListener.onFinish(response.body().getData());
+                else
+                    onFinishedListener.onFinish(new User());
             }
 
             @Override

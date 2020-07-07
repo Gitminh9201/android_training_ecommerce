@@ -21,12 +21,12 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:src="@drawable/image_gift"
-                    android:layout_height="200dp"/>
+                    android:layout_height="120dp"/>
             </LinearLayout>
             <LinearLayout
                 android:gravity="center"
                 android:paddingVertical="10dp"
-                android:paddingHorizontal="30dp"
+                android:paddingHorizontal="25dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

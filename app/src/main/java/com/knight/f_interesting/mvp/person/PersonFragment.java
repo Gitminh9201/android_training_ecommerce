@@ -78,7 +78,7 @@ public class PersonFragment extends Fragment implements PersonContract.View {
         rlAvatarProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new ChooseImage();
+                DialogFragment dialogFragment = new ChooseImage(getActivity());
                 dialogFragment.show(getFragmentManager(), "dialog");
             }
         });

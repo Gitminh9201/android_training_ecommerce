@@ -29,19 +29,19 @@ public class HomeModel implements HomeContract.Model {
         callBanner.enqueue(new Callback<ResponseList<Banner>>() {
             @Override
             public void onResponse(Call<ResponseList<Banner>> call, Response<ResponseList<Banner>> response) {
-                if(response.body().getStatus() == 1)
+                if(response.body() != null && response.body().getStatus() == 1)
                     banners = response.body().getData();
                 else banners = new ArrayList<>();
                 callBrand.enqueue(new Callback<ResponseList<Brand>>() {
                     @Override
                     public void onResponse(Call<ResponseList<Brand>> call, Response<ResponseList<Brand>> response) {
-                        if(response.body().getStatus() == 1)
+                        if(response.body() != null && response.body().getStatus() == 1)
                             brands = response.body().getData();
                         else brands = new ArrayList<>();
                         callGroup.enqueue(new Callback<ResponseList<Group>>() {
                             @Override
                             public void onResponse(Call<ResponseList<Group>> call, Response<ResponseList<Group>> response) {
-                                if (response.body().getStatus() == 1)
+                                if (response.body() != null && response.body().getStatus() == 1)
                                     groups = response.body().getData();
                                 else groups = new ArrayList<>();
                                 onFinishedListener.onFinished(banners, brands, groups);

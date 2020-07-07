@@ -41,15 +41,8 @@
                 android:layout_height="match_parent"/>
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/ib_search"
-            android:background="@color/colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingHorizontal="10dp"
-            android:src="@drawable/ic_search_white" />
+        <include layout="@layout/toolbar_item_search"/>
 
-        <include layout="@layout/cart" />
+        <include layout="@layout/toolbar_item_cart" />
     </LinearLayout>
 </androidx.appcompat.widget.Toolbar>

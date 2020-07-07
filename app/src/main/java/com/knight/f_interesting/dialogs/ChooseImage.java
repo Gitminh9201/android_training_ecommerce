@@ -1,6 +1,8 @@
 package com.knight.f_interesting.dialogs;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -31,6 +33,12 @@ public class ChooseImage extends DialogFragment {
     private LinearLayout llChooseImage;
     private LinearLayout llMakeImage;
 
+    private Activity activity;
+
+    public ChooseImage(Activity activity){
+        this.activity = activity;
+    }
+
     private void init(View view) {
         llChooseImage = view.findViewById(R.id.ll_choose_image);
         llChooseImage.setLayoutParams(
@@ -53,7 +61,9 @@ public class ChooseImage extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Intent makeImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(makeImage, CODE_MAKE_IMAGE);
+                if (makeImage.resolveActivity(activity.getPackageManager()) != null) {
+                    startActivityForResult(makeImage, CODE_MAKE_IMAGE);
+                }
             }
         });
     }
@@ -69,8 +79,9 @@ public class ChooseImage extends DialogFragment {
                     Log.e("CHOOSE", image.toString());
                     break;
                 case 7410:
-//                    Uri uriImage = data.getData();
-//                    Log.e("MAKE", data.getData().toString());
+                    Bundle extras = data.getExtras();
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    Log.e("MAKE", extras.toString());
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + requestCode);

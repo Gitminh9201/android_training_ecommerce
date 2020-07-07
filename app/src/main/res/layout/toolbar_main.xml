@@ -34,6 +34,6 @@
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorDispose"
             android:textSize="14dp" />
-        <include layout="@layout/cart"/>
+        <include layout="@layout/toolbar_item_cart"/>
     </LinearLayout>
 </androidx.appcompat.widget.Toolbar>

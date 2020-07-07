@@ -21,6 +21,8 @@ import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.GalleryDetailAdapter;
 import com.knight.f_interesting.adapters.ProductItemAdapter;
 import com.knight.f_interesting.api.AppClient;
+import com.knight.f_interesting.buses.CartBus;
+import com.knight.f_interesting.models.Cart;
 import com.knight.f_interesting.models.Gallery;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.utils.AppUtils;
@@ -28,6 +30,8 @@ import com.knight.f_interesting.utils.Router;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.rxjava3.functions.Consumer;
 
 public class DetailActivity extends AppCompatActivity implements DetailContract.View {
 
@@ -51,6 +55,8 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     private ProductItemAdapter relatedAdapter;
     private TextView txtBuyNow;
     private ImageButton ibAddBookMark;
+    private TextView txtBadge;
+    private ImageButton ibSearch;
 
     private List<Product> related;
     private List<Gallery> gallery;
@@ -62,6 +68,8 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     private Intent intent;
 
     private void init(Activity activity) {
+        ibSearch = findViewById(R.id.ib_search);
+        txtBadge = findViewById(R.id.txt_badge_cart_toolbar);
         llLoading = findViewById(R.id.ll_load_detail);
         vpGallery = findViewById(R.id.vp_gallery_detail);
         txtPrice = findViewById(R.id.txt_price_detail);
@@ -99,7 +107,26 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         presenter.requestData(id);
     }
 
+    private void refreshCart() {
+        CartBus.subscribe(new Consumer<List<Cart>>() {
+            @Override
+            public void accept(List<Cart> carts) throws Throwable {
+                if(carts.size() != 0){
+                    txtBadge.setVisibility(View.VISIBLE);
+                    txtBadge.setText(String.valueOf(carts.size()));
+                }else
+                    txtBadge.setVisibility(View.GONE);
+            }
+        });
+    }
+
     private void listener(final Activity activity) {
+        ibSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Router.navigator(Router.SEARCH, activity, null);
+            }
+        });
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +143,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
             @Override
             public void onClick(View v) {
                 AppUtils.db.addCart(product.getId(), 1);
+                CartBus.refresh();
                 Toast.makeText(getApplicationContext(), getResources()
                         .getString(R.string.add_cart_success), Toast.LENGTH_LONG)
                         .show();
@@ -125,6 +153,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
             @Override
             public void onClick(View v) {
                 AppUtils.db.addCart(product.getId(), 1);
+                CartBus.refresh();
                 Router.navigator(Router.CART, activity, null);
             }
         });
@@ -148,6 +177,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         init(this);
+        refreshCart();
         listener(this);
     }
 

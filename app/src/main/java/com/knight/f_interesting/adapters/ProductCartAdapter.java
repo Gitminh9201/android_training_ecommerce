@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.api.AppClient;
+import com.knight.f_interesting.buses.CartBus;
 import com.knight.f_interesting.models.Cart;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.mvp.cart.CartContract;
@@ -68,6 +69,7 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
             @Override
             public void onClick(View v) {
                 AppUtils.db.updateCart(products.get(position).getId(), 0);
+                CartBus.refresh();
                 products.remove(position);
                 carts.remove(position);
                 notifyDataSetChanged();

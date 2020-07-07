@@ -1,5 +1,7 @@
 package com.knight.f_interesting.mvp.auth;
 
+import android.util.Log;
+
 import com.knight.f_interesting.api.APIInterface;
 import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.ResponseObject;
@@ -19,14 +21,16 @@ public class AuthModel implements AuthContract.Model {
     }
 
     @Override
-    public void loginWithGoogle(final OnFinishedListener onFinishedListener, String id, String email, String name, String picture, String accessToken) {
+    public void loginWithGoogle(final OnFinishedListener onFinishedListener, String id, String email,
+                                String name, String picture, String accessToken) {
         APIInterface api = AppClient.client().create(APIInterface.class);
         Call<ResponseObject<User>> call = api.loginGoogle(id, email, name, picture, accessToken);
         call.enqueue(new Callback<ResponseObject<User>>() {
             @Override
             public void onResponse(Call<ResponseObject<User>> call, Response<ResponseObject<User>> response) {
-                if (response.body() != null && response.body().getStatus() == 1)
+                if (response.body() != null && response.body().getStatus() == 1){
                     user = response.body().getData();
+                }
                 onFinishedListener.onFinished(user);
             }
 

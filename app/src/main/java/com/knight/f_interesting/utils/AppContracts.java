@@ -6,16 +6,16 @@ public class AppContracts {
     public static int orderStatus(int status){
         int result;
         switch (status){
-            case 1:
+            case 0:
                 result = R.string.order_status_1;
                 break;
-            case 2:
+            case 1:
                 result = R.string.order_status_2;
                 break;
-            case 3:
+            case 2:
                 result = R.string.order_status_3;
                 break;
-            case 4:
+            case 3:
                 result = R.string.order_status_4;
                 break;
             default:

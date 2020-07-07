@@ -38,11 +38,9 @@ public class PersonPresenter implements PersonContract.Presenter, PersonContract
     @Override
     public void requestData() {
         if(view != null){
-            Log.e("NOT NULL", "TRUE");
             view.showProgress();
             model.getUser(this, context);
-        }else
-            Log.e("NOT NULL", "False");
+        }
     }
 
     @Override
