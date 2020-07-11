@@ -6,18 +6,22 @@ import com.knight.f_interesting.models.Category;
 import com.knight.f_interesting.models.Group;
 import com.knight.f_interesting.models.Order;
 import com.knight.f_interesting.models.Product;
+import com.knight.f_interesting.models.ProductSuggest;
 import com.knight.f_interesting.models.ResponseList;
 import com.knight.f_interesting.models.ResponseObject;
 import com.knight.f_interesting.models.User;
 
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
@@ -45,6 +49,9 @@ public interface APIInterface {
     @GET(AppClient.MIDDLE_URL + "api/products/gets")
     Call<ResponseList<Product>> productCart(@Query("ids") String ids);
 
+    @GET(AppClient.MIDDLE_URL + "api/products/suggest")
+    Call<ResponseList<ProductSuggest>> productSuggest(@Query("keyword") String keyword);
+
     @FormUrlEncoded
     @POST(AppClient.MIDDLE_URL + "api/auth/google")
     Call<ResponseObject<User>> loginGoogle(
@@ -56,6 +63,13 @@ public interface APIInterface {
 
     @POST(AppClient.MIDDLE_URL + "api/auth/me")
     Call<ResponseObject<User>> getUser(@HeaderMap Map<String, String> headers);
+
+    @POST(AppClient.MIDDLE_URL + "api/auth/me")
+    Call<ResponseObject<User>> uploadUser(@HeaderMap Map<String, String> headers, @QueryMap Map<String, String> options);
+
+    @Multipart
+    @POST(AppClient.MIDDLE_URL + "api/auth/me/picture")
+    Call<ResponseObject<User>> uploadAvatar(@HeaderMap Map<String, String> headers, @Part MultipartBody.Part file);
 
     @POST(AppClient.MIDDLE_URL + "api/collection/get")
     Call<ResponseList<Product>> collection(@HeaderMap Map<String, String> headers);

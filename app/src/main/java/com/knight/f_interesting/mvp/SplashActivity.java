@@ -64,7 +64,7 @@ public class SplashActivity extends AppCompatActivity {
                     public void run() {
                         Router.navigator(Router.MAIN, activity, new String[]{"true"});
                     }
-                }, 500);
+                }, 1500);
             }
 
             @Override

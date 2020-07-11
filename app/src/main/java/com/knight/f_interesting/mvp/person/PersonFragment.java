@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.knight.f_interesting.R;
+import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.buses.UserBus;
 import com.knight.f_interesting.dialogs.ChooseImage;
 import com.knight.f_interesting.models.User;
@@ -78,7 +79,7 @@ public class PersonFragment extends Fragment implements PersonContract.View {
         rlAvatarProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new ChooseImage(getActivity());
+                DialogFragment dialogFragment = new ChooseImage(getActivity(), presenter);
                 dialogFragment.show(getFragmentManager(), "dialog");
             }
         });
@@ -147,7 +148,10 @@ public class PersonFragment extends Fragment implements PersonContract.View {
         if (user != null && user.getName() != null) {
             changeButtonAuth(false);
             txtUserName.setText(user.getName());
-            Glide.with(getContext()).load(user.getAvatar()).into(circleAvatar);
+            String url = "";
+            if(user.getAvatar().startsWith("http")) url = user.getAvatar();
+            else url = AppClient.url() + user.getAvatar();
+            Glide.with(getContext()).load(url).into(circleAvatar);
         } else {
             changeButtonAuth(true);
             txtUserName.setText(R.string.person_name);

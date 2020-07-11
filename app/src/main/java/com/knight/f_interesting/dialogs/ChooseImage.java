@@ -2,27 +2,30 @@ package com.knight.f_interesting.dialogs;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import com.knight.f_interesting.R;
+import com.knight.f_interesting.mvp.person.PersonContract;
 import com.knight.f_interesting.utils.AppSizes;
 
-import java.io.File;
-
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.app.Activity.RESULT_OK;
 
 public class ChooseImage extends DialogFragment {
@@ -32,11 +35,13 @@ public class ChooseImage extends DialogFragment {
 
     private LinearLayout llChooseImage;
     private LinearLayout llMakeImage;
+    private PersonContract.Presenter presenter;
 
     private Activity activity;
 
-    public ChooseImage(Activity activity){
+    public ChooseImage(Activity activity, PersonContract.Presenter presenter) {
         this.activity = activity;
+        this.presenter = presenter;
     }
 
     private void init(View view) {
@@ -52,40 +57,78 @@ public class ChooseImage extends DialogFragment {
         llChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chooseImage = new Intent(Intent.ACTION_PICK,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(chooseImage, CODE_CHOOSE_IMAGE);
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    chooseImage();
+                    return;
+                }
+                int result = ContextCompat.checkSelfPermission(getContext(),
+                        READ_EXTERNAL_STORAGE);
+                if (result == PackageManager.PERMISSION_GRANTED) {
+                    chooseImage();
+                } else {
+                    requestPermissions(new String[]{
+                            READ_EXTERNAL_STORAGE}, CODE_CHOOSE_IMAGE);
+                }
             }
         });
         llMakeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent makeImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (makeImage.resolveActivity(activity.getPackageManager()) != null) {
-                    startActivityForResult(makeImage, CODE_MAKE_IMAGE);
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    makeImage();
+                    return;
+                }
+                int result = ContextCompat.checkSelfPermission(getContext(),
+                        CAMERA);
+                if (result == PackageManager.PERMISSION_GRANTED) {
+                    makeImage();
+                } else {
+                    requestPermissions(new String[]{
+                            CAMERA}, CODE_MAKE_IMAGE);
                 }
             }
         });
     }
 
+    public void chooseImage() {
+        Intent chooseImage = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(chooseImage, CODE_CHOOSE_IMAGE);
+    }
+
+    public void makeImage() {
+        Intent makeImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (makeImage.resolveActivity(activity.getPackageManager()) != null) {
+            startActivityForResult(makeImage, CODE_MAKE_IMAGE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[],
+                                           int[] grantResults) {
+        if (requestCode == CODE_CHOOSE_IMAGE)
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                chooseImage();
+            } else {
+                Toast.makeText(activity.getApplicationContext(), "R.string.permission_denied",
+                        Toast.LENGTH_LONG).show();
+            }
+        else if (requestCode == CODE_MAKE_IMAGE)
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makeImage();
+            } else {
+                Toast.makeText(activity.getApplicationContext(), "R.string.permission_denied",
+                        Toast.LENGTH_LONG).show();
+            }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            switch (requestCode){
-                case 9630:
-                    Uri selectedImage = data.getData();
-                    File image = new File(selectedImage.toString());
-                    Log.e("CHOOSE", image.toString());
-                    break;
-                case 7410:
-                    Bundle extras = data.getExtras();
-                    Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    Log.e("MAKE", extras.toString());
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + requestCode);
-            }
+        if (resultCode == RESULT_OK) {
+            Uri makeImage = data.getData();
+            presenter.uploadAvatar(makeImage);
+            dismiss();
         }
     }
 

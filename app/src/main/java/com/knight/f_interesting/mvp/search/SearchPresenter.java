@@ -2,6 +2,7 @@ package com.knight.f_interesting.mvp.search;
 
 import android.content.Context;
 
+import com.knight.f_interesting.models.ProductSuggest;
 import com.knight.f_interesting.utils.Router;
 
 import java.util.List;
@@ -19,17 +20,15 @@ public class SearchPresenter implements SearchContract.Presenter, SearchContract
     }
 
     @Override
-    public void onFinished(List<String> strings) {
+    public void onFinished(List<ProductSuggest> suggests) {
         if(view != null){
-            view.hideProgress();
-            view.setDataToView(strings);
+            view.setDataToView(suggests);
         }
     }
 
     @Override
     public void onFailure(Throwable throwable) {
         if(view != null){
-            view.hideProgress();
             view.onResponseFailure(throwable);
         }
     }
@@ -41,14 +40,15 @@ public class SearchPresenter implements SearchContract.Presenter, SearchContract
 
     @Override
     public void resultProducts(String key) {
-        if(view != null){
-            view.hideProgress();
-            Router.navigator(Router.RESULT_PRODUCTS, view.activity(), null);
-        }
+        Router.navigator(Router.RESULT_PRODUCTS, view.activity(), new String[]{key});
     }
 
     @Override
-    public void requestData() {
-
+    public void requestSuggest(String key) {
+        if(key == null || key.trim().length() == 0){
+            model.getLocal(this);
+        }
+        else
+            model.getSuggest(this, key);
     }
 }

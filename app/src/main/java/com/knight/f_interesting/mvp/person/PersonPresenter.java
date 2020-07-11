@@ -1,7 +1,7 @@
 package com.knight.f_interesting.mvp.person;
 
 import android.content.Context;
-import android.util.Log;
+import android.net.Uri;
 
 import com.knight.f_interesting.buses.UserBus;
 import com.knight.f_interesting.models.User;
@@ -40,6 +40,14 @@ public class PersonPresenter implements PersonContract.Presenter, PersonContract
         if(view != null){
             view.showProgress();
             model.getUser(this, context);
+        }
+    }
+
+    @Override
+    public void uploadAvatar(Uri uri) {
+        if(view != null){
+            view.showProgress();
+            model.uploadAvatar(this, uri);
         }
     }
 

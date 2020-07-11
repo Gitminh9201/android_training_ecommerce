@@ -4,20 +4,43 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.knight.f_interesting.buses.ContextBus;
 import com.knight.f_interesting.models.Address;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class AppShared {
 
     final static String NAME_SHARED = "AppShared - Fashion Interesting";
     final static String KEY_ACCESS_TOKEN = "AppShared - AccessToken";
     final static String KEY_ADDRESS_USER = "AppShared - AddressUser";
+    final static String KEY_SUGGEST_SEARCH = "AppShared - SuggestSearch";
+
+    public static void setSuggest(String keyword) {
+        if(keyword != null && keyword.trim().length() != 0){
+            List<String> data = getSuggest();
+            data.add(keyword);
+            Set<String> set = new HashSet<String>(data);
+            SharedPreferences.Editor editor = ContextBus.current().getSharedPreferences(NAME_SHARED, Context.MODE_PRIVATE).edit();
+            editor.putStringSet(KEY_SUGGEST_SEARCH, set).apply();
+        }
+    }
+
+    public static List<String> getSuggest() {
+        SharedPreferences preferences = ContextBus.current().getSharedPreferences(NAME_SHARED, Context.MODE_PRIVATE);
+        Set<String> stringSet = preferences.getStringSet(KEY_SUGGEST_SEARCH, null);
+        if (stringSet == null) return new ArrayList<>();
+        else return new ArrayList<>(stringSet);
+    }
 
     public static void setAddress(Context context, String phone, String province,
                                   String district, String ward, String address) {
-
         String data = "{\"phone\":\"" + phone + "\",\"province\":\"" + province + "\",\"district\":\""
                 + district + "\",\"ward\":\"" + ward + "\",\"address\":\"" + address + "\"}";
         Log.e("Save", data);

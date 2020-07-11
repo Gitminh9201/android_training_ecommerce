@@ -59,12 +59,18 @@ public class Router {
                 second = SearchActivity.class;
                 break;
             case RESULT_PRODUCTS:
-                second = ResultProductsActivity.class;
-                break;
+                Intent resultProductIntent = new Intent(current, ResultProductsActivity.class);
+                resultProductIntent.putExtra("keyword", arguments[0]);
+                current.startActivity(resultProductIntent);
+                try {
+                    if (Boolean.parseBoolean(arguments[1]))
+                        current.finish();
+                } catch (Exception e) {}
+                return;
             case PRODUCT_DETAIL:
-                Intent intent = new Intent(current, DetailActivity.class);
-                intent.putExtra("id", Integer.parseInt(arguments[0]));
-                current.startActivity(intent);
+                Intent productDetailIntent = new Intent(current, DetailActivity.class);
+                productDetailIntent.putExtra("id", Integer.parseInt(arguments[0]));
+                current.startActivity(productDetailIntent);
                 try {
                     if (Boolean.parseBoolean(arguments[1]))
                         current.finish();
