@@ -1,6 +1,6 @@
 package com.knight.f_interesting.mvp.person_information;
 
-import android.content.Context;
+import android.net.Uri;
 
 import com.knight.f_interesting.models.User;
 
@@ -16,12 +16,14 @@ public interface InformationContract {
             void onFinish(User user);
             void onFailure(Throwable throwable);
         }
-        void getUser(OnFinishedListener onFinishedListener, Context context);
-        void updateUser(User user);
+        void getUser(OnFinishedListener onFinishedListener);
+        void updateUser(OnFinishedListener onFinishedListener, User user);
+        void uploadAvatar(OnFinishedListener onFinishedListener, Uri uri);
     }
     interface Presenter{
         void requestData();
-        void updateData(User user);
+        void updateUser(User user);
+        void uploadAvatar(Uri uri);
         void onDestroy();
     }
 }

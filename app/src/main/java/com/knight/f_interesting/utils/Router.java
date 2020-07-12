@@ -8,7 +8,7 @@ import com.knight.f_interesting.mvp.address.AddressActivity;
 import com.knight.f_interesting.mvp.auth.AuthActivity;
 import com.knight.f_interesting.mvp.cart.CartActivity;
 import com.knight.f_interesting.mvp.completed.CompletedActivity;
-import com.knight.f_interesting.mvp.detail.DetailActivity;
+import com.knight.f_interesting.mvp.detail_product.DetailProductActivity;
 import com.knight.f_interesting.mvp.person_history_order.OrderHistoryActivity;
 import com.knight.f_interesting.mvp.person_information.InformationActivity;
 import com.knight.f_interesting.mvp.result_products.ResultProductsActivity;
@@ -68,7 +68,7 @@ public class Router {
                 } catch (Exception e) {}
                 return;
             case PRODUCT_DETAIL:
-                Intent productDetailIntent = new Intent(current, DetailActivity.class);
+                Intent productDetailIntent = new Intent(current, DetailProductActivity.class);
                 productDetailIntent.putExtra("id", Integer.parseInt(arguments[0]));
                 current.startActivity(productDetailIntent);
                 try {

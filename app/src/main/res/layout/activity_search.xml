@@ -18,6 +18,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:ignore="MissingConstraints">
+        <include layout="@layout/toolbar_item_back"/>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

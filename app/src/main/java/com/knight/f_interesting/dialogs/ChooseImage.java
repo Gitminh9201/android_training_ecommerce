@@ -23,6 +23,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.mvp.person.PersonContract;
+import com.knight.f_interesting.mvp.person_information.InformationContract;
 import com.knight.f_interesting.utils.AppSizes;
 
 import java.io.ByteArrayOutputStream;
@@ -39,13 +40,19 @@ public class ChooseImage extends DialogFragment {
 
     private LinearLayout llChooseImage;
     private LinearLayout llMakeImage;
-    private PersonContract.Presenter presenter;
+    private PersonContract.Presenter presenterPerson;
+    private InformationContract.Presenter presenterInfo;
 
     private Activity activity;
 
     public ChooseImage(Activity activity, PersonContract.Presenter presenter) {
         this.activity = activity;
-        this.presenter = presenter;
+        this.presenterPerson = presenter;
+    }
+
+    public ChooseImage(Activity activity, InformationContract.Presenter presenter) {
+        this.activity = activity;
+        this.presenterInfo = presenter;
     }
 
     private void init(View view) {
@@ -132,7 +139,9 @@ public class ChooseImage extends DialogFragment {
         if (resultCode == RESULT_OK && data != null) {
             if (requestCode == CODE_CHOOSE_IMAGE) {
                 Uri makeImage = data.getData();
-                presenter.uploadAvatar(makeImage);
+                if(presenterPerson != null)
+                presenterPerson.uploadAvatar(makeImage);
+                else presenterInfo.uploadAvatar(makeImage);
                 dismiss();
             } else if (requestCode == CODE_MAKE_IMAGE) {
                 Bundle extras = data.getExtras();
@@ -142,7 +151,9 @@ public class ChooseImage extends DialogFragment {
                     imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
                     String path = MediaStore.Images.Media.insertImage(activity.getContentResolver(), imageBitmap, "Title", null);
                     Uri uri = Uri.parse(path);
-                    presenter.uploadAvatar(uri);
+                    if(presenterPerson != null)
+                        presenterPerson.uploadAvatar(uri);
+                    else presenterInfo.uploadAvatar(uri);
                     dismiss();
                 }
             }

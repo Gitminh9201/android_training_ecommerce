@@ -18,6 +18,7 @@ import com.knight.f_interesting.buses.UserBus;
 import com.knight.f_interesting.models.Cart;
 import com.knight.f_interesting.models.ResponseObject;
 import com.knight.f_interesting.models.User;
+import com.knight.f_interesting.utils.AppShared;
 import com.knight.f_interesting.utils.AppUtils;
 import com.knight.f_interesting.utils.Router;
 
@@ -47,6 +48,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void getUser(final Activity activity){
+        Log.e("AccessToken " , AppShared.getAccessToken(getApplicationContext()));
         APIInterface api = AppClient.client().create(APIInterface.class);
         Call<ResponseObject<User>> call = api.getUser(AppClient.headers());
         final Handler handler = new Handler();

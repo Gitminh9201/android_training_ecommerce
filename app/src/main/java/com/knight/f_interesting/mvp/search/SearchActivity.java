@@ -33,6 +33,7 @@ public class SearchActivity extends AppCompatActivity implements BaseView.BaseAc
     private SearchContract.Presenter presenter;
     private ImageButton ibSearch;
     private EditText editSearch;
+    private ImageButton ibBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class SearchActivity extends AppCompatActivity implements BaseView.BaseAc
 
     @Override
     public void init() {
+        ibBack = findViewById(R.id.ib_back);
         ibSearch = findViewById(R.id.ib_search_toolbar);
         editSearch = findViewById(R.id.edit_search);
         editSearch.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
@@ -66,6 +68,12 @@ public class SearchActivity extends AppCompatActivity implements BaseView.BaseAc
 
     @Override
     public void listener(final Activity activity) {
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         editSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -86,6 +94,7 @@ public class SearchActivity extends AppCompatActivity implements BaseView.BaseAc
         ibSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                editSearch.clearFocus();
                 Router.navigator(Router.RESULT_PRODUCTS, activity, new String[]{editSearch.getText().toString()});
             }
         });

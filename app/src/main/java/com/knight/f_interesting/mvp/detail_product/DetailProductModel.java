@@ -1,4 +1,4 @@
-package com.knight.f_interesting.mvp.detail;
+package com.knight.f_interesting.mvp.detail_product;
 
 import android.content.Context;
 
@@ -11,13 +11,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailModel implements DetailContract.Model {
+public class DetailProductModel implements DetailProductContract.Model {
 
     Product product;
     APIInterface api = AppClient.client().create(APIInterface.class);
     Context context;
 
-    DetailModel(Context context) {
+    DetailProductModel(Context context) {
         this.context = context;
     }
 

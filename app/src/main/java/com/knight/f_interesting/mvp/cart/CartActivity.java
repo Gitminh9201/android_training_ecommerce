@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -42,6 +43,8 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
     private Button btnContinue;
     private Button btnPayment;
     private Button btnAddress;
+    private ImageButton ibBack;
+    private TextView txtAppbar;
     private ProductCartAdapter productAdapter;
 
     private CartPresenter presenter;
@@ -53,6 +56,9 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
 
     private void init(Activity activity) {
         this.activity = activity;
+        ibBack = findViewById(R.id.ib_back);
+        txtAppbar = findViewById(R.id.txt_title_toolbar);
+        txtAppbar.setText(R.string.page_cart);
         rvCart = findViewById(R.id.rv_cart);
         txtEmpty = findViewById(R.id.txt_empty_cart);
         llLoading = findViewById(R.id.ll_load_cart);
@@ -73,6 +79,12 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
     }
 
     private void listener(final Activity activity) {
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

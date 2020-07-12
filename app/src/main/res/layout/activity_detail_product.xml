@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layout_detail"
-    tools:context=".mvp.detail.DetailActivity">
+    tools:context=".mvp.detail_product.DetailProductActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <include layout="@layout/toolbar_common"/>
+        <include layout="@layout/toolbar_action"/>
         <androidx.core.widget.NestedScrollView
             android:paddingBottom="@dimen/height_tab"
             android:layout_width="match_parent"

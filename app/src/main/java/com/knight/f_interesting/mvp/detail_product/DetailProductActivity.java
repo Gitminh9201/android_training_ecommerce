@@ -1,4 +1,4 @@
-package com.knight.f_interesting.mvp.detail;
+package com.knight.f_interesting.mvp.detail_product;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -33,7 +33,7 @@ import java.util.List;
 
 import io.reactivex.rxjava3.functions.Consumer;
 
-public class DetailActivity extends AppCompatActivity implements DetailContract.View {
+public class DetailProductActivity extends AppCompatActivity implements DetailProductContract.View {
 
     private int id;
 
@@ -56,6 +56,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     private TextView txtBuyNow;
     private ImageButton ibAddBookMark;
     private TextView txtBadge;
+    private TextView txtTitlePage;
     private ImageButton ibSearch;
 
     private List<Product> related;
@@ -63,12 +64,14 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     private Product product;
 
     private GalleryDetailAdapter galleryAdapter;
-    private DetailPresenter presenter;
+    private DetailProductPresenter presenter;
 
     private Intent intent;
 
     private void init(Activity activity) {
         ibSearch = findViewById(R.id.ib_search);
+        txtTitlePage = findViewById(R.id.txt_title_toolbar);
+        txtTitlePage.setText(R.string.page_detail_product);
         txtBadge = findViewById(R.id.txt_badge_cart_toolbar);
         llLoading = findViewById(R.id.ll_load_detail);
         vpGallery = findViewById(R.id.vp_gallery_detail);
@@ -103,7 +106,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         rvRelated.setAdapter(relatedAdapter);
         galleryAdapter = new GalleryDetailAdapter(getApplicationContext(), gallery);
         vpGallery.setAdapter(galleryAdapter);
-        presenter = new DetailPresenter(this, getApplicationContext());
+        presenter = new DetailProductPresenter(this, getApplicationContext());
         presenter.requestData(id);
     }
 
@@ -175,7 +178,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_detail_product);
         init(this);
         refreshCart();
         listener(this);

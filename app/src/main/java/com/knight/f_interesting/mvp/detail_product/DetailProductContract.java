@@ -1,8 +1,8 @@
-package com.knight.f_interesting.mvp.detail;
+package com.knight.f_interesting.mvp.detail_product;
 
 import com.knight.f_interesting.models.Product;
 
-public interface DetailContract {
+public interface DetailProductContract {
     interface Model{
         interface OnFinishedListener{
             void onFinished(Product product);

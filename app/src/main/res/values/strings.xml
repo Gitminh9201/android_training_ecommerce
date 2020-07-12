@@ -65,6 +65,7 @@
 
     <string name="string_continue">Tiếp tục</string>
     <string name="string_cancel">Hủy</string>
+    <string name="filter">Lọc</string>
 
     <string name="confirm_logout">Bạn muốn đăng xuất?</string>
     <string name="confirm_order">Chúng ta hoàn thành?</string>
@@ -87,4 +88,13 @@
 
     <string name="permission_denied">Bạn đã từ chối quyền truy cập của ứng dụng!</string>
     <string name="error_upload_image">Không thể upload bức ảnh này!</string>
+
+    <string name="page_information_user">Thông tin cá nhân</string>
+    <string name="page_choose_method_payment">Phương thức thanh toán</string>
+    <string name="page_cart">Giỏ hàng</string>
+    <string name="page_address_user">Địa chỉ giao hàng</string>
+    <string name="page_terms">Cam kết và điều khoản</string>
+    <string name="page_history_order">Lịch sử đặt hàng</string>
+    <string name="page_detail_product">Chi tiết sản phẩm</string>
+    <string name="page_detail_order">Chi tiết đơn hàng</string>
 </resources>

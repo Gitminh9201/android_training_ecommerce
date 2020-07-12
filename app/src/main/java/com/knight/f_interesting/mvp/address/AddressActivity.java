@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +34,8 @@ public class AddressActivity extends AppCompatActivity implements AddressContrac
     private EditText editWard;
     private EditText editPhone;
     private EditText editDetail;
+    private ImageButton ibBack;
+    private TextView txtAppbar;
 
     private LinearLayout llLoading;
 
@@ -46,6 +50,9 @@ public class AddressActivity extends AppCompatActivity implements AddressContrac
         editPhone = findViewById(R.id.edit_phone_address);
         llLoading = findViewById(R.id.ll_load_address);
         editDetail = findViewById(R.id.edit_detail_address);
+        ibBack = findViewById(R.id.ib_back);
+        txtAppbar = findViewById(R.id.txt_title_toolbar);
+        txtAppbar.setText(R.string.page_address_user);
 
         presenter = new AddressPresenter(this, getApplicationContext());
         presenter.requestData();
@@ -116,6 +123,12 @@ public class AddressActivity extends AppCompatActivity implements AddressContrac
     }
 
     private void listener(){
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

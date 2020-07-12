@@ -1,126 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_store"
+    android:id="@+id/fragment_store"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".mvp.store.StoreFragment">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragment_store"
-        tools:context=".mvp.store.StoreFragment">
+        android:orientation="vertical">
+
         <LinearLayout
-            android:weightSum="10"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:layout_height="match_parent">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:background="@color/colorGrey"
-                    android:id="@+id/rv_categories_store"
-                    android:scrollbars="vertical"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="fill_parent"/>
-                <RelativeLayout
-                    android:background="@color/colorWhite"
-                    android:id="@+id/rl_products_store"
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"/>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
+            android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:id="@+id/ll_load_store"
-            android:background="@color/colorWhite"
-            android:gravity="center"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ProgressBar
-                android:layout_width="35dp"
-                android:layout_gravity="center"
-                android:indeterminateTint="@color/colorPrimary"
-                android:layout_height="35dp"/>
+            android:weightSum="3">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_categories_store"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@color/colorGrey"
+                android:scrollbars="vertical" />
+
+            <RelativeLayout
+                android:id="@+id/rl_products_store"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:background="@color/colorWhite" />
         </LinearLayout>
     </RelativeLayout>
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_products"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:fitsSystemWindows="true">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:weightSum="10"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_marginTop="30dp"
-                android:padding="8dp"
-                android:gravity="bottom"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/chip_increment"
-                    android:textColor="@color/colorWhite"
-                    app:chipBackgroundColor="@color/colorPrimary"
-                    android:layout_height="wrap_content"
-                    android:text="Increment"/>
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_abatement"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    app:chipBackgroundColor="@color/colorPrimary"
-                    android:layout_height="wrap_content"
-                    android:text="Abatement"/>
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginHorizontal="4dp"
-                android:background="@color/colorGrey"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_brand_filter"
-                android:scrollbars="vertical"
-                android:layout_weight="10"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"/>
-            <LinearLayout
-                android:layout_marginBottom="4dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_gravity="start"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <Button
-                    android:id="@+id/btn_reset_filter"
-                    android:background="@drawable/bg_border_white"
-                    android:layout_width="wrap_content"
-                    android:text="Reset"
-                    android:textAllCaps="true"
-                    android:layout_height="wrap_content"/>
-                <Button
-                    android:id="@+id/btn_filter"
-                    android:background="@drawable/bg_border_white"
-                    android:layout_width="wrap_content"
-                    android:text="Filter"
-                    android:textAllCaps="true"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-        </LinearLayout>
-    </com.google.android.material.navigation.NavigationView>
-</androidx.drawerlayout.widget.DrawerLayout>
+    <LinearLayout
+        android:id="@+id/ll_load_store"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/colorPrimary" />
+    </LinearLayout>
+</RelativeLayout>

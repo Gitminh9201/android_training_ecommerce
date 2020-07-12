@@ -1,19 +1,19 @@
-package com.knight.f_interesting.mvp.detail;
+package com.knight.f_interesting.mvp.detail_product;
 
 import android.content.Context;
 
 import com.knight.f_interesting.models.Product;
 
-public class DetailPresenter implements DetailContract.Presenter, DetailContract.Model.OnFinishedListener {
+public class DetailProductPresenter implements DetailProductContract.Presenter, DetailProductContract.Model.OnFinishedListener {
 
-    private DetailContract.View view;
-    private DetailContract.Model model;
+    private DetailProductContract.View view;
+    private DetailProductContract.Model model;
     private Context context;
 
-    public DetailPresenter(DetailContract.View view, Context context){
+    public DetailProductPresenter(DetailProductContract.View view, Context context){
         this.view = view;
         this.context = context;
-        model = new DetailModel(context);
+        model = new DetailProductModel(context);
     }
 
     @Override

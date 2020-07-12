@@ -1,6 +1,7 @@
 package com.knight.f_interesting.mvp.person_information;
 
-import android.content.Context;
+import android.app.Activity;
+import android.net.Uri;
 
 import com.knight.f_interesting.models.User;
 
@@ -8,12 +9,12 @@ public class InformationPresenter implements InformationContract.Presenter,
         InformationContract.Model.OnFinishedListener {
 
     private InformationContract.View view;
+    private Activity activity;
     private InformationContract.Model model;
-    private Context context;
 
-    public InformationPresenter(Context context, InformationContract.View view){
+    public InformationPresenter(InformationContract.View view, Activity activity){
         this.view = view;
-        this.context = context;
+        this.activity = activity;
         this.model = new InformationModel();
     }
 
@@ -37,15 +38,24 @@ public class InformationPresenter implements InformationContract.Presenter,
     public void requestData() {
         if(view != null){
             view.showProgress();
-            model.getUser(this, context);
+            model.getUser(this);
         }
     }
 
     @Override
-    public void updateData(User user) {
+    public void uploadAvatar(Uri uri) {
         if(view != null){
             view.showProgress();
-            model.updateUser(user);
+            model.uploadAvatar(this, uri);
+        }
+    }
+
+    @Override
+    public void updateUser(User user) {
+        if(view != null){
+            view.showProgress();
+            model.updateUser(this, user);
+            activity.finish();
         }
     }
 
