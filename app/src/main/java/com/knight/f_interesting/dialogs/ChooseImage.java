@@ -3,6 +3,7 @@ package com.knight.f_interesting.dialogs;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -24,8 +25,11 @@ import com.knight.f_interesting.R;
 import com.knight.f_interesting.mvp.person.PersonContract;
 import com.knight.f_interesting.utils.AppSizes;
 
+import java.io.ByteArrayOutputStream;
+
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.app.Activity.RESULT_OK;
 
 public class ChooseImage extends DialogFragment {
@@ -74,17 +78,16 @@ public class ChooseImage extends DialogFragment {
         llMakeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                    makeImage();
-                    return;
-                }
-                int result = ContextCompat.checkSelfPermission(getContext(),
+                int resultCamera = ContextCompat.checkSelfPermission(getContext(),
                         CAMERA);
-                if (result == PackageManager.PERMISSION_GRANTED) {
+                int resultWrite = ContextCompat.checkSelfPermission(getContext(),
+                        WRITE_EXTERNAL_STORAGE);
+                if (resultCamera == PackageManager.PERMISSION_GRANTED
+                        && resultWrite == PackageManager.PERMISSION_GRANTED) {
                     makeImage();
                 } else {
                     requestPermissions(new String[]{
-                            CAMERA}, CODE_MAKE_IMAGE);
+                            CAMERA, WRITE_EXTERNAL_STORAGE}, CODE_MAKE_IMAGE);
                 }
             }
         });
@@ -110,14 +113,15 @@ public class ChooseImage extends DialogFragment {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 chooseImage();
             } else {
-                Toast.makeText(activity.getApplicationContext(), "R.string.permission_denied",
+                Toast.makeText(activity.getApplicationContext(), R.string.permission_denied,
                         Toast.LENGTH_LONG).show();
             }
         else if (requestCode == CODE_MAKE_IMAGE)
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 makeImage();
             } else {
-                Toast.makeText(activity.getApplicationContext(), "R.string.permission_denied",
+                Toast.makeText(activity.getApplicationContext(), R.string.permission_denied,
                         Toast.LENGTH_LONG).show();
             }
     }
@@ -125,10 +129,23 @@ public class ChooseImage extends DialogFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            Uri makeImage = data.getData();
-            presenter.uploadAvatar(makeImage);
-            dismiss();
+        if (resultCode == RESULT_OK && data != null) {
+            if (requestCode == CODE_CHOOSE_IMAGE) {
+                Uri makeImage = data.getData();
+                presenter.uploadAvatar(makeImage);
+                dismiss();
+            } else if (requestCode == CODE_MAKE_IMAGE) {
+                Bundle extras = data.getExtras();
+                if (extras != null) {
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                    String path = MediaStore.Images.Media.insertImage(activity.getContentResolver(), imageBitmap, "Title", null);
+                    Uri uri = Uri.parse(path);
+                    presenter.uploadAvatar(uri);
+                    dismiss();
+                }
+            }
         }
     }
 

@@ -32,7 +32,7 @@ public class PersonModel implements PersonContract.Model {
 
     @Override
     public void uploadAvatar(final OnFinishedListener onFinishedListener, Uri uri) {
-        if (uri == null) return;
+        if (uri == null) onFinishedListener.onFailure(new Throwable("Can't upload this image!"));
         File file = new File(getRealPathFromURI(uri));
         RequestBody requestBody = RequestBody.create(
                 MediaType.parse(ContextBus.current().getContentResolver().getType(uri)),
