@@ -61,11 +61,9 @@ public class Router {
             case RESULT_PRODUCTS:
                 Intent resultProductIntent = new Intent(current, ResultProductsActivity.class);
                 resultProductIntent.putExtra("keyword", arguments[0]);
+                resultProductIntent.putExtra("brandID", arguments[1]);
+                resultProductIntent.putExtra("categoryID", arguments[2]);
                 current.startActivity(resultProductIntent);
-                try {
-                    if (Boolean.parseBoolean(arguments[1]))
-                        current.finish();
-                } catch (Exception e) {}
                 return;
             case PRODUCT_DETAIL:
                 Intent productDetailIntent = new Intent(current, DetailProductActivity.class);

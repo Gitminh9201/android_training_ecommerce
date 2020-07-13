@@ -30,6 +30,7 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
 
     private LinearLayout llLoading;
     private RecyclerView rvProducts;
+    private int columnView = 2;
 
     private ProductItemAdapter productAdapter;
 
@@ -37,6 +38,14 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
     private ProductsContract.Presenter presenter;
 
     private View view;
+
+    public ProductsFragment(){}
+
+    public ProductsFragment(String keyword, int brandId, int columnView){
+        this.keyword = keyword;
+        this.brandId = brandId;
+        this.columnView = columnView;
+    }
 
     public ProductsFragment(String keyword, int categoryId, int brandId,
                             int groupId, int offset, int limit, int sort) {
@@ -57,13 +66,10 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
         products = new ArrayList<>();
 
         productAdapter = new ProductItemAdapter(products, view.getContext());
-        rvProducts.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        rvProducts.setLayoutManager(new GridLayoutManager(view.getContext(), columnView));
         rvProducts.setAdapter(productAdapter);
         presenter = new ProductsPresenter(this);
-    }
-
-    private void listener(View view){
-
+        presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
     }
 
     public void refresh(int categoryId){
@@ -71,8 +77,19 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
         presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
     }
 
+    public void refresh(String keyword){
+        this.keyword = keyword;
+        presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
+    }
+
     public void filter(int categoryId, int brandId, int sort){
         this.categoryId = categoryId;
+        this.brandId = brandId;
+        this.sort = sort;
+        presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
+    }
+
+    public void filter(int brandId, int sort){
         this.brandId = brandId;
         this.sort = sort;
         presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
@@ -88,7 +105,6 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_products, container, false);
         init(view);
-        listener(view);
         return view;
     }
 

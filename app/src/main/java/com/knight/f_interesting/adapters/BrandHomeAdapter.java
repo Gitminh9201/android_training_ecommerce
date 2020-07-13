@@ -1,5 +1,6 @@
 package com.knight.f_interesting.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.knight.f_interesting.R;
 import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Brand;
 import com.knight.f_interesting.utils.AppSizes;
+import com.knight.f_interesting.utils.Router;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +33,9 @@ public class BrandHomeAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    public void addItem(Brand brand) {
-        this.brands.add(brand);
+    public void changeData(List<Brand> brands){
+        this.brands = brands;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -51,11 +54,11 @@ public class BrandHomeAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.brand_home, null);
+            convertView = inflater.inflate(R.layout.item_brand_home, null);
             viewHolder = new ViewHolder();
             viewHolder.imageView = convertView.findViewById(R.id.iv_brand_home);
             viewHolder.textView = convertView.findViewById(R.id.txt_brand_home);
@@ -76,6 +79,12 @@ public class BrandHomeAdapter extends BaseAdapter {
         convertView.setLayoutParams(
                 new LinearLayout.LayoutParams(AppSizes.getScreenWidth() / 4,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Router.navigator(Router.RESULT_PRODUCTS, (Activity) context, new String[]{"", String.valueOf(brands.get(position)), null});
+            }
+        });
 
         return convertView;
     }

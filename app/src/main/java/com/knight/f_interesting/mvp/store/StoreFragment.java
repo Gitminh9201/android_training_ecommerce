@@ -16,7 +16,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.CategoryStoreAdapter;
 import com.knight.f_interesting.customs.RecyclerItemClickListener;
-import com.knight.f_interesting.models.Brand;
 import com.knight.f_interesting.models.Category;
 import com.knight.f_interesting.mvp.products.ProductsFragment;
 
@@ -106,8 +105,8 @@ public class StoreFragment extends Fragment implements StoreContract.View {
     }
 
     @Override
-    public void setDataToView(List<Category> categories, List<Brand> brands) {
-        if(!categories.isEmpty() && !brands.isEmpty()){
+    public void setDataToView(List<Category> categories) {
+        if(!categories.isEmpty()){
             this.categories = categories;
             categoryAdapter.changeData(this.categories);
             categoryAdapter.notifyDataSetChanged();

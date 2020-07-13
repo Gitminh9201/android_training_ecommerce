@@ -57,7 +57,8 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final Product item = products.get(position);
         holder.txtTitle.setText(item.getTitle());
-        holder.txtBrand.setText("Brand");
+        if(item.getBrand() != null) holder.txtBrand.setText(item.getBrand().getTitle());
+        else  holder.txtBrand.setText("Unnamed");
         holder.txtPrice.setText(String.valueOf(AppUtils.currencyVN(item.getPrice())));
         if (item.getPriceCompare() > 0)
             holder.txtPriceCompare.setText(String.valueOf(AppUtils.currencyVN(item.getPriceCompare())));

@@ -11,16 +11,19 @@ import android.widget.ProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.BannerHomeAdapter;
 import com.knight.f_interesting.adapters.BrandHomeAdapter;
+import com.knight.f_interesting.adapters.CouponHomeAdapter;
 import com.knight.f_interesting.adapters.GroupHomeAdapter;
 import com.knight.f_interesting.customs.ExpandableHeightGridView;
 import com.knight.f_interesting.models.Banner;
 import com.knight.f_interesting.models.Brand;
+import com.knight.f_interesting.models.Coupon;
 import com.knight.f_interesting.models.Group;
 
 import java.util.ArrayList;
@@ -37,12 +40,16 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     private ViewPager vpBanner;
     private ExpandableHeightGridView gvBrand;
     private RecyclerView rvGroup;
+    private RecyclerView rvCoupon;
+    private SwipeRefreshLayout refreshLayout;
 
     private List<Group> groups;
+    private List<Coupon> coupons;
 
     private BannerHomeAdapter bannerAdapter;
     private BrandHomeAdapter brandAdapter;
     private GroupHomeAdapter groupAdapter;
+    private CouponHomeAdapter couponAdapter;
 
     private View view;
     private Timer timer;
@@ -50,25 +57,33 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     private void init(View view) {
         this.view = view;
 
-        timer = new Timer();
+        refreshLayout = view.findViewById(R.id.swiperefresh);
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         pbLoading = view.findViewById(R.id.pb_load_home);
         llLoading = view.findViewById(R.id.ll_load_home);
         vpBanner = view.findViewById(R.id.vp_banner);
         gvBrand = view.findViewById(R.id.gv_brand_home);
         rvGroup = view.findViewById(R.id.rv_group_home);
+        rvCoupon = view.findViewById(R.id.rv_coupon_home);
 
         groups = new ArrayList<>();
+        coupons = new ArrayList<>();
 
         vpBanner.setScrollBarFadeDuration(500);
         groupAdapter = new GroupHomeAdapter(groups, getContext());
         bannerAdapter = new BannerHomeAdapter(getContext());
         brandAdapter = new BrandHomeAdapter(getContext());
+        couponAdapter = new CouponHomeAdapter(coupons);
         vpBanner.setAdapter(bannerAdapter);
         gvBrand.setAdapter(brandAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         rvGroup.setLayoutManager(new LinearLayoutManager(getContext()));
         rvGroup.setAdapter(groupAdapter);
+        rvCoupon.setLayoutManager(layoutManager);
+        rvCoupon.setAdapter(couponAdapter);
         presenter = new HomePresenter(this);
-        presenter.requestData();
+        presenter.requestData(false);
     }
 
     private int positionPage(){
@@ -96,7 +111,13 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     }
 
     private void listener(final View view) {
-
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                timer.cancel();
+                presenter.requestData(true);
+            }
+        });
     }
 
     @Override
@@ -112,30 +133,25 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     }
 
     @Override
-    public void setDataToViews(List<Banner> banners, List<Brand> brands, List<Group> groups) {
+    public void setDataToViews(List<Banner> banners, List<Brand> brands, List<Group> groups, List<Coupon> coupons) {
+        refreshLayout.setRefreshing(false);
+        timer = new Timer();
         this.groups = groups;
+        this.coupons = coupons;
         groupAdapter.changeData(this.groups);
-        for (int index = 0; index < banners.size(); index++) {
-            bannerAdapter.addItem(banners.get(index));
+        couponAdapter.changeData(this.coupons);
+        bannerAdapter.changeData(banners);
+        brandAdapter.changeData(brands);
+        try {
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    vpBanner.setCurrentItem(positionPage());
+                }
+            }, 7000, 5000);
+        }catch (Exception e){
+            Log.e("ERR", e.getMessage());
         }
-        if(brands.size() > 8)
-            for (int index = 0; index < 8; index++) {
-                brandAdapter.addItem(brands.get(index));
-            }
-        else
-            for (int index = 0; index < brands.size(); index++) {
-                brandAdapter.addItem(brands.get(index));
-            }
-        groupAdapter.notifyDataSetChanged();
-        brandAdapter.notifyDataSetChanged();
-        bannerAdapter.notifyDataSetChanged();
-
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                vpBanner.setCurrentItem(positionPage());
-            }
-        }, 7000, 5000);
     }
 
     @Override

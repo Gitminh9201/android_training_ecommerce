@@ -5,7 +5,7 @@
     <dimen name="height_appbar">55dp</dimen>
     <dimen name="height_banner">160dp</dimen>
     <dimen name="height_gallery">280dp</dimen>
-    <dimen name="height_space">20dp</dimen>
+    <dimen name="height_space">16dp</dimen>
     <dimen name="card_elevation">16dp</dimen>
     <dimen name="card_album_radius">8dp</dimen>
     <dimen name="card_margin">4dp</dimen>

@@ -30,8 +30,9 @@ public class BannerHomeAdapter extends PagerAdapter {
         this.banners = new ArrayList<>();
     }
 
-    public void addItem(Banner banner){
-        banners.add(banner);
+    public void changeData(List<Banner> banners){
+        this.banners = banners;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -47,7 +48,7 @@ public class BannerHomeAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.banner_home, null);
+        View view = inflater.inflate(R.layout.item_banner_home, null);
         ImageView imageView = view.findViewById(R.id.iv_banner_home);
         ProgressBar progressBar = view.findViewById(R.id.pb_load_banner_home);
         TextView textView = view.findViewById(R.id.txt_banner_home);

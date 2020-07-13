@@ -29,10 +29,10 @@ public class AppUtils {
     static public DatabaseHandler db;
 
     static public String currencyVN(int price){
-        if(price < 0)return "0 Đ";
+        if(price < 0)return "0 VND";
         Locale locale = new Locale("vi", "VN");
         NumberFormat currencyVN = NumberFormat.getCurrencyInstance(locale);
-        return currencyVN.format(price).toUpperCase();
+        return currencyVN.format(price).substring(2) + " VND";
     }
 
     static public boolean logged(){

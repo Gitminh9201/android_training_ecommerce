@@ -1,6 +1,5 @@
 package com.knight.f_interesting.mvp.store;
 
-import com.knight.f_interesting.models.Brand;
 import com.knight.f_interesting.models.Category;
 
 import java.util.List;
@@ -16,10 +15,10 @@ public class StorePresenter implements StoreContract.Presenter, StoreContract.Mo
     }
 
     @Override
-    public void onFinished(List<Category> categories, List<Brand> brands) {
+    public void onFinished(List<Category> categories) {
         if (view != null){
             view.hideProgress();
-            view.setDataToView(categories, brands);
+            view.setDataToView(categories);
         }
     }
 

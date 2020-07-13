@@ -95,7 +95,7 @@ public class SearchActivity extends AppCompatActivity implements BaseView.BaseAc
             @Override
             public void onClick(View v) {
                 editSearch.clearFocus();
-                Router.navigator(Router.RESULT_PRODUCTS, activity, new String[]{editSearch.getText().toString()});
+                Router.navigator(Router.RESULT_PRODUCTS, activity, new String[]{editSearch.getText().toString(), null, null});
             }
         });
         editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {

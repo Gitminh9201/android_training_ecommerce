@@ -3,6 +3,7 @@ package com.knight.f_interesting.api;
 import com.knight.f_interesting.models.Banner;
 import com.knight.f_interesting.models.Brand;
 import com.knight.f_interesting.models.Category;
+import com.knight.f_interesting.models.Coupon;
 import com.knight.f_interesting.models.Group;
 import com.knight.f_interesting.models.Order;
 import com.knight.f_interesting.models.Product;
@@ -32,6 +33,9 @@ public interface APIInterface {
 
     @GET(AppClient.MIDDLE_URL + "api/banners")
     Call<ResponseList<Banner>> banners();
+
+    @GET(AppClient.MIDDLE_URL + "api/coupons")
+    Call<ResponseList<Coupon>> coupons();
 
     @GET(AppClient.MIDDLE_URL + "api/brands")
     Call<ResponseList<Brand>> brands();

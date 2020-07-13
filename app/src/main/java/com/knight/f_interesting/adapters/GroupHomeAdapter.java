@@ -26,6 +26,7 @@ public class GroupHomeAdapter extends RecyclerView.Adapter<GroupHomeAdapter.View
 
     public void changeData(List<Group> groups){
         this.groups = groups;
+        notifyDataSetChanged();
     }
 
     @NonNull

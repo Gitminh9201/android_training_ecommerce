@@ -40,7 +40,7 @@ public class SearchPresenter implements SearchContract.Presenter, SearchContract
 
     @Override
     public void resultProducts(String key) {
-        Router.navigator(Router.RESULT_PRODUCTS, view.activity(), new String[]{key});
+        Router.navigator(Router.RESULT_PRODUCTS, view.activity(), new String[]{key, null, null});
     }
 
     @Override

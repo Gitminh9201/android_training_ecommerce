@@ -5,7 +5,7 @@
     <string name="dialog_request_login">dialog_request_login</string>
     <string name="dialog_confirm">dialog_confirm</string>
     <!-- Strings -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="promotions">Khuyến mãi đặc biệt</string>
     <string name="error_data">Something went wrong!</string>
     <string name="empty_data">Danh sách trống!</string>
     <string name="product_had_choose">Sản phẩm bạn đã chọn:</string>
@@ -26,6 +26,9 @@
 
     <string name="choose_payment_method">Chọn phương thức thanh toán</string>
     <string name="choose_method_exists">Chọn phương thức thanh toán:</string>
+
+    <string name="choose_coupon">Chọn mã giảm giá</string>
+    <string name="choose_coupon_exists">Chọn mã giảm giá:</string>
 
     <string name="login_with">Hoặc đăng nhập với</string>
     <string name="register_ask">Bạn chưa có tài khoản?</string>
@@ -49,6 +52,7 @@
     <string name="person_name">Ẩn danh</string>
     <string name="person_information">Thông tin cá nhân</string>
     <string name="person_address">Địa chỉ giao hàng</string>
+    <string name="person_coupons">Mã khuyến mãi</string>
     <string name="person_history_order">Lịch sử đặt hàng</string>
     <string name="person_terms">Điều khoản sử dụng</string>
 
@@ -97,4 +101,7 @@
     <string name="page_history_order">Lịch sử đặt hàng</string>
     <string name="page_detail_product">Chi tiết sản phẩm</string>
     <string name="page_detail_order">Chi tiết đơn hàng</string>
+    <string name="page_filter">Lọc sản phẩm</string>
+    <string name="increase">Tăng dần</string>
+    <string name="decrease">Giảm dần</string>
 </resources>
