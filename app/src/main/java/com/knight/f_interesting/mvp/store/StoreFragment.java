@@ -110,8 +110,7 @@ public class StoreFragment extends Fragment implements StoreContract.View {
             this.categories = categories;
             categoryAdapter.changeData(this.categories);
             categoryAdapter.notifyDataSetChanged();
-
-            fProducts.refresh(this.categories.get(0).getId());
+            if(fProducts != null) fProducts.refresh(this.categories.get(0).getId());
         }
     }
 

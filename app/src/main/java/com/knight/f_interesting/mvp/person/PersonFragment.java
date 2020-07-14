@@ -31,6 +31,7 @@ public class PersonFragment extends Fragment implements PersonContract.View {
     private LinearLayout llLoading;
     private LinearLayout llInformation;
     private LinearLayout llHistory;
+    private LinearLayout llCoupons;
     private LinearLayout llAddress;
     private LinearLayout llTerms;
     private RelativeLayout rlAvatarProfile;
@@ -47,6 +48,7 @@ public class PersonFragment extends Fragment implements PersonContract.View {
         llInformation = view.findViewById(R.id.ll_information_person);
         llHistory = view.findViewById(R.id.ll_history_person);
         llTerms = view.findViewById(R.id.ll_terms_person);
+        llCoupons = view.findViewById(R.id.ll_coupon_person);
         txtUserName = view.findViewById(R.id.txt_name_profile);
         llLoading = view.findViewById(R.id.ll_load_person);
         circleAvatar = view.findViewById(R.id.ci_circleAvatar);
@@ -93,6 +95,12 @@ public class PersonFragment extends Fragment implements PersonContract.View {
             @Override
             public void onClick(View v) {
                 Router.navigator(Router.TERMS, getActivity(), null);
+            }
+        });
+        llCoupons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Router.navigator(Router.COUPONS, getActivity(), null);
             }
         });
     }

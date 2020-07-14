@@ -59,10 +59,10 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
     }
 
     @Override
-    public void createOrder(Order order) {
+    public void createOrder(Order order, String code) {
         if (view != null) {
             view.showProgress();
-            model.createOrder(this, order);
+            model.createOrder(this, order, code);
         }
     }
 

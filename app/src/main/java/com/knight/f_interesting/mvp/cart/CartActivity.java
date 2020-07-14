@@ -23,6 +23,7 @@ import com.knight.f_interesting.models.MethodPayment;
 import com.knight.f_interesting.models.Order;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.mvp.address.AddressActivity;
+import com.knight.f_interesting.mvp.coupons.CouponsActivity;
 import com.knight.f_interesting.mvp.payment_method.PaymentMethodActivity;
 import com.knight.f_interesting.utils.AppUtils;
 import com.knight.f_interesting.utils.Router;
@@ -34,6 +35,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
 
     private static final int REQUEST_CODE_ADDRESS = 0x9000;
     private static final int REQUEST_CODE_PAYMENT = 0x9001;
+    private static final int REQUEST_CODE_COUPON = 0x9002;
 
     private RecyclerView rvCart;
     private LinearLayout llLoading;
@@ -42,6 +44,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
     private TextView txtEmpty;
     private Button btnContinue;
     private Button btnPayment;
+    private Button btnCoupon;
     private Button btnAddress;
     private ImageButton ibBack;
     private TextView txtAppbar;
@@ -51,6 +54,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
 
     private Address address;
     private MethodPayment payment;
+    private String coupon;
 
     private Activity activity;
 
@@ -65,6 +69,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
         btnAddress = findViewById(R.id.btn_choose_address);
         btnPayment = findViewById(R.id.btn_choose_payment);
         btnContinue = findViewById(R.id.btn_continue_cart);
+        btnCoupon = findViewById(R.id.btn_choose_coupon);
 
         products = new ArrayList<>();
         carts = new ArrayList<>();
@@ -95,7 +100,8 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
                             AppUtils.hideDialog(getSupportFragmentManager(), getResources().getString(R.string.dialog_confirm));
                             String inputAddress = address.getProvince() + " - " + address.getDistrict()
                                     + " - " + address.getWard() + " - " + address.getAddress();
-                            presenter.createOrder(new Order(address.getPhone(), 1, payment.getId(), inputAddress, "Nothings"));
+                            presenter.createOrder(new Order(address.getPhone(),
+                                    1, payment.getId(), inputAddress, "Nothings"), coupon.toUpperCase());
                         }
                     }, getSupportFragmentManager());
                 } else {
@@ -119,27 +125,39 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
                         CartActivity.this, PaymentMethodActivity.class), REQUEST_CODE_PAYMENT);
             }
         });
+        btnCoupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartActivity.this, CouponsActivity.class);
+                intent.putExtra("forResult", true);
+                startActivityForResult( intent, REQUEST_CODE_COUPON);
+            }
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_ADDRESS) {
-            if (resultCode == Activity.RESULT_OK) {
+        if(resultCode == Activity.RESULT_OK){
+            if (requestCode == REQUEST_CODE_ADDRESS) {
                 address = (Address) data.getSerializableExtra(AddressActivity.EXTRA_DATA);
                 btnAddress.setText(address.getPhone() + " - " + address.getProvince());
                 btnAddress.setTextColor(getResources().getColor(R.color.colorWhite));
                 btnAddress.setBackground(getResources().getDrawable(R.drawable.bg_button_continue));
                 presenter.refresh(products, carts);
             }
-        }
-        if (requestCode == REQUEST_CODE_PAYMENT) {
-            if (resultCode == Activity.RESULT_OK) {
+            else if (requestCode == REQUEST_CODE_PAYMENT) {
                 payment = (MethodPayment) data.getSerializableExtra(PaymentMethodActivity.EXTRA_DATA);
                 btnPayment.setText(payment.getTitle());
                 btnPayment.setTextColor(getResources().getColor(R.color.colorWhite));
                 btnPayment.setBackground(getResources().getDrawable(R.drawable.bg_button_continue));
                 presenter.refresh(products, carts);
+            }
+            else if(requestCode == REQUEST_CODE_COUPON){
+                coupon = data.getStringExtra(CouponsActivity.EXTRA_DATA);
+                btnCoupon.setText(coupon);
+                btnCoupon.setTextColor(getResources().getColor(R.color.colorWhite));
+                btnCoupon.setBackground(getResources().getDrawable(R.drawable.bg_button_continue));
             }
         }
     }

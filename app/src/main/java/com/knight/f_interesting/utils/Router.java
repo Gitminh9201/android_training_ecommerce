@@ -8,6 +8,7 @@ import com.knight.f_interesting.mvp.address.AddressActivity;
 import com.knight.f_interesting.mvp.auth.AuthActivity;
 import com.knight.f_interesting.mvp.cart.CartActivity;
 import com.knight.f_interesting.mvp.completed.CompletedActivity;
+import com.knight.f_interesting.mvp.coupons.CouponsActivity;
 import com.knight.f_interesting.mvp.detail_product.DetailProductActivity;
 import com.knight.f_interesting.mvp.person_history_order.OrderHistoryActivity;
 import com.knight.f_interesting.mvp.person_information.InformationActivity;
@@ -28,6 +29,7 @@ public class Router {
     public final static String COMPLETED = "/completed";
     public final static String SEARCH = "/toolbar_item_search";
     public final static String RESULT_PRODUCTS = "/result_products";
+    public final static String COUPONS = "/coupons";
 
     public static void navigator(String route, Activity current, String[] arguments) {
 
@@ -57,6 +59,9 @@ public class Router {
                 break;
             case SEARCH:
                 second = SearchActivity.class;
+                break;
+            case COUPONS:
+                second = CouponsActivity.class;
                 break;
             case RESULT_PRODUCTS:
                 Intent resultProductIntent = new Intent(current, ResultProductsActivity.class);

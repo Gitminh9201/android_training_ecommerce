@@ -38,7 +38,7 @@ public class CollectionFragment extends Fragment implements CollectionContract.V
         products = new ArrayList<>();
 
         productAdapter = new ProductItemAdapter(products, view.getContext());
-        rvProducts.setLayoutManager(new GridLayoutManager(view.getContext(), 3));
+        rvProducts.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
         rvProducts.setAdapter(productAdapter);
         presenter = new CollectionPresenter(this, view.getContext());
         presenter.requestData();

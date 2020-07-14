@@ -92,7 +92,8 @@ public interface APIInterface {
             @Field("quantities") String quantities,
             @Field("address") String address,
             @Field("note") String note,
-            @Field("phone") String phone
+            @Field("phone") String phone,
+            @Field("code") String code
     );
 
     @POST(AppClient.MIDDLE_URL + "api/order")

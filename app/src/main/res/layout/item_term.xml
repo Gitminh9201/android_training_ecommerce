@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
     <TextView
         android:gravity="center"
-        android:text="@string/title_commit_terms"
+        android:text="@string/title_commit_terms_1"
         android:paddingVertical="2dp"
         android:textColor="@color/colorDispose"
         android:paddingHorizontal="36dp"

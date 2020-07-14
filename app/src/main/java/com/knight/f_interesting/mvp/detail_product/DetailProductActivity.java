@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,12 +20,15 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.GalleryDetailAdapter;
+import com.knight.f_interesting.adapters.GalleryItemAdapterDetail;
 import com.knight.f_interesting.adapters.ProductItemAdapter;
 import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.buses.CartBus;
+import com.knight.f_interesting.customs.RecyclerItemClickListener;
 import com.knight.f_interesting.models.Cart;
 import com.knight.f_interesting.models.Gallery;
 import com.knight.f_interesting.models.Product;
+import com.knight.f_interesting.utils.AppSizes;
 import com.knight.f_interesting.utils.AppUtils;
 import com.knight.f_interesting.utils.Router;
 
@@ -58,11 +62,13 @@ public class DetailProductActivity extends AppCompatActivity implements DetailPr
     private TextView txtBadge;
     private TextView txtTitlePage;
     private ImageButton ibSearch;
+    private RecyclerView rvGallery;
 
     private List<Product> related;
     private List<Gallery> gallery;
     private Product product;
 
+    private GalleryItemAdapterDetail galleryItemAdapter;
     private GalleryDetailAdapter galleryAdapter;
     private DetailProductPresenter presenter;
 
@@ -75,6 +81,8 @@ public class DetailProductActivity extends AppCompatActivity implements DetailPr
         txtBadge = findViewById(R.id.txt_badge_cart_toolbar);
         llLoading = findViewById(R.id.ll_load_detail);
         vpGallery = findViewById(R.id.vp_gallery_detail);
+        vpGallery.setLayoutParams(new FrameLayout.LayoutParams(AppSizes.getScreenWidth(), AppSizes.getScreenWidth()));
+        rvGallery = findViewById(R.id.rv_gallery_detail);
         txtPrice = findViewById(R.id.txt_price_detail);
         ibAddCart = findViewById(R.id.ib_add_cart);
         ibCart = findViewById(R.id.ib_cart_toolbar);
@@ -99,10 +107,15 @@ public class DetailProductActivity extends AppCompatActivity implements DetailPr
         intent = activity.getIntent();
         id = intent.getIntExtra("id", 1);
 
+        galleryItemAdapter = new GalleryItemAdapterDetail(gallery);
         relatedAdapter = new ProductItemAdapter(related, getApplicationContext(), true);
-        LinearLayoutManager llmanager = new LinearLayoutManager(getApplicationContext());
-        llmanager.setOrientation(RecyclerView.HORIZONTAL);
-        rvRelated.setLayoutManager(llmanager);
+        LinearLayoutManager llManagerGallery = new LinearLayoutManager(getApplicationContext());
+        llManagerGallery.setOrientation(RecyclerView.HORIZONTAL);
+        rvGallery.setLayoutManager(llManagerGallery);
+        rvGallery.setAdapter(galleryItemAdapter);
+        LinearLayoutManager llManagerRelated = new LinearLayoutManager(getApplicationContext());
+        llManagerRelated.setOrientation(RecyclerView.HORIZONTAL);
+        rvRelated.setLayoutManager(llManagerRelated);
         rvRelated.setAdapter(relatedAdapter);
         galleryAdapter = new GalleryDetailAdapter(getApplicationContext(), gallery);
         vpGallery.setAdapter(galleryAdapter);
@@ -172,6 +185,35 @@ public class DetailProductActivity extends AppCompatActivity implements DetailPr
                 }
             }
         });
+        rvGallery.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(),
+                rvGallery, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                vpGallery.setCurrentItem(position);
+                galleryItemAdapter.changeData(position);
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
+        vpGallery.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                galleryItemAdapter.changeData(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
 
@@ -206,11 +248,12 @@ public class DetailProductActivity extends AppCompatActivity implements DetailPr
     @Override
     public void setDataToView(Product product) {
         if (!product.getGallery().isEmpty()) this.gallery = product.getGallery();
+        else this.gallery.add(new Gallery(0, product.getImage(), 0, product.getId()));
         this.product = product;
         this.related = product.getRelated();
-        this.gallery.add(new Gallery(0, product.getImage(), 0, product.getId()));
         relatedAdapter.changeData(this.related);
         galleryAdapter.changeData(gallery);
+        galleryItemAdapter.changeData(gallery);
         txtContent.setText(product.getContent());
         txtDesBrand.setText(product.getBrand().getDescription());
         txtTitleBrand.setText(product.getBrand().getTitle());

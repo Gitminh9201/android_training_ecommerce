@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.detail_invoice.DetailInvoiceActivity"></activity>
+        <activity android:name=".mvp.coupons.CouponsActivity"></activity>
+        <activity android:name=".mvp.detail_invoice.DetailInvoiceActivity" />
         <activity android:name=".mvp.result_products.ResultProductsActivity" />
         <activity android:name=".mvp.search.SearchActivity" />
         <activity android:name=".mvp.terms.TermsActivity" />

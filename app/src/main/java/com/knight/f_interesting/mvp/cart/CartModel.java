@@ -53,7 +53,7 @@ public class CartModel implements CartContract.Model {
     }
 
     @Override
-    public void createOrder(final OnFinishedListener onFinishedListener, Order order) {
+    public void createOrder(final OnFinishedListener onFinishedListener, Order order, String code) {
         String productIds = "";
         String quantities = "";
         List<Cart> carts = AppUtils.db.getCart();
@@ -64,7 +64,7 @@ public class CartModel implements CartContract.Model {
         productIds = productIds.substring(0, productIds.length() - 1);
         quantities = quantities.substring(0, quantities.length() - 1);
         APIInterface api = AppClient.client().create(APIInterface.class);
-        Call<ResponseObject<Order>> call = api.createOrder(AppClient.headers(), productIds, quantities, order.getAddress(), order.getNote(), order.getPhone());
+        Call<ResponseObject<Order>> call = api.createOrder(AppClient.headers(), productIds, quantities, order.getAddress(), order.getNote(), order.getPhone(), code);
         call.enqueue(new Callback<ResponseObject<Order>>() {
             @Override
             public void onResponse(Call<ResponseObject<Order>> call, Response<ResponseObject<Order>> response) {

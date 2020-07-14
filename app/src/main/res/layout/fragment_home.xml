@@ -23,6 +23,15 @@
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/height_banner" />
                 <include layout="@layout/space"/>
+                <TextView
+                    android:layout_marginHorizontal="6dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:text="@string/brandHot"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
                 <com.knight.f_interesting.customs.ExpandableHeightGridView
                     android:background="@color/colorWhite"
                     android:paddingHorizontal="@dimen/padding_grid_home"

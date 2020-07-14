@@ -14,7 +14,7 @@ public interface CartContract {
             void onFailure(Throwable throwable);
         }
         void getData(OnFinishedListener onFinishedListener, List<Cart> carts);
-        void createOrder(OnFinishedListener onFinishedListener, Order order);
+        void createOrder(OnFinishedListener onFinishedListener, Order order, String code);
     }
     interface View{
         void showProgress();
@@ -27,7 +27,7 @@ public interface CartContract {
     interface Presenter{
         void refresh(List<Product> products, List<Cart> carts);
         void onDestroy();
-        void createOrder(Order order);
+        void createOrder(Order order, String code);
         void requestData();
     }
 }
