@@ -60,7 +60,7 @@ public class GalleryItemAdapterDetail extends RecyclerView.Adapter<GalleryItemAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Gallery item = galleries.get(position);
-        if(selected == position) {
+        if(selected == position || (selected == -1 && position == 0)) {
             holder.layout.setBackgroundResource(R.drawable.bg_border_order_status_2);
         }else holder.layout.setBackgroundResource(R.color.colorWhite);
         Glide.with(holder.itemView).load(AppClient.url()

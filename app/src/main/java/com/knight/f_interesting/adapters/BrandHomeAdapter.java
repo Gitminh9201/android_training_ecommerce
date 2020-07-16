@@ -65,7 +65,8 @@ public class BrandHomeAdapter extends BaseAdapter {
             viewHolder.imageView.setLayoutParams(
                     new LinearLayout.LayoutParams((AppSizes.getScreenWidth() - (int) convertView.getResources()
                     .getDimension(R.dimen.card_margin) * 8) / 4,
-                    (int) (AppSizes.getScreenWidth() - AppSizes.convertDpToPx(context, (int) (convertView.getResources()
+                    (int) (AppSizes.getScreenWidth()
+                            - AppSizes.convertDpToPx(context, (int) (convertView.getResources()
                             .getDimension(R.dimen.padding_grid_home) * 2) + (int) convertView.getResources()
                             .getDimension(R.dimen.card_margin) * 8)) / 4));
             convertView.setTag(viewHolder);
@@ -82,7 +83,8 @@ public class BrandHomeAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Router.navigator(Router.RESULT_PRODUCTS, (Activity) context, new String[]{"", String.valueOf(brands.get(position)), null});
+                Router.navigator(Router.RESULT_PRODUCTS, (Activity) context,
+                        new String[]{"", String.valueOf(brands.get(position).getId()), null});
             }
         });
 

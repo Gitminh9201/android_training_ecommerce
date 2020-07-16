@@ -1,4 +1,61 @@
 package com.knight.f_interesting.mvp.detail_invoice;
 
-public class DetailInvoicePresenter {
+import com.knight.f_interesting.models.Order;
+
+public class DetailInvoicePresenter implements DetailInvoiceContract.Presenter, DetailInvoiceContract.Model.OnFinishedListener{
+
+    private DetailInvoiceContract.View view;
+    private DetailInvoiceContract.Model model;
+
+    public DetailInvoicePresenter(DetailInvoiceContract.View view){
+        this.view = view;
+        this.model = new DetailInvoiceModel();
+    }
+
+    @Override
+    public void onCancelSuccess() {
+        if(view != null){
+            view.hideProgress();
+            view.cancelFinish();
+        }
+    }
+
+    @Override
+    public void onGetDataFinished(Order order) {
+        if(view != null){
+            view.hideProgress();
+            view.setDataToView(order);
+        }
+    }
+
+    @Override
+    public void onFailure(Throwable throwable) {
+        if(view != null){
+            view.hideProgress();
+            view.onResponseFailure(throwable);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if(view != null){
+            view = null;
+        }
+    }
+
+    @Override
+    public void cancelInvoice(int id) {
+        if(view != null){
+            view.showProgress();
+            model.cancelInvoice(this, id);
+        }
+    }
+
+    @Override
+    public void requestData(int id) {
+        if(view != null){
+            view.showProgress();
+            model.getData(this, id);
+        }
+    }
 }

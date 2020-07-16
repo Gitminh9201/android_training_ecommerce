@@ -43,6 +43,10 @@ public class AppUtils {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
+    static public void showToast(int msg, Context context){
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+
     static public void setUpDB(Context context){
         db = new DatabaseHandler(context);
     }
@@ -63,6 +67,10 @@ public class AppUtils {
 
     static public void showDialogConfirm(String title, Activity activity, View.OnClickListener action, FragmentManager manager){
         DialogFragment dialogFragment = new Confirm(title, action);
+        dialogFragment.show(manager.beginTransaction(), activity.getResources().getString(R.string.dialog_confirm));
+    }
+    static public void showDialogConfirm(int title, Activity activity, View.OnClickListener action, FragmentManager manager){
+        DialogFragment dialogFragment = new Confirm(activity.getResources().getString(title), action);
         dialogFragment.show(manager.beginTransaction(), activity.getResources().getString(R.string.dialog_confirm));
     }
 

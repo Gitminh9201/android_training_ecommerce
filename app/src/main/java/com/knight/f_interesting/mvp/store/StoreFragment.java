@@ -54,8 +54,7 @@ public class StoreFragment extends Fragment implements StoreContract.View {
         presenter = new StorePresenter(this);
         presenter.requestData();
 
-        fProducts = new ProductsFragment( "", 0,
-                0, 0, 0, 0, 0);
+        fProducts = new ProductsFragment();
         ft.add(R.id.rl_products_store, fProducts);
         ft.commit();
     }

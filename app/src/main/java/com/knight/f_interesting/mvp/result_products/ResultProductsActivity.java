@@ -55,6 +55,7 @@ public class ResultProductsActivity extends AppCompatActivity implements BaseVie
     private ProductsFragment fProducts;
     private FragmentManager fm;
     private FragmentTransaction ft;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +91,10 @@ public class ResultProductsActivity extends AppCompatActivity implements BaseVie
         ivFilter = findViewById(R.id.iv_float_filter);
         drawerFilter = findViewById(R.id.drawer_store);
 
-        Intent intent = getIntent();
+        intent = getIntent();
         keyword = intent.getStringExtra("keyword");
         if(keyword != null) editSearch.setText(keyword);
+        if(intent.getStringExtra("brandID") != null)brandId = (int) Integer.parseInt(intent.getStringExtra("brandID"));
 
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();

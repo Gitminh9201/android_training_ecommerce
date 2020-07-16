@@ -22,7 +22,7 @@ public class CollectionModel implements CollectionContract.Model {
         call.enqueue(new Callback<ResponseList<Product>>() {
             @Override
             public void onResponse(Call<ResponseList<Product>> call, Response<ResponseList<Product>> response) {
-                if (response.body().getStatus() == 1)
+                if (response.body() != null && response.body().getStatus() == 1)
                     onFinishedListener.onFinished(response.body().getData());
                 else
                     onFinishedListener.onFinished(new ArrayList<Product>());

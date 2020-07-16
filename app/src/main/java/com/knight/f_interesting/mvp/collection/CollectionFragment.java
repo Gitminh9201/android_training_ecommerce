@@ -74,8 +74,10 @@ public class CollectionFragment extends Fragment implements CollectionContract.V
 
     @Override
     public void setDataToView(List<Product> products) {
-        this.products = products;
-        productAdapter.changeData(products);
+        if(products != null && !products.isEmpty()){
+            this.products = products;
+            productAdapter.changeData(products);
+        }
     }
 
     @Override

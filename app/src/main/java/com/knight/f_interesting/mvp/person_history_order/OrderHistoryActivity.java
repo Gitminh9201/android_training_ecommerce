@@ -50,7 +50,7 @@ public class OrderHistoryActivity extends AppCompatActivity implements BaseView.
         rvOrders = findViewById(R.id.rv_history_order);
 
         orders = new ArrayList<>();
-        adapter = new OrderHistoryAdapter(getApplicationContext(), orders);
+        adapter = new OrderHistoryAdapter(this, orders);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         rvOrders.setLayoutManager(linearLayoutManager);

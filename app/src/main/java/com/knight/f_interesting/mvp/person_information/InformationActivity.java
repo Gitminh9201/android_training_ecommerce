@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.base.BaseView;
+import com.knight.f_interesting.buses.UserBus;
 import com.knight.f_interesting.dialogs.ChooseImage;
 import com.knight.f_interesting.models.User;
 
@@ -108,6 +109,10 @@ public class InformationActivity extends AppCompatActivity implements Informatio
                 url = AppClient.url() + user.getAvatar();
             Glide.with(getApplicationContext()).load(url).into(circleImageAvatar);
         }
+        else{
+            btnSave.setEnabled(false);
+            btnSave.setBackgroundResource(R.drawable.bg_button_dispose);
+        }
     }
 
     @Override
@@ -133,8 +138,10 @@ public class InformationActivity extends AppCompatActivity implements Informatio
         rlChangeAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new ChooseImage(activity, presenter);
-                dialogFragment.show(getSupportFragmentManager(), "dialog");
+                if(UserBus.current() != null && UserBus.current().getName() != null){
+                    DialogFragment dialogFragment = new ChooseImage(activity, presenter);
+                    dialogFragment.show(getSupportFragmentManager(), "dialog");
+                }
             }
         });
         ibBack.setOnClickListener(new View.OnClickListener() {
@@ -146,10 +153,6 @@ public class InformationActivity extends AppCompatActivity implements Informatio
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                presenter.updateUser(new User(editName.getText().toString(),
-//                        editEmail.getText().toString(),
-//                        editBirthday.getText().toString(), editPhone.getText().toString()));
-
                 presenter.updateUser(new User(editName.getText().toString(),
                         editEmail.getText().toString(), editPhone.getText().toString()));
             }
@@ -157,7 +160,6 @@ public class InformationActivity extends AppCompatActivity implements Informatio
         editBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if(picker != null) picker.show();
                 Toast.makeText(getApplicationContext(), "Coming soon!", Toast.LENGTH_SHORT).show();
             }
         });

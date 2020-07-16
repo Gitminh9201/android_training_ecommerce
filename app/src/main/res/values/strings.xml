@@ -10,6 +10,8 @@
     <string name="error_data">Something went wrong!</string>
     <string name="empty_data">Danh sách trống!</string>
     <string name="product_had_choose">Sản phẩm bạn đã chọn:</string>
+    <string name="product_had_buy">Sản phẩm đã đặt:</string>
+    <string name="product_related">Sản phẩm liên quan:</string>
     <string name="cart_empty">Hiện tại giỏ của bạn đang trống</string>
     <string name="add_cart_success">Thêm sản phẩm thành công!</string>
     <string name="aks_continue">Bạn chắc chắn muốn đặt hàng luôn chứ!</string>
@@ -17,7 +19,9 @@
 
     <string name="choose_address">Chọn địa chỉ giao hàng</string>
     <string name="choose_address_exists">Chọn địa chỉ của bạn:</string>
-    <string name="address">Địa chỉ của bạn:</string>
+    <string name="address">Địa chỉ</string>
+    <string name="your_address">Địa chỉ của bạn</string>
+    <string name="number_phone">Số điện thoại</string>
     <string name="your_number_phone">Số điện thoại của bạn</string>
 
     <string name="province">Tỉnh thành/Thành phố</string>
@@ -25,13 +29,18 @@
     <string name="ward">Phường/Thị Xã</string>
     <string name="address_detail">Địa chỉ chi tiết</string>
 
+    <string name="payment_method">Phương thức thanh toán</string>
     <string name="choose_payment_method">Chọn phương thức thanh toán</string>
     <string name="choose_method_exists">Chọn phương thức thanh toán:</string>
 
+    <string name="quantity">Số lượng</string>
+    <string name="total_payment">Tổng tiền</string>
+    <string name="coupon">Mã giảm giá</string>
+    <string name="status_invoice">Trạng thái đơn hàng</string>
     <string name="choose_coupon">Chọn mã giảm giá</string>
     <string name="choose_coupon_exists">Chọn mã giảm giá:</string>
 
-    <string name="login_with">Hoặc đăng nhập với</string>
+    <string name="login_with">Hoặc đăng nhập/đăng ký với</string>
     <string name="register_ask">Bạn chưa có tài khoản?</string>
     <string name="register">Đăng ký ngay!</string>
     <string name="login">Login</string>
@@ -43,6 +52,7 @@
     <string name="logout_vi">Đăng xuất</string>
     <string name="next">Continue</string>
     <string name="save">Save/Back</string>
+    <string name="change">Change</string>
 
     <string name="no">No</string>
     <string name="request_login_cart">Bạn cần đăng nhập để đến bước tiếp theo?</string>
@@ -69,7 +79,10 @@
     <string name="make_image">Chụp ảnh với camera</string>
 
     <string name="string_continue">Tiếp tục</string>
-    <string name="string_cancel">Hủy</string>
+    <string name="cancel">Hủy</string>
+    <string name="cancel_invoice">Hủy đơn hàng</string>
+    <string name="canceled_invoice">Đã hủy đơn hàng</string>
+    <string name="aks_cancel_order">Bạn muốn hủy đơn hàng này?\nHành động này không thể hoàn tác!</string>
     <string name="filter">Lọc</string>
 
     <string name="confirm_logout">Bạn muốn đăng xuất?</string>
@@ -106,6 +119,7 @@
     <string name="page_detail_product">Chi tiết sản phẩm</string>
     <string name="page_detail_order">Chi tiết đơn hàng</string>
     <string name="page_filter">Lọc sản phẩm</string>
+    <string name="page_invoice">Chi tiết đơn hàng</string>
     <string name="increase">Tăng dần</string>
     <string name="decrease">Giảm dần</string>
     <string name="collection">Bộ sưu tập</string>

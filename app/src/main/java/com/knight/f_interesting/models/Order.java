@@ -41,6 +41,36 @@ public class Order {
     @SerializedName("detail")
     private List<OrderDetail> detail;
 
+    @SerializedName("payment_method")
+    private MethodPayment payment;
+
+    public Order(int id, String phone, String email, int shipID, int paymentID, String address,
+                 String note, int total, int discount, int status, int userID, List<OrderDetail> detail,
+                 MethodPayment payment, String created) {
+        this.id = id;
+        this.phone = phone;
+        this.email = email;
+        this.shipID = shipID;
+        this.paymentID = paymentID;
+        this.address = address;
+        this.note = note;
+        this.total = total;
+        this.discount = discount;
+        this.status = status;
+        this.userID = userID;
+        this.detail = detail;
+        this.payment = payment;
+        this.created = created;
+    }
+
+    public MethodPayment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(MethodPayment payment) {
+        this.payment = payment;
+    }
+
     public String getCreated() {
         return created;
     }

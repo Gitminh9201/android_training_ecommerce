@@ -58,7 +58,7 @@ public class BannerHomeAdapter extends PagerAdapter {
                 .placeholder(R.drawable.border_image_brand_home)
                 .into(imageView);
         textView.setText(banners.get(position).getSlogan());
-        textView.setVisibility(View.VISIBLE);
+        textView.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
 
         ViewPager viewPager = (ViewPager) container;

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content" android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <RelativeLayout
-        android:background="@color/colorOpacity"
+        android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -14,11 +14,9 @@
             android:gravity="center"
             android:layout_height="match_parent">
             <ImageView
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:background="@drawable/border_image_brand_home"
+                android:scaleType="fitCenter"
                 android:layout_weight="1"
-                android:id="@+id/iv_product_cart"
+                android:id="@+id/iv_product_invoice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
             <LinearLayout
@@ -27,63 +25,44 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
-                <Button
-                    android:layout_margin="6dp"
-                    android:background="@drawable/border_image_brand_home"
-                    android:layout_width="30dp"
-                    android:text="+"
-                    android:id="@+id/btn_increment"
-                    android:layout_height="30dp"/>
+                <TextView
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:text="@string/quantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
                 <TextView
                     android:textStyle="bold"
                     android:textAlignment="center"
                     android:layout_gravity="center"
-                    android:id="@+id/txt_qty_cart"
+                    android:textColor="@color/colorBlack"
+                    android:id="@+id/txt_qty_invoice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-                <Button
-                    android:layout_margin="6dp"
-                    android:background="@drawable/border_image_brand_home"
-                    android:layout_width="30dp"
-                    android:text="-"
-                    android:id="@+id/btn_abatement"
-                    android:layout_height="30dp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_marginRight="12dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_weight="2.5"
+                android:layout_weight="2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
                 <TextView
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:gravity="center"
-                    android:maxLines="2"
-                    android:ellipsize="end"
                     android:textColor="@color/colorBlack"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:id="@+id/txt_name_cart"
+                    android:id="@+id/txt_name_invoice"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:textSize="14sp"
                     android:textColor="@color/colorRed"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:id="@+id/txt_price_cart"
+                    android:id="@+id/txt_price_invoice"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
-        <ImageButton
-            android:id="@+id/ib_remove_cart"
-            android:layout_margin="8dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_width="35dp"
-            android:background="@color/colorOpacity"
-            android:src="@drawable/ic_remove"
-            android:layout_height="35dp"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

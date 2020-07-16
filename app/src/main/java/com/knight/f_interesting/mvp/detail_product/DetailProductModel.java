@@ -27,7 +27,7 @@ public class DetailProductModel implements DetailProductContract.Model {
         call.enqueue(new Callback<ResponseObject<Product>>() {
             @Override
             public void onResponse(Call<ResponseObject<Product>> call, retrofit2.Response<ResponseObject<Product>> response) {
-                if (response.body().getStatus() == 1)
+                if (response.body() != null && response.body().getStatus() == 1)
                     product = response.body().getData();
                 else product = new Product();
                 onFinishedListener.onFinished(product);

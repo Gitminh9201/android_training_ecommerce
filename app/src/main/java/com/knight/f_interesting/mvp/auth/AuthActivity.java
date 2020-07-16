@@ -48,6 +48,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
 
     private void listener() {
         findViewById(R.id.sign_in_button).setOnClickListener(this);
+        findViewById(R.id.btn_login_normal).setOnClickListener(this);
         mBtnLoginFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -106,7 +107,9 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.sign_in_button:
                 signInGoogle();
                 break;
-            // ...
+            case R.id.btn_login_normal:
+                AppUtils.showToast("Coming soon!", getApplicationContext());
+                break;
         }
     }
 

@@ -90,7 +90,7 @@ public class DetailProductActivity extends AppCompatActivity implements DetailPr
         txtPriceCompare = findViewById(R.id.txt_price_compare_detail);
         ibBack = findViewById(R.id.ib_back);
         txtRelated = findViewById(R.id.txt_title_group);
-        txtRelated.setText("Sản phẩm liên quan:");
+        txtRelated.setText(R.string.product_related);
         rvRelated = findViewById(R.id.rv_group_product);
         txtContent = findViewById(R.id.txt_content_detail);
         txtCountryBrand = findViewById(R.id.txt_country_brand);

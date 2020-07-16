@@ -1,6 +1,7 @@
 package com.knight.f_interesting.mvp.products;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.ProductItemAdapter;
 import com.knight.f_interesting.models.Product;
+import com.knight.f_interesting.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +40,13 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
 
     private View view;
 
-    public ProductsFragment(){}
+    public ProductsFragment() {
+        this.keyword = "";
+    }
 
-    public ProductsFragment(String keyword, int brandId, int columnView){
+    public ProductsFragment(String keyword, int brandId, int columnView) {
         this.keyword = keyword;
-        this.brandId = brandId;
+        if (brandId != 0) this.brandId = brandId;
         this.columnView = columnView;
     }
 
@@ -72,24 +75,24 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
         presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
     }
 
-    public void refresh(int categoryId){
+    public void refresh(int categoryId) {
         this.categoryId = categoryId;
         presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
     }
 
-    public void refresh(String keyword){
+    public void refresh(String keyword) {
         this.keyword = keyword;
         presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
     }
 
-    public void filter(int categoryId, int brandId, int sort){
+    public void filter(int categoryId, int brandId, int sort) {
         this.categoryId = categoryId;
         this.brandId = brandId;
         this.sort = sort;
         presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
     }
 
-    public void filter(int brandId, int sort){
+    public void filter(int brandId, int sort) {
         this.brandId = brandId;
         this.sort = sort;
         presenter.requestData(keyword, categoryId, brandId, groupId, offset, limit, sort);
@@ -126,8 +129,8 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
 
     @Override
     public void onResponseFailure(Throwable throwable) {
-        Snackbar.make(this.view.findViewById(R.id.fragment_products), getString(R.string.error_data),
-                Snackbar.LENGTH_LONG).show();
+        Log.e("ERR", throwable.getMessage());
+        AppUtils.showToast(throwable.getMessage(), getContext());
     }
 
     @Override

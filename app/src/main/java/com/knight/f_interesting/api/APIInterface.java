@@ -105,4 +105,6 @@ public interface APIInterface {
 
     @POST(AppClient.MIDDLE_URL + "api/order/get")
     Call<ResponseObject<Order>> getOrderDetail(@HeaderMap Map<String, String> headers, @Query("order_id") int orderID);
+    @POST(AppClient.MIDDLE_URL + "api/order/cancel")
+    Call<ResponseObject> cancelOrder(@HeaderMap Map<String, String> headers, @Query("order_id") int orderID);
 }

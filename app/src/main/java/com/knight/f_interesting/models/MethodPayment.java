@@ -1,11 +1,34 @@
 package com.knight.f_interesting.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class MethodPayment implements Serializable {
+
+    @SerializedName("id")
     int id;
+    @SerializedName("title")
     String title;
+    @SerializedName("information")
+    String information;
+    @SerializedName("icon_source")
     String icon_source;
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
+    public MethodPayment(int id, String title, String information, String icon_source) {
+        this.id = id;
+        this.title = title;
+        this.information = information;
+        this.icon_source = icon_source;
+    }
 
     public int getId() {
         return id;
@@ -36,9 +59,9 @@ public class MethodPayment implements Serializable {
         this.title = title;
     }
 
-    public MethodPayment(int id, String title, String icon_source) {
+    public MethodPayment(int id, String title, String information) {
         this.id = id;
         this.title = title;
-        this.icon_source = icon_source;
+        this.information = information;
     }
 }

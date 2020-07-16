@@ -24,4 +24,48 @@ public class AppContracts {
         }
         return result;
     }
+
+    public static int orderStatusBorder(int status){
+        int result;
+        switch (status){
+            case 0:
+                result = R.drawable.bg_border_order_status_1;
+                break;
+            case 1:
+                result = R.drawable.bg_border_order_status_2;
+                break;
+            case 2:
+                result = R.drawable.bg_border_order_status_3;
+                break;
+            case 3:
+                result = R.drawable.bg_border_order_status_4;
+                break;
+            default:
+                result = R.drawable.bg_border_order_status_0;
+                break;
+        }
+        return result;
+    }
+
+    public static int orderStatusBackground(int status){
+        int result;
+        switch (status){
+            case 0:
+                result = R.drawable.bg_order_status_1;
+                break;
+            case 1:
+                result = R.drawable.bg_order_status_2;
+                break;
+            case 2:
+                result = R.drawable.bg_order_status_3;
+                break;
+            case 3:
+                result = R.drawable.bg_order_status_4;
+                break;
+            default:
+                result = R.drawable.bg_order_status_0;
+                break;
+        }
+        return result;
+    }
 }

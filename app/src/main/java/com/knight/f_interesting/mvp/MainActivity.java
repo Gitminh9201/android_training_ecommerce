@@ -16,6 +16,7 @@ import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.TabPagerMainAdapter;
 import com.knight.f_interesting.base.BaseView;
 import com.knight.f_interesting.buses.CartBus;
+import com.knight.f_interesting.buses.ContextBus;
 import com.knight.f_interesting.models.Cart;
 import com.knight.f_interesting.mvp.collection.CollectionFragment;
 import com.knight.f_interesting.mvp.home.HomeFragment;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements BaseView.BaseActi
 
     @Override
     public void init() {
+        ContextBus.publish(getApplicationContext());
         tabIcons = new int[]{
                 R.drawable.ic_home,
                 R.drawable.ic_shop,

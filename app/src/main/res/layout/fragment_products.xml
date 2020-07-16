@@ -13,6 +13,7 @@
         android:padding="6dp" />
 
     <LinearLayout
+        android:visibility="gone"
         android:background="@color/colorWhite"
         android:id="@+id/ll_load_products"
         android:layout_width="match_parent"

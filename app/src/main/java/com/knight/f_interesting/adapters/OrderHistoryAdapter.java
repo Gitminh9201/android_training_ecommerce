@@ -1,6 +1,6 @@
 package com.knight.f_interesting.adapters;
 
-import android.content.Context;
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,17 +16,18 @@ import com.knight.f_interesting.R;
 import com.knight.f_interesting.models.Order;
 import com.knight.f_interesting.utils.AppContracts;
 import com.knight.f_interesting.utils.AppSizes;
+import com.knight.f_interesting.utils.Router;
 
 import java.util.List;
 
 public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.ViewHolder> {
 
     private List<Order> orders;
-    private Context context;
+    private Activity activity;
 
-    public OrderHistoryAdapter(Context context, List<Order> orders){
+    public OrderHistoryAdapter(Activity activity, List<Order> orders){
         this.orders = orders;
-        this.context = context;
+        this.activity = activity;
     }
 
     public void refresh(List<Order> orders) {
@@ -43,8 +44,8 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Order model = orders.get(position);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        final Order model = orders.get(position);
         holder.txtAddress.setText(model.getAddress());
         holder.txtPhone.setText(model.getPhone());
         holder.txtTime.setText(model.getCreated());
@@ -54,34 +55,14 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         holder.ivStatus.setLayoutParams(layout);
 
         holder.txtStatus.setText(AppContracts.orderStatus(model.getStatus()));
-
-        int border;
-        int bgIcon;
-        switch (model.getStatus()){
-            case 0:
-                border = R.drawable.bg_border_order_status_1;
-                bgIcon = R.drawable.bg_order_status_1;
-                break;
-            case 1:
-                border = R.drawable.bg_border_order_status_2;
-                bgIcon = R.drawable.bg_order_status_2;
-                break;
-            case 2:
-                border = R.drawable.bg_border_order_status_3;
-                bgIcon = R.drawable.bg_order_status_3;
-                break;
-            case 3:
-                border = R.drawable.bg_border_order_status_4;
-                bgIcon = R.drawable.bg_order_status_4;
-                break;
-            default:
-                border = R.drawable.bg_border_order_status_0;
-                bgIcon = R.drawable.bg_order_status_0;
-                break;
-        }
-
-        holder.iconStatus.setBackgroundResource(bgIcon);
-        holder.cardView.setBackgroundResource(border);
+        holder.iconStatus.setBackgroundResource(AppContracts.orderStatusBackground(model.getStatus()));
+        holder.cardView.setBackgroundResource(AppContracts.orderStatusBorder(model.getStatus()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Router.navigator(Router.INVOICE, activity, new String[]{String.valueOf(model.getId())});
+            }
+        });
     }
 
     @Override

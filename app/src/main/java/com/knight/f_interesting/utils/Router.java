@@ -9,6 +9,7 @@ import com.knight.f_interesting.mvp.auth.AuthActivity;
 import com.knight.f_interesting.mvp.cart.CartActivity;
 import com.knight.f_interesting.mvp.completed.CompletedActivity;
 import com.knight.f_interesting.mvp.coupons.CouponsActivity;
+import com.knight.f_interesting.mvp.detail_invoice.DetailInvoiceActivity;
 import com.knight.f_interesting.mvp.detail_product.DetailProductActivity;
 import com.knight.f_interesting.mvp.person_history_order.OrderHistoryActivity;
 import com.knight.f_interesting.mvp.person_information.InformationActivity;
@@ -30,6 +31,7 @@ public class Router {
     public final static String SEARCH = "/toolbar_item_search";
     public final static String RESULT_PRODUCTS = "/result_products";
     public final static String COUPONS = "/coupons";
+    public final static String INVOICE = "/invoice";
 
     public static void navigator(String route, Activity current, String[] arguments) {
 
@@ -63,6 +65,11 @@ public class Router {
             case COUPONS:
                 second = CouponsActivity.class;
                 break;
+            case INVOICE:
+                Intent invoiceDetailIntent = new Intent(current, DetailInvoiceActivity.class);
+                invoiceDetailIntent.putExtra("id", Integer.parseInt(arguments[0]));
+                current.startActivity(invoiceDetailIntent);
+                return;
             case RESULT_PRODUCTS:
                 Intent resultProductIntent = new Intent(current, ResultProductsActivity.class);
                 resultProductIntent.putExtra("keyword", arguments[0]);
