@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.knight.f_interesting.R;
@@ -29,7 +29,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter{
     private Activity activity;
 
     private final int TYPE_LOADING = 0, TYPE_ITEM = 1;
-    private final int PAGINATE = 10;
+    private final int threshold = 5;
 
     private boolean isLoading;
     private int lastVisible;
@@ -38,7 +38,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter{
     public InvoicesAdapter(Activity activity, List<Order> orders, RecyclerView rv, final LoadMoreInvoices loadMore){
         this.orders = orders;
         this.activity = activity;
-        final GridLayoutManager layoutManager = (GridLayoutManager)rv.getLayoutManager();
+        final LinearLayoutManager layoutManager = (LinearLayoutManager)rv.getLayoutManager();
         rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             /**
              * Callback method to be invoked when the RecyclerView has been scrolled. This will be
@@ -52,15 +52,20 @@ public class InvoicesAdapter extends RecyclerView.Adapter{
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                loadMore.onLoadMore(layoutManager.getItemCount(), layoutManager.findLastVisibleItemPosition());
                 totalVisible = layoutManager.getItemCount();
                 lastVisible = layoutManager.findLastVisibleItemPosition();
-                if(!isLoading && totalVisible <= (lastVisible + PAGINATE)){
-                    System.out.println("TRUE");
+                if(!isLoading && totalVisible <= (lastVisible + threshold)){
+                    if(loadMore != null)
+                        loadMore.onLoadMore(totalVisible, AppContracts.PAGINATE_ROW);
                     isLoading = true;
                 }
             }
         });
+    }
+
+    public void refresh(List<Order> orders) {
+        this.orders = orders;
+        notifyDataSetChanged();
     }
 
     public void setLoaded(){
@@ -69,7 +74,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        return orders.size() + 1;
+        return orders.size();
     }
 
     @NonNull
@@ -92,7 +97,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter{
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ProductsAdapter.ItemViewHolder)
+        if(holder instanceof ItemViewHolder)
         {
             final Order model = orders.get(position);
             final ItemViewHolder viewHolder = (ItemViewHolder) holder;
@@ -114,16 +119,16 @@ public class InvoicesAdapter extends RecyclerView.Adapter{
                 }
             });
         }
-        else if(holder instanceof ProductsAdapter.LoadingViewHolder)
+        else if(holder instanceof LoadingViewHolder)
         {
-            ProductsAdapter.LoadingViewHolder loadingViewHolder = (ProductsAdapter.LoadingViewHolder)holder;
+            LoadingViewHolder loadingViewHolder = (LoadingViewHolder)holder;
             loadingViewHolder.progressBar.setIndeterminate(true);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        return position >= orders.size() ? TYPE_LOADING : TYPE_ITEM;
+        return orders.get(position) == null ? TYPE_LOADING : TYPE_ITEM;
     }
 
     class LoadingViewHolder extends RecyclerView.ViewHolder

@@ -7,7 +7,8 @@ import java.util.List;
 public interface OrderHistoryContract {
     interface Model{
         interface OnFinishedListener{
-            void onFinished(List<Order> orders);
+            void onLoadMoreFinished(List<Order> orders);
+            void onGetDataFinished(List<Order> orders);
             void onFailure(Throwable throwable);
         }
         void getData(OnFinishedListener onFinishedListener);
@@ -25,7 +26,8 @@ public interface OrderHistoryContract {
     interface View{
         void showProgress();
         void hideProgress();
-        void setData(List<Order> orders);
+        void setMoreData(List<Order> invoices);
+        void setDataOriginal(List<Order> orders);
         void onResponseFailure(Throwable throwable);
     }
 }

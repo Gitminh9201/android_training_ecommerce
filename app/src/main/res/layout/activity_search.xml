@@ -37,6 +37,7 @@
                 android:paddingHorizontal="18dp"
                 android:paddingVertical="8dp"
                 android:textColor="@color/colorPrimary"
+                android:inputType="text"
                 android:imeOptions="actionSearch"
                 android:textColorHint="@color/colorDispose"
                 android:textSize="14dp" />

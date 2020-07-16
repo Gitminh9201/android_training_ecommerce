@@ -115,6 +115,11 @@ public class ResultProductsActivity extends AppCompatActivity implements BaseVie
             @Override
             public void onClick(View v) {
                 editSearch.clearFocus();
+//                editSearch.setFocusableInTouchMode(false);
+//                editSearch.setFocusable(false);
+//                editSearch.setFocusableInTouchMode(true);
+//                editSearch.setFocusable(true);
+//                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 fProducts.refresh(editSearch.getText().toString());
             }
         });
@@ -183,6 +188,7 @@ public class ResultProductsActivity extends AppCompatActivity implements BaseVie
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                editSearch.clearFocus();
                 drawerFilter.closeDrawer(GravityCompat.END);
                 fProducts.filter(brandId, sort);
             }

@@ -123,4 +123,5 @@
     <string name="increase">Tăng dần</string>
     <string name="decrease">Giảm dần</string>
     <string name="collection">Bộ sưu tập</string>
+    <string name="loadCompleted">Load Completed!</string>
 </resources>

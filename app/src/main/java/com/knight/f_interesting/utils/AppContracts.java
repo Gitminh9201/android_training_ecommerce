@@ -3,6 +3,11 @@ package com.knight.f_interesting.utils;
 import com.knight.f_interesting.R;
 
 public class AppContracts {
+
+    public static final int PAGINATE_ROW = 10;
+    public static final int PAGINATE_GRID_TWO = 12;
+    public static final int PAGINATE_GRID_THREE = 15;
+
     public static int orderStatus(int status){
         int result;
         switch (status){

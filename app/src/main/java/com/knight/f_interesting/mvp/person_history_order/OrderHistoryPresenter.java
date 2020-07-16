@@ -13,14 +13,20 @@ public class OrderHistoryPresenter implements OrderHistoryContract.Presenter, Or
 
     public OrderHistoryPresenter(OrderHistoryContract.View view, Context context){
         this.view = view;
-        this.model = new OrderHistoryModel(context);
+        this.model = new OrderHistoryModel();
     }
 
     @Override
-    public void onFinished(List<Order> orders) {
+    public void onLoadMoreFinished(List<Order> orders) {
+        if(view != null)
+            view.setMoreData(orders);
+    }
+
+    @Override
+    public void onGetDataFinished(List<Order> orders) {
         if(view != null){
             view.hideProgress();
-            view.setData(orders);
+            view.setDataOriginal(orders);
         }
     }
 
@@ -43,7 +49,6 @@ public class OrderHistoryPresenter implements OrderHistoryContract.Presenter, Or
     @Override
     public void requestData(int offset) {
         if(view != null){
-            view.showProgress();
             model.getData(this, offset);
         }
     }
@@ -51,7 +56,6 @@ public class OrderHistoryPresenter implements OrderHistoryContract.Presenter, Or
     @Override
     public void requestData(int offset, int limit) {
         if(view != null){
-            view.showProgress();
             model.getData(this, offset, limit);
         }
     }

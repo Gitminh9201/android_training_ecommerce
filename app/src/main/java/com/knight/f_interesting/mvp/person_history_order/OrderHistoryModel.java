@@ -1,7 +1,5 @@
 package com.knight.f_interesting.mvp.person_history_order;
 
-import android.content.Context;
-
 import com.knight.f_interesting.api.APIInterface;
 import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Order;
@@ -14,10 +12,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OrderHistoryModel implements OrderHistoryContract.Model {
-    private Context context;
-    public OrderHistoryModel(Context context){
-        this.context = context;
-    }
 
     @Override
     public void getData(final OnFinishedListener onFinishedListener) {
@@ -27,8 +21,8 @@ public class OrderHistoryModel implements OrderHistoryContract.Model {
             @Override
             public void onResponse(Call<ResponseList<Order>> call, Response<ResponseList<Order>> response) {
                 if (response.body() != null && response.body().getStatus() == 1)
-                    onFinishedListener.onFinished(response.body().getData());
-                else onFinishedListener.onFinished(new ArrayList<Order>());
+                    onFinishedListener.onGetDataFinished(response.body().getData());
+                else onFinishedListener.onGetDataFinished(new ArrayList<Order>());
 
             }
             @Override
@@ -46,8 +40,8 @@ public class OrderHistoryModel implements OrderHistoryContract.Model {
             @Override
             public void onResponse(Call<ResponseList<Order>> call, Response<ResponseList<Order>> response) {
                 if (response.body() != null && response.body().getStatus() == 1)
-                    onFinishedListener.onFinished(response.body().getData());
-                else onFinishedListener.onFinished(new ArrayList<Order>());
+                    onFinishedListener.onLoadMoreFinished(response.body().getData());
+                else onFinishedListener.onLoadMoreFinished(new ArrayList<Order>());
 
             }
             @Override
@@ -65,8 +59,8 @@ public class OrderHistoryModel implements OrderHistoryContract.Model {
             @Override
             public void onResponse(Call<ResponseList<Order>> call, Response<ResponseList<Order>> response) {
                 if (response.body() != null && response.body().getStatus() == 1)
-                    onFinishedListener.onFinished(response.body().getData());
-                else onFinishedListener.onFinished(new ArrayList<Order>());
+                    onFinishedListener.onLoadMoreFinished(response.body().getData());
+                else onFinishedListener.onLoadMoreFinished(new ArrayList<Order>());
 
             }
             @Override

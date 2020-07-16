@@ -53,10 +53,6 @@ public class StoreFragment extends Fragment implements StoreContract.View {
         rvCategories.setAdapter(categoryAdapter);
         presenter = new StorePresenter(this);
         presenter.requestData();
-
-        fProducts = new ProductsFragment();
-        ft.add(R.id.rl_products_store, fProducts);
-        ft.commit();
     }
 
     private void listener(final View view) {
@@ -108,8 +104,9 @@ public class StoreFragment extends Fragment implements StoreContract.View {
         if(!categories.isEmpty()){
             this.categories = categories;
             categoryAdapter.changeData(this.categories);
-            categoryAdapter.notifyDataSetChanged();
-            if(fProducts != null) fProducts.refresh(this.categories.get(0).getId());
+            fProducts = new ProductsFragment(this.categories.get(0).getId());
+            ft.add(R.id.rl_products_store, fProducts);
+            ft.commit();
         }
     }
 

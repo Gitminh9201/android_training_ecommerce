@@ -38,10 +38,13 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
     private List<Product> products;
     private ProductsContract.Presenter presenter;
 
-    private View view;
-
     public ProductsFragment() {
         this.keyword = "";
+    }
+
+    public ProductsFragment(int categoryId) {
+        this.keyword = "";
+        this.categoryId = categoryId;
     }
 
     public ProductsFragment(String keyword, int brandId, int columnView) {
@@ -62,7 +65,6 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
     }
 
     private void init(View view) {
-        this.view = view;
         llLoading = view.findViewById(R.id.ll_load_products);
         rvProducts = view.findViewById(R.id.rv_products);
 
