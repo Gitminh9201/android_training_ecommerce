@@ -24,7 +24,7 @@
         <activity android:name=".mvp.result_products.ResultProductsActivity" />
         <activity android:name=".mvp.search.SearchActivity" />
         <activity android:name=".mvp.terms.TermsActivity" />
-        <activity android:name=".mvp.person_history_order.OrderHistoryActivity" />
+        <activity android:name=".mvp.invoices.InvoicesActivity" />
         <activity android:name=".mvp.completed.CompletedActivity" />
 
         <meta-data

@@ -6,7 +6,7 @@ import android.util.Log;
 import com.knight.f_interesting.api.APIInterface;
 import com.knight.f_interesting.api.AppClient;
 import com.knight.f_interesting.models.Cart;
-import com.knight.f_interesting.models.Order;
+import com.knight.f_interesting.models.Invoice;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.models.ResponseList;
 import com.knight.f_interesting.models.ResponseObject;
@@ -53,7 +53,7 @@ public class CartModel implements CartContract.Model {
     }
 
     @Override
-    public void createOrder(final OnFinishedListener onFinishedListener, Order order, String code) {
+    public void createOrder(final OnFinishedListener onFinishedListener, Invoice invoice, String code) {
         String productIds = "";
         String quantities = "";
         List<Cart> carts = AppUtils.db.getCart();
@@ -64,19 +64,19 @@ public class CartModel implements CartContract.Model {
         productIds = productIds.substring(0, productIds.length() - 1);
         quantities = quantities.substring(0, quantities.length() - 1);
         APIInterface api = AppClient.client().create(APIInterface.class);
-        Call<ResponseObject<Order>> call = api.createOrder(AppClient.headers(), productIds, quantities, order.getAddress(), order.getNote(), order.getPhone(), code);
-        call.enqueue(new Callback<ResponseObject<Order>>() {
+        Call<ResponseObject<Invoice>> call = api.createOrder(AppClient.headers(), productIds, quantities, invoice.getAddress(), invoice.getNote(), invoice.getPhone(), code);
+        call.enqueue(new Callback<ResponseObject<Invoice>>() {
             @Override
-            public void onResponse(Call<ResponseObject<Order>> call, Response<ResponseObject<Order>> response) {
+            public void onResponse(Call<ResponseObject<Invoice>> call, Response<ResponseObject<Invoice>> response) {
                 if (response.body() != null && response.body().getStatus() == 1){
                     onFinishedListener.onFinishedCreateOrder(response.body().getData());}
                 else{
-                    onFinishedListener.onFinishedCreateOrder(new Order());
+                    onFinishedListener.onFinishedCreateOrder(new Invoice());
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseObject<Order>> call, Throwable t) {
+            public void onFailure(Call<ResponseObject<Invoice>> call, Throwable t) {
                 onFinishedListener.onFailure(t);
             }
         });

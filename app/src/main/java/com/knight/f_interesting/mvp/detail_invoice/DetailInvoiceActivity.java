@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.ProductsInInvoiceAdapter;
 import com.knight.f_interesting.base.BaseView;
-import com.knight.f_interesting.models.Order;
+import com.knight.f_interesting.models.Invoice;
 import com.knight.f_interesting.models.OrderDetail;
 import com.knight.f_interesting.utils.AppContracts;
 import com.knight.f_interesting.utils.AppUtils;
@@ -119,19 +119,19 @@ public class DetailInvoiceActivity extends AppCompatActivity implements BaseView
     }
 
     @Override
-    public void setDataToView(Order order) {
-        adapter.changeData(order.getDetail());
-        txtAddress.setText(order.getAddress());
-        txtPayment.setText(order.getPayment().getTitle());
-        if(!String.valueOf(order.getDiscount()).equals("null"))txtDiscount.setText(String.valueOf(AppUtils.currencyVN(order.getDiscount())));
+    public void setDataToView(Invoice invoice) {
+        adapter.changeData(invoice.getDetail());
+        txtAddress.setText(invoice.getAddress());
+        txtPayment.setText(invoice.getPayment().getTitle());
+        if(!String.valueOf(invoice.getDiscount()).equals("null"))txtDiscount.setText(String.valueOf(AppUtils.currencyVN(invoice.getDiscount())));
         else txtDiscount.setText("0");
-        txtPhone.setText(order.getPhone());
-        txtStatus.setText(AppContracts.orderStatus(order.getStatus()));
-        llIconStatus.setBackgroundResource(AppContracts.orderStatusBackground(order.getStatus()));
-        txtTotal.setText(String.valueOf(AppUtils.currencyVN(order.getTotal())));
-        txtResultTotal.setText("= " + String.valueOf(AppUtils.currencyVN(order.getTotal() - order.getDiscount())));
+        txtPhone.setText(invoice.getPhone());
+        txtStatus.setText(AppContracts.orderStatus(invoice.getStatus()));
+        llIconStatus.setBackgroundResource(AppContracts.orderStatusBackground(invoice.getStatus()));
+        txtTotal.setText(String.valueOf(AppUtils.currencyVN(invoice.getTotal())));
+        txtResultTotal.setText("= " + String.valueOf(AppUtils.currencyVN(invoice.getTotal() - invoice.getDiscount())));
 
-       if( order.getStatus() < 0 || order.getStatus() > 2){
+       if( invoice.getStatus() < 0 || invoice.getStatus() > 2){
            btnChange.setEnabled(false);
            btnChange.setBackgroundResource(R.drawable.bg_button_dispose);
        }

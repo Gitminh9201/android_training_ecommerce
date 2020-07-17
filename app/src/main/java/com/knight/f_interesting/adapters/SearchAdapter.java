@@ -74,7 +74,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTitle = itemView.findViewById(R.id.txt_suggest);
-            imageView = itemView.findViewById(R.id.iv_item_search);
+            imageView = itemView.findViewById(R.id.iv_suggest);
             this.view = itemView;
         }
     }

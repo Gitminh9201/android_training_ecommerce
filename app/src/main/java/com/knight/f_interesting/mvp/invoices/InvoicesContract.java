@@ -1,14 +1,14 @@
-package com.knight.f_interesting.mvp.person_history_order;
+package com.knight.f_interesting.mvp.invoices;
 
-import com.knight.f_interesting.models.Order;
+import com.knight.f_interesting.models.Invoice;
 
 import java.util.List;
 
-public interface OrderHistoryContract {
+public interface InvoicesContract {
     interface Model{
         interface OnFinishedListener{
-            void onLoadMoreFinished(List<Order> orders);
-            void onGetDataFinished(List<Order> orders);
+            void onLoadMoreFinished(List<Invoice> invoices);
+            void onGetDataFinished(List<Invoice> invoices);
             void onFailure(Throwable throwable);
         }
         void getData(OnFinishedListener onFinishedListener);
@@ -26,8 +26,8 @@ public interface OrderHistoryContract {
     interface View{
         void showProgress();
         void hideProgress();
-        void setMoreData(List<Order> invoices);
-        void setDataOriginal(List<Order> orders);
+        void setMoreData(List<Invoice> invoices);
+        void setDataOriginal(List<Invoice> invoices);
         void onResponseFailure(Throwable throwable);
     }
 }

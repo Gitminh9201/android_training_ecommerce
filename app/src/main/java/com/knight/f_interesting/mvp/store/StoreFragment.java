@@ -64,11 +64,8 @@ public class StoreFragment extends Fragment implements StoreContract.View {
                 categoryId = categories.get(position).getId();
                 fProducts.refresh(categories.get(position).getId());
             }
-
             @Override
-            public void onLongItemClick(View view, int position) {
-
-            }
+            public void onLongItemClick(View view, int position) {}
         }));
     }
 

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.knight.f_interesting.buses.CartBus;
 import com.knight.f_interesting.models.Cart;
-import com.knight.f_interesting.models.Order;
+import com.knight.f_interesting.models.Invoice;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.utils.AppUtils;
 
@@ -32,10 +32,10 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
     }
 
     @Override
-    public void onFinishedCreateOrder(Order order) {
+    public void onFinishedCreateOrder(Invoice invoice) {
         if (view != null) {
             view.hideProgress();
-            view.onOrderSuccess(order);
+            view.onOrderSuccess(invoice);
         }
     }
 
@@ -59,10 +59,10 @@ public class CartPresenter implements CartContract.Presenter, CartContract.Model
     }
 
     @Override
-    public void createOrder(Order order, String code) {
+    public void createOrder(Invoice invoice, String code) {
         if (view != null) {
             view.showProgress();
-            model.createOrder(this, order, code);
+            model.createOrder(this, invoice, code);
         }
     }
 

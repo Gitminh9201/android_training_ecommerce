@@ -1,6 +1,6 @@
 package com.knight.f_interesting.mvp.detail_invoice;
 
-import com.knight.f_interesting.models.Order;
+import com.knight.f_interesting.models.Invoice;
 
 public class DetailInvoicePresenter implements DetailInvoiceContract.Presenter, DetailInvoiceContract.Model.OnFinishedListener{
 
@@ -21,10 +21,10 @@ public class DetailInvoicePresenter implements DetailInvoiceContract.Presenter, 
     }
 
     @Override
-    public void onGetDataFinished(Order order) {
+    public void onGetDataFinished(Invoice invoice) {
         if(view != null){
             view.hideProgress();
-            view.setDataToView(order);
+            view.setDataToView(invoice);
         }
     }
 

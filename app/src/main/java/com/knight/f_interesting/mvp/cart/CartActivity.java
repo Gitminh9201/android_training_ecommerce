@@ -20,7 +20,7 @@ import com.knight.f_interesting.buses.CartBus;
 import com.knight.f_interesting.models.Address;
 import com.knight.f_interesting.models.Cart;
 import com.knight.f_interesting.models.MethodPayment;
-import com.knight.f_interesting.models.Order;
+import com.knight.f_interesting.models.Invoice;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.mvp.address.AddressActivity;
 import com.knight.f_interesting.mvp.coupons.CouponsActivity;
@@ -100,7 +100,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
                             AppUtils.hideDialog(getSupportFragmentManager(), getResources().getString(R.string.dialog_confirm));
                             String inputAddress = address.getProvince() + " - " + address.getDistrict()
                                     + " - " + address.getWard() + " - " + address.getAddress();
-                            presenter.createOrder(new Order(address.getPhone(),
+                            presenter.createOrder(new Invoice(address.getPhone(),
                                     1, payment.getId(), inputAddress, "Nothings"), coupon.toUpperCase());
                         }
                     }, getSupportFragmentManager());
@@ -221,8 +221,8 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
     }
 
     @Override
-    public void onOrderSuccess(Order order) {
-        if (order != null && order.getId() > 0) {
+    public void onOrderSuccess(Invoice invoice) {
+        if (invoice != null && invoice.getId() > 0) {
             AppUtils.db.removeCart();
             CartBus.refresh();
             Router.navigator(Router.COMPLETED, activity, null);

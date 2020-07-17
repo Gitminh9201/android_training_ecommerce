@@ -1,4 +1,4 @@
-package com.knight.f_interesting.mvp.person_history_order;
+package com.knight.f_interesting.mvp.invoices;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,25 +16,25 @@ import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.InvoicesAdapter;
 import com.knight.f_interesting.adapters.loadmores.LoadMoreInvoices;
 import com.knight.f_interesting.base.BaseView;
-import com.knight.f_interesting.models.Order;
+import com.knight.f_interesting.models.Invoice;
 import com.knight.f_interesting.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderHistoryActivity extends AppCompatActivity implements BaseView.BaseActivity,
-        OrderHistoryContract.View {
+public class InvoicesActivity extends AppCompatActivity implements BaseView.BaseActivity,
+        InvoicesContract.View {
 
     private LinearLayout llLoading;
     private RecyclerView rvOrders;
     private ImageButton ibBack;
     private TextView txtTitle;
 
-    private List<Order> orders;
+    private List<Invoice> invoices;
 //    private OrderHistoryAdapter adapter;
     private InvoicesAdapter adapter;
 
-    private OrderHistoryContract.Presenter presenter;
+    private InvoicesContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,21 +52,21 @@ public class OrderHistoryActivity extends AppCompatActivity implements BaseView.
         llLoading = findViewById(R.id.ll_load_history);
         rvOrders = findViewById(R.id.rv_history_order);
 
-        orders = new ArrayList<>();
+        invoices = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         rvOrders.setLayoutManager(linearLayoutManager);
-        adapter = new InvoicesAdapter(this, orders, rvOrders, new LoadMoreInvoices() {
+        adapter = new InvoicesAdapter(this, invoices, rvOrders, new LoadMoreInvoices() {
             @Override
             public void onLoadMore(int offset, int limit) {
-                orders.add(null);
-                adapter.notifyItemInserted(orders.size()-1);
+                invoices.add(null);
+                adapter.notifyItemInserted(invoices.size()-1);
                 presenter.requestData(offset, limit);
             }
         });
         rvOrders.setAdapter(adapter);
 
-        presenter = new OrderHistoryPresenter(this, getApplicationContext());
+        presenter = new InvoicesPresenter(this, getApplicationContext());
         presenter.requestData();
     }
 
@@ -91,16 +91,16 @@ public class OrderHistoryActivity extends AppCompatActivity implements BaseView.
     }
 
     @Override
-    public void setMoreData(final List<Order> invoices) {
+    public void setMoreData(final List<Invoice> invoices) {
         if(!invoices.isEmpty()){
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    orders.remove(orders.size()-1);
-                    adapter.notifyItemRemoved(orders.size());
+                    InvoicesActivity.this.invoices.remove(InvoicesActivity.this.invoices.size()-1);
+                    adapter.notifyItemRemoved(InvoicesActivity.this.invoices.size());
                     adapter.setLoaded();
-                    orders.addAll(invoices);
-                    adapter.refresh(orders);
+                    InvoicesActivity.this.invoices.addAll(invoices);
+                    adapter.refresh(InvoicesActivity.this.invoices);
                 }
             }, 1000);
         }
@@ -108,8 +108,8 @@ public class OrderHistoryActivity extends AppCompatActivity implements BaseView.
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    orders.remove(orders.size()-1);
-                    adapter.notifyItemRemoved(orders.size());
+                    InvoicesActivity.this.invoices.remove(InvoicesActivity.this.invoices.size()-1);
+                    adapter.notifyItemRemoved(InvoicesActivity.this.invoices.size());
                     AppUtils.showToast(R.string.loadCompleted, getApplicationContext());
                 }
             }, 1500);
@@ -117,10 +117,10 @@ public class OrderHistoryActivity extends AppCompatActivity implements BaseView.
     }
 
     @Override
-    public void setDataOriginal(List<Order> orders) {
-        if(orders != null && orders.size() > 0){
-            adapter.refresh(orders);
-            this.orders = orders;
+    public void setDataOriginal(List<Invoice> invoices) {
+        if(invoices != null && invoices.size() > 0){
+            adapter.refresh(invoices);
+            this.invoices = invoices;
         }
         else {
             AppUtils.showToast(getResources().getString(R.string.empty_data), getApplicationContext());

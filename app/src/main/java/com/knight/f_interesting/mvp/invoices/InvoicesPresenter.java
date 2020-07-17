@@ -1,32 +1,32 @@
-package com.knight.f_interesting.mvp.person_history_order;
+package com.knight.f_interesting.mvp.invoices;
 
 import android.content.Context;
 
-import com.knight.f_interesting.models.Order;
+import com.knight.f_interesting.models.Invoice;
 
 import java.util.List;
 
-public class OrderHistoryPresenter implements OrderHistoryContract.Presenter, OrderHistoryContract.Model.OnFinishedListener {
+public class InvoicesPresenter implements InvoicesContract.Presenter, InvoicesContract.Model.OnFinishedListener {
 
-    private OrderHistoryContract.View view;
-    private OrderHistoryContract.Model model;
+    private InvoicesContract.View view;
+    private InvoicesContract.Model model;
 
-    public OrderHistoryPresenter(OrderHistoryContract.View view, Context context){
+    public InvoicesPresenter(InvoicesContract.View view, Context context){
         this.view = view;
-        this.model = new OrderHistoryModel();
+        this.model = new InvoicesModel();
     }
 
     @Override
-    public void onLoadMoreFinished(List<Order> orders) {
+    public void onLoadMoreFinished(List<Invoice> invoices) {
         if(view != null)
-            view.setMoreData(orders);
+            view.setMoreData(invoices);
     }
 
     @Override
-    public void onGetDataFinished(List<Order> orders) {
+    public void onGetDataFinished(List<Invoice> invoices) {
         if(view != null){
             view.hideProgress();
-            view.setDataOriginal(orders);
+            view.setDataOriginal(invoices);
         }
     }
 

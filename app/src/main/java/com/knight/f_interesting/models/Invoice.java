@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Order {
+public class Invoice {
     @SerializedName("id")
     private int id;
 
@@ -44,9 +44,9 @@ public class Order {
     @SerializedName("payment_method")
     private MethodPayment payment;
 
-    public Order(int id, String phone, String email, int shipID, int paymentID, String address,
-                 String note, int total, int discount, int status, int userID, List<OrderDetail> detail,
-                 MethodPayment payment, String created) {
+    public Invoice(int id, String phone, String email, int shipID, int paymentID, String address,
+                   String note, int total, int discount, int status, int userID, List<OrderDetail> detail,
+                   MethodPayment payment, String created) {
         this.id = id;
         this.phone = phone;
         this.email = email;
@@ -82,12 +82,12 @@ public class Order {
     @SerializedName("created_at")
     private String created;
 
-    public Order() {
+    public Invoice() {
     }
 
-    public Order(int id, String phone, String email, int shipID, int paymentID, String address,
-                 String note, int total, int discount, int status, int userID,
-                 List<OrderDetail> detail, String created) {
+    public Invoice(int id, String phone, String email, int shipID, int paymentID, String address,
+                   String note, int total, int discount, int status, int userID,
+                   List<OrderDetail> detail, String created) {
         this.id = id;
         this.phone = phone;
         this.email = email;
@@ -111,8 +111,8 @@ public class Order {
         this.detail = detail;
     }
 
-    public Order(String phone, int shipID, int paymentID,
-                 String address, String note) {
+    public Invoice(String phone, int shipID, int paymentID,
+                   String address, String note) {
         this.phone = phone;
         this.shipID = shipID;
         this.paymentID = paymentID;
@@ -120,8 +120,8 @@ public class Order {
         this.note = note;
     }
 
-    public Order(int id, String phone, String email, int shipID, int paymentID, String address,
-                 String note, int total, int discount, int status, int userID) {
+    public Invoice(int id, String phone, String email, int shipID, int paymentID, String address,
+                   String note, int total, int discount, int status, int userID) {
         this.id = id;
         this.phone = phone;
         this.email = email;

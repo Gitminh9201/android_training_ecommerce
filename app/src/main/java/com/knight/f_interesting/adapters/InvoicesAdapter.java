@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.knight.f_interesting.R;
 import com.knight.f_interesting.adapters.loadmores.LoadMoreInvoices;
-import com.knight.f_interesting.models.Order;
+import com.knight.f_interesting.models.Invoice;
 import com.knight.f_interesting.utils.AppContracts;
 import com.knight.f_interesting.utils.AppSizes;
 import com.knight.f_interesting.utils.Router;
@@ -25,7 +25,7 @@ import java.util.List;
 
 public class InvoicesAdapter extends RecyclerView.Adapter{
 
-    private List<Order> orders;
+    private List<Invoice> invoices;
     private Activity activity;
 
     private final int TYPE_LOADING = 0, TYPE_ITEM = 1;
@@ -35,8 +35,8 @@ public class InvoicesAdapter extends RecyclerView.Adapter{
     private int lastVisible;
     private int totalVisible;
 
-    public InvoicesAdapter(Activity activity, List<Order> orders, RecyclerView rv, final LoadMoreInvoices loadMore){
-        this.orders = orders;
+    public InvoicesAdapter(Activity activity, List<Invoice> invoices, RecyclerView rv, final LoadMoreInvoices loadMore){
+        this.invoices = invoices;
         this.activity = activity;
         final LinearLayoutManager layoutManager = (LinearLayoutManager)rv.getLayoutManager();
         rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -63,8 +63,8 @@ public class InvoicesAdapter extends RecyclerView.Adapter{
         });
     }
 
-    public void refresh(List<Order> orders) {
-        this.orders = orders;
+    public void refresh(List<Invoice> invoices) {
+        this.invoices = invoices;
         notifyDataSetChanged();
     }
 
@@ -74,7 +74,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        return orders.size();
+        return invoices.size();
     }
 
     @NonNull
@@ -99,7 +99,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof ItemViewHolder)
         {
-            final Order model = orders.get(position);
+            final Invoice model = invoices.get(position);
             final ItemViewHolder viewHolder = (ItemViewHolder) holder;
             viewHolder.txtAddress.setText(model.getAddress());
             viewHolder.txtPhone.setText(model.getPhone());
@@ -128,7 +128,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemViewType(int position) {
-        return orders.get(position) == null ? TYPE_LOADING : TYPE_ITEM;
+        return invoices.get(position) == null ? TYPE_LOADING : TYPE_ITEM;
     }
 
     class LoadingViewHolder extends RecyclerView.ViewHolder

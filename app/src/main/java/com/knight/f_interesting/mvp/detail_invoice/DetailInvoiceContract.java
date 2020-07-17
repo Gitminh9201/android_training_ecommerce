@@ -1,12 +1,12 @@
 package com.knight.f_interesting.mvp.detail_invoice;
 
-import com.knight.f_interesting.models.Order;
+import com.knight.f_interesting.models.Invoice;
 
 public interface DetailInvoiceContract {
     interface Model{
         interface OnFinishedListener{
             void onCancelSuccess();
-            void onGetDataFinished(Order order);
+            void onGetDataFinished(Invoice invoice);
             void onFailure(Throwable throwable);
         }
         void getData(OnFinishedListener onFinishedListener, int id);
@@ -15,7 +15,7 @@ public interface DetailInvoiceContract {
     interface View{
         void showProgress();
         void hideProgress();
-        void setDataToView(Order order);
+        void setDataToView(Invoice invoice);
         void cancelFinish();
         void onResponseFailure(Throwable throwable);
     }

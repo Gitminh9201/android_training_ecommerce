@@ -5,7 +5,7 @@ import com.knight.f_interesting.models.Brand;
 import com.knight.f_interesting.models.Category;
 import com.knight.f_interesting.models.Coupon;
 import com.knight.f_interesting.models.Group;
-import com.knight.f_interesting.models.Order;
+import com.knight.f_interesting.models.Invoice;
 import com.knight.f_interesting.models.Product;
 import com.knight.f_interesting.models.ProductSuggest;
 import com.knight.f_interesting.models.ResponseList;
@@ -78,6 +78,9 @@ public interface APIInterface {
     @POST(AppClient.MIDDLE_URL + "api/collection/get")
     Call<ResponseList<Product>> collection(@HeaderMap Map<String, String> headers);
 
+    @POST(AppClient.MIDDLE_URL + "api/collection/get")
+    Call<ResponseList<Product>> collection(@HeaderMap Map<String, String> headers, @Query("offset") int offset);
+
     @POST(AppClient.MIDDLE_URL + "api/collection/make")
     Call<ResponseObject> makeCollection(@HeaderMap Map<String, String> headers, @Query("product_id") int productID);
 
@@ -86,7 +89,7 @@ public interface APIInterface {
 
     @FormUrlEncoded
     @POST(AppClient.MIDDLE_URL + "api/order/create")
-    Call<ResponseObject<Order>> createOrder(
+    Call<ResponseObject<Invoice>> createOrder(
             @HeaderMap Map<String, String> headers,
             @Field("products") String products,
             @Field("quantities") String quantities,
@@ -97,14 +100,14 @@ public interface APIInterface {
     );
 
     @POST(AppClient.MIDDLE_URL + "api/order")
-    Call<ResponseList<Order>> getOrders(@HeaderMap Map<String, String> headers);
+    Call<ResponseList<Invoice>> getOrders(@HeaderMap Map<String, String> headers);
     @POST(AppClient.MIDDLE_URL + "api/order")
-    Call<ResponseList<Order>> getOrders(@HeaderMap Map<String, String> headers, @Query("offset") int offset);
+    Call<ResponseList<Invoice>> getOrders(@HeaderMap Map<String, String> headers, @Query("offset") int offset);
     @POST(AppClient.MIDDLE_URL + "api/order")
-    Call<ResponseList<Order>> getOrders(@HeaderMap Map<String, String> headers, @Query("offset") int offset, @Query("limit") int limit);
+    Call<ResponseList<Invoice>> getOrders(@HeaderMap Map<String, String> headers, @Query("offset") int offset, @Query("limit") int limit);
 
     @POST(AppClient.MIDDLE_URL + "api/order/get")
-    Call<ResponseObject<Order>> getOrderDetail(@HeaderMap Map<String, String> headers, @Query("order_id") int orderID);
+    Call<ResponseObject<Invoice>> getOrderDetail(@HeaderMap Map<String, String> headers, @Query("order_id") int orderID);
     @POST(AppClient.MIDDLE_URL + "api/order/cancel")
     Call<ResponseObject> cancelOrder(@HeaderMap Map<String, String> headers, @Query("order_id") int orderID);
 }

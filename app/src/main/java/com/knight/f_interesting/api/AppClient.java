@@ -18,9 +18,9 @@ public class AppClient {
 //  Moka Cf
 //    public static final String BASE_URL = "http://192.168.2.100/";
 //    Redmi
-//    public static final String BASE_URL = "http://192.168.43.228/";
+    public static final String BASE_URL = "http://192.168.43.228/";
 //    Van dieu
-    public static final String BASE_URL = "http://192.168.1.25/";
+//    public static final String BASE_URL = "http://192.168.1.25/";
     public static final String MIDDLE_URL = "lv_training_ecommerce/public/";
 
     public static String url(){

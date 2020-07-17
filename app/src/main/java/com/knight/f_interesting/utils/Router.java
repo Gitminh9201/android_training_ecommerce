@@ -11,7 +11,7 @@ import com.knight.f_interesting.mvp.completed.CompletedActivity;
 import com.knight.f_interesting.mvp.coupons.CouponsActivity;
 import com.knight.f_interesting.mvp.detail_invoice.DetailInvoiceActivity;
 import com.knight.f_interesting.mvp.detail_product.DetailProductActivity;
-import com.knight.f_interesting.mvp.person_history_order.OrderHistoryActivity;
+import com.knight.f_interesting.mvp.invoices.InvoicesActivity;
 import com.knight.f_interesting.mvp.person_information.InformationActivity;
 import com.knight.f_interesting.mvp.result_products.ResultProductsActivity;
 import com.knight.f_interesting.mvp.search.SearchActivity;
@@ -48,7 +48,7 @@ public class Router {
                 second = AddressActivity.class;
                 break;
             case ORDER_HISTORY:
-                second = OrderHistoryActivity.class;
+                second = InvoicesActivity.class;
                 break;
             case TERMS:
                 second = TermsActivity.class;
