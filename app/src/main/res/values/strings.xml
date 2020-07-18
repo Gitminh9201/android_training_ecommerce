@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">Fas-Int</string>
-    <string name="facebook_app_id">2738845606395528</string>
+    <string name="app_name">E-model</string>
+    <string name="facebook_app_id" translatable="false">2738845606395528</string>
     <!-- Tag dialog -->
-    <string name="dialog_request_login">dialog_request_login</string>
-    <string name="dialog_confirm">dialog_confirm</string>
+    <string name="dialog_request_login" translatable="false">dialog_request_login</string>
+    <string name="dialog_confirm" translatable="false">dialog_confirm</string>
     <!-- Strings -->
     <string name="brandHot">Thương hiệu nổi bật</string>
     <string name="promotions">Khuyến mãi đặc biệt</string>
-    <string name="error_data">Something went wrong!</string>
+    <string name="error_data" translatable="false">Something went wrong!</string>
     <string name="empty_data">Danh sách trống!</string>
     <string name="product_had_choose">Sản phẩm bạn đã chọn:</string>
     <string name="product_had_buy">Sản phẩm đã đặt:</string>
@@ -123,5 +123,5 @@
     <string name="increase">Tăng dần</string>
     <string name="decrease">Giảm dần</string>
     <string name="collection">Bộ sưu tập</string>
-    <string name="loadCompleted">Load Completed!</string>
+    <string name="loadCompleted">Load completed!</string>
 </resources>
