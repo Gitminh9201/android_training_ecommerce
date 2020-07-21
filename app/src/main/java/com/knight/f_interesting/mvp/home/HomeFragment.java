@@ -164,7 +164,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        timer.cancel();
+        if(timer != null)timer.cancel();
         presenter.onDestroy();
     }
 }
