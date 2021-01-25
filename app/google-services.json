@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1062707195009",
+    "project_id": "clothesapp-d80b2",
+    "storage_bucket": "clothesapp-d80b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062707195009:android:df92c43f3d6ea4b9f87180",
+        "android_client_info": {
+          "package_name": "com.knight.clothes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1062707195009-v2d8ctpuvs06hphge07ltdbn50g76dlm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.knight.clothes",
+            "certificate_hash": "8f59f66f2d95e412ddd162127dcf03c323572ba4"
+          }
+        },
+        {
+          "client_id": "1062707195009-mpg423qb0vi2b2t448qmia38qaeapka7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB1jc3udFk1cvlPnu6rhcZskZ_DN6v1pQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1062707195009-mpg423qb0vi2b2t448qmia38qaeapka7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

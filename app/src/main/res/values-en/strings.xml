@@ -38,6 +38,7 @@
     <string name="finish">Done</string>
     <string name="understand">Understand</string>
     <string name="login_success">Login success!</string>
+    <string name="login_failure">Login failure!</string>
     <string name="logout">Logout</string>
     <string name="logout_vi">Logout</string>
     <string name="next">Continue</string>

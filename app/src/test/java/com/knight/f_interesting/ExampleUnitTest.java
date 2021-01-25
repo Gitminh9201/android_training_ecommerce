@@ -1,4 +1,4 @@
-package com.knight.f_interesting;
+package com.knight.clothes;
 
 import org.junit.Test;
 

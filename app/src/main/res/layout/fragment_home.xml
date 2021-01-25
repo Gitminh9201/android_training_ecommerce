@@ -32,7 +32,7 @@
                     android:text="@string/brandHot"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"/>
-                <com.knight.f_interesting.customs.ExpandableHeightGridView
+                <com.knight.clothes.customs.ExpandableHeightGridView
                     android:background="@color/colorWhite"
                     android:paddingHorizontal="@dimen/padding_grid_home"
                     android:importantForAutofill="yes"

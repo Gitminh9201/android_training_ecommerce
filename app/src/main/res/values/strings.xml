@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">E-model</string>
+    <string name="app_name">ClothesApp</string>
     <string name="facebook_app_id" translatable="false">2738845606395528</string>
     <!-- Tag dialog -->
     <string name="dialog_request_login" translatable="false">dialog_request_login</string>
@@ -43,11 +43,12 @@
     <string name="login_with">Hoặc đăng nhập/đăng ký với</string>
     <string name="register_ask">Bạn chưa có tài khoản?</string>
     <string name="register">Đăng ký ngay!</string>
-    <string name="login">Login</string>
+    <string name="login">Login with social</string>
     <string name="login_vi">Đăng nhập</string>
     <string name="finish">Xong</string>
     <string name="understand">Đã hiểu</string>
     <string name="login_success">Đăng nhập thành công!</string>
+    <string name="login_failure">Đăng nhập không thành công!</string>
     <string name="logout">Logout</string>
     <string name="logout_vi">Đăng xuất</string>
     <string name="next">Continue</string>
