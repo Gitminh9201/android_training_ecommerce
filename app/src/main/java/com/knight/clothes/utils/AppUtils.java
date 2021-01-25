@@ -32,7 +32,7 @@ public class AppUtils {
         if(price < 0)return "0 VND";
         Locale locale = new Locale("vi", "VN");
         NumberFormat currencyVN = NumberFormat.getCurrencyInstance(locale);
-        return currencyVN.format(price).substring(2) + " VND";
+        return currencyVN.format(price).substring(1) + " VND";
     }
 
     static public boolean logged(){
